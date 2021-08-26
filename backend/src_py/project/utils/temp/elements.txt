@@ -1,0 +1,14 @@
+// if len == 1
+//   only one elem
+// else
+//   elems in range
+
+bus [1-7]
+load [1-2]
+sgen
+gen
+switch [1-8]
+shunt
+ext_grid
+line [1-4]
+trafo

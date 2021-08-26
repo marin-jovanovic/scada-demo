@@ -1,0 +1,126 @@
+// html, body, input, textarea, select, button {
+//     font-family: 'Roboto';
+// }
+//
+// html, body {
+//     font-size: 10pt;
+//     margin: 0px;
+// }
+/* #clickable:hover {
+    cursor: pointer
+} */
+/*
+.transformator__ellipse:hover,
+.transformator__ellipse-left:hover+.transformator__ellipse-right,
+.transformator__ellipse-right:hover+.transformator__ellipse-left {
+    stroke-width: 10;
+} */
+/*
+#switch-0:hover {s
+    d: path("M 237 140 L 261 140");
+    stroke-width: 10;
+}
+
+#switch-1:hover {
+    d: path("M 437 140 L 461 140");
+    stroke-width: 10;
+}
+
+#switch-2:hover {
+    d: path("M 505 60 L 517 60");
+    stroke-width: 10;
+}
+
+#switch-3:hover {
+    d: path("M 625 60 L 658 60");
+    stroke-width: 10;
+}
+
+#switch-4:hover {
+    d: path("M 625 100 L 658 100");
+    stroke-width: 10;
+}
+
+#switch-5:hover {
+    d: path("M 625 180 L 658 180");
+    stroke-width: 10;
+}
+
+#switch-6:hover {
+    d: path("M 625 220 L 658 220");
+    stroke-width: 10;
+}
+
+#switch-7:hover {
+    d: path("M 505 220 L 538 220");
+    stroke-width: 10;
+} */
+/*
+    done
+        bus (7 elemenata)
+        line (4 elemenata)
+        trafo (1 element)
+        switch (8 elemenata)
+
+    todo
+
+    load (2 elemenata)
+    sgen (1 element)
+    gen (1 element)
+    shunt (1 element)
+    ext_grid (1 element)
+
+ */
+.centered-container {
+	fill: none;
+	stroke: #000000;
+	stroke-miterlimit: 10;
+	pointer-events: stroke;
+	height: 100vh;
+	width: 100vw;
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+.clickable {
+	&:hover {
+		cursor: pointer;
+	}
+}
+.bus {
+	fill: none;
+	stroke: #000000;
+	stroke-width: 5;
+	stroke-miterlimit: 10;
+	pointer-events: stroke;
+	&:hover {
+		stroke-width: 15;
+	}
+}
+.transformator__ellipse {
+	fill: none;
+	stroke: #000000;
+}
+.transformator {
+	&:hover {
+		stroke-width: 7;
+	}
+}
+.line {
+	stroke-width: 2;
+	&:hover {
+		stroke-width: 6;
+	}
+	&:hover+.line__arrow {
+		stroke-width: 6;
+	}
+}
+.line__arrow {
+	fill: #000000;
+	stroke: #000000;
+	stroke-width: 2;
+	stroke-miterlimit: 10;
+	pointer-events: all;
+}

@@ -14,6 +14,8 @@ from hat import aio
 from hat import json
 from hat.drivers import iec104
 
+print("script started")
+
 
 mlog = logging.getLogger('simulator')
 
@@ -55,6 +57,7 @@ async def async_main(conf):
     simulator._async_group.spawn(simulator._spontaneous_loop)
     simulator._async_group.spawn(simulator._notification_loop)
     simulator._async_group.spawn(simulator._power_flow_loop)
+
 
     await simulator.wait_closed()
 
@@ -214,4 +217,5 @@ def main(conf_path):
 
 
 if __name__ == '__main__':
+
     sys.exit(main())

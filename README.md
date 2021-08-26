@@ -32,3 +32,17 @@ run from
 
 resources:
 	https://github.com/estevanmaito/windmill-dashboard
+
+
+python venv
+	python3 -m venv venv
+	source venv/bin/activate
+
+requirements
+	sudo apt-get install $(grep -vE "^\s*#" requirements.ubuntu.txt  | tr "\n" " ")
+	if that fails try:
+	sudo apt-get install package1 package2 package3 ... # from requirements.ubuntu.txt
+
+
+
+pip install -r requirements.pip.txt

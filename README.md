@@ -90,3 +90,9 @@ run from
 
 
 pip install -r requirements.pip.txt
+
+
+
+http://localhost:23023/index.html
+user
+pass

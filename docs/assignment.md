@@ -1,10 +1,8 @@
 # Zadatak
 
-Ideja zadatka je razviti mini *SCADA* sustav. Sustav prima podatke iz
-simulatora (vanjska jedinica). Dobivene podatke je potrebno propagirati na
-grafičko sučelje   i smisleno ih prikazati. Također, potrebno je dodati
-funkcionalnost koja omogućuje   da se preko grafičkog sučelja mijenjaju
-vrijednosti simulatora (obrnuti smjer).
+Sustav prima podatke iz simulatora (vanjska jedinica). 
+Sustav omogucava prikaz i upravljanje prikazanim podatcima.
+
 
 Detaljnije upute preporučenih koraka razvoja sustava se nalaze
 [ovdje](development_steps.md). Repozitorij koda s potrebnom pozadinskom

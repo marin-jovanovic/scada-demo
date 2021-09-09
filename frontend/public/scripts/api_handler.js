@@ -11,7 +11,7 @@ function get_val(key) {
       
       while (true) {
 
-        console.log("api haandler")
+        // console.log("api haandler")
   
         let response = await fetch('http://localhost:3000/api/' + key);
   
@@ -19,6 +19,10 @@ function get_val(key) {
         response = await response.json();
   
         console.log("response", response);
+
+        for (const [key, value] of Object.entries(response)) {
+            console.log(`---------> ${key}: ${value}`);
+        }
   
         if ('/adapter/20;2' in response) {
           document.getElementById("gfggg").innerHTML = response['/adapter/20;2'];
@@ -28,6 +32,9 @@ function get_val(key) {
           
         }
   
+        // document.getElementById("gfggg").innerHTML = response;
+         
+
       }
     
     })();

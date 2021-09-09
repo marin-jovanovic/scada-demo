@@ -35,8 +35,7 @@ window.addEventListener('load', function () {
 
     console.log('page is fully loaded');
 
-    let r = get_val("adapter 02");
-      
+
 });
 
 function maximize() {
@@ -51,27 +50,3 @@ function maximize() {
 
 }
 
-function get_val(key) {
-  (async () => {
-    
-    while (true) {
-
-      let response = await fetch('http://localhost:3000/api/' + key);
-
-      // console.log("response", response);
-      response = await response.json();
-
-      console.log("response", response);
-
-      if ('/adapter/20;2' in response) {
-        document.getElementById("gfggg").innerHTML = response['/adapter/20;2'];
-          
-      } else {
-        document.getElementById("gfggg").innerHTML = 'undefined';
-        
-      }
-
-    }
-  
-  })();
-}

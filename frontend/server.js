@@ -4,7 +4,7 @@ var path = require('path');
 
 const WebSocketManager = require("./pr_scripts/ws");
 let webSocketManager = new WebSocketManager();
-let webSocketManagerInstance = webSocketManager.getInstance();
+// let webSocketManagerInstance = webSocketManager.getInstance();
 
 // const eventManager = require('./pr_scripts/eventManager');
 // let eventManagerInstance = new eventManager().getInstance();

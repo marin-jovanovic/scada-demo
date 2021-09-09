@@ -16,55 +16,55 @@ module.exports = class EventManager {
     }
 
     getValSingle(val) {
-        return EventManager.new_vals[val];
+        return EventManager.vals[val];
     }
 
-    getVals() {
+//     getVals() {
 
-        // EventManager.ret_vals = {};
+//         // EventManager.ret_vals = {};
 
-        // for (var key in EventManager.vals) {
-        //     if (key in EventManager.already_have) {
-        //         if (EventManager.vals != EventManager.already_have[key]) {
-        //             // new val
-        //             EventManager.ret_vals[key] = EventManager.vals;
-        //             EventManager.already_have[key] = EventManager.vals;
-        //         }
+//         // for (var key in EventManager.vals) {
+//         //     if (key in EventManager.already_have) {
+//         //         if (EventManager.vals != EventManager.already_have[key]) {
+//         //             // new val
+//         //             EventManager.ret_vals[key] = EventManager.vals;
+//         //             EventManager.already_have[key] = EventManager.vals;
+//         //         }
 
-        //         // ignore if same there
-        //     } else {
-        //         // dont have this, add it
+//         //         // ignore if same there
+//         //     } else {
+//         //         // dont have this, add it
 
-        //         EventManager.ret_vals[key] = EventManager.vals;
-        //         EventManager.already_have[key] = EventManager.vals;
-        //     }
-        // }
+//         //         EventManager.ret_vals[key] = EventManager.vals;
+//         //         EventManager.already_have[key] = EventManager.vals;
+//         //     }
+//         // }
 
-        // console.log("new vals", EventManager.ret_vals);
-// ////////////////////
-        return EventManager.new_vals;
-
-
-        // ////////////////////////////////
-
-        // let ret_dict = {};
-
-        // for (var key in EventManager.new_vals) {
-        //     ret_dict[key] = EventManager.new_vals[key];
-        // }
-
-        // // reset 
-        // EventManager.new_vals = {};
-
-        // console.log("new vals", ret_dict);
-
-        // return ret_dict;
+//         // console.log("new vals", EventManager.ret_vals);
+// // ////////////////////
+//         return EventManager.new_vals;
 
 
-        // console.log("new vals", EventManager.new_vals);
+//         // ////////////////////////////////
 
-        // return EventManager.new_vals;
-    }
+//         // let ret_dict = {};
+
+//         // for (var key in EventManager.new_vals) {
+//         //     ret_dict[key] = EventManager.new_vals[key];
+//         // }
+
+//         // // reset 
+//         // EventManager.new_vals = {};
+
+//         // console.log("new vals", ret_dict);
+
+//         // return ret_dict;
+
+
+//         // console.log("new vals", EventManager.new_vals);
+
+//         // return EventManager.new_vals;
+//     }
 
     constructor() {
     
@@ -90,18 +90,19 @@ module.exports = class EventManager {
 
                     for (const [key, value] of Object.entries(payload.value)) {
 
-
-                        if (! key in EventManager.vals) {
-                            EventManager.vals[key] = value;
-                            EventManager.new_vals[key] = value;
-                        } else if (EventManager.vals[key] == value) {
-                            // same val, already in vals, no need to add
-                        } else if (EventManager.vals[key] != value) {
-                            // already in .vals but with different val
-                            EventManager.vals[key] = value;
+                        EventManager.vals[key] = value;
+                 
+                        // if (! key in EventManager.vals) {
+                        //     EventManager.vals[key] = value;
+                        //     EventManager.new_vals[key] = value;
+                        // } else if (EventManager.vals[key] == value) {
+                        //     // same val, already in vals, no need to add
+                        // } else if (EventManager.vals[key] != value) {
+                        //     // already in .vals but with different val
+                        //     EventManager.vals[key] = value;
                             
-                            EventManager.new_vals[key] = value;
-                        } 
+                        //     EventManager.new_vals[key] = value;
+                        // } 
                     }
 
                 } else {

@@ -14,31 +14,32 @@
 install (ubuntu)
 
 create venv
+
 	python3 -m venv venv
 
 activate venv
+
 	source venv/bin/activate
 
 install requirements
+
 	pip install -r requirements.pip.txt
 
 
-launch
+launch simulator
 
-python3 simulator/main.py
+	python3 simulator/main.py
 
-run from 
-(venv) .../mnt/c/git/ket-praksa/assignment-marin-jovanovic/src/playground/run$ ./system.sh
+launch backend 
 
-resources:
+	from (venv) .../mnt/c/git/ket-praksa/assignment-marin-jovanovic/src/playground/run$ ./system.sh
+
+external resources (frontend template):
+
 	https://github.com/estevanmaito/windmill-dashboard
 
-
-python venv
-	python3 -m venv venv
-	source venv/bin/activate
-
 requirements (backend)
+
 	try:
 		
 		sudo apt-get install $(grep -vE "^\s*#" requirements.ubuntu.txt  | tr "\n" " ")

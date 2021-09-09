@@ -1,3 +1,7 @@
+/**
+ * config for css
+ */
+
 module.exports = {
   plugins: [
     require('tailwindcss'),

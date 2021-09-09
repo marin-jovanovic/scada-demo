@@ -1,3 +1,13 @@
+/**
+ * websocket drivers
+ * 
+ * establishes connection with backend
+ * logs messages in console depending on the type (open, closed, message, other msg)
+ * 
+ * sends updated vals to @eventManagerInstance
+ * 
+ * 
+ */
 const WebSocket = require('ws');
 
 const eventManager = require('./eventManager');
@@ -39,16 +49,16 @@ module.exports = class WebSocketManager {
     
     add_event_listeners() {
         this._ws.addEventListener('open', () => {
-            console.log("open");
-            console.log();
+            // console.log("open");
+            // console.log();
         });
         
         this._ws.addEventListener('close', () => {
-            console.log("closed");
+            // console.log("closed");
         });
     
         this._ws.addEventListener('message', evt => {
-            console.log("msg");
+            // console.log("msg");
         
             let msg = JSON.parse(evt.data);
         
@@ -61,23 +71,23 @@ module.exports = class WebSocketManager {
                     // console.log("elem", element);
         
                     if (element.op == "add") {
-                        console.log("init vals");
+                        // console.log("init vals");
                     
                         eventManagerInstance.emitEvent(element);
 
                     } else if (element.op == "replace") {
-                        console.log("update vals");
+                        // console.log("update vals");
 
                         eventManagerInstance.emitEvent(element);
                     
                     } else {
-                        console.log("other");
+                        // console.log("other");
                     }
         
                 });
         
             } else {
-                console.log("other msg");
+                // console.log("other msg");
             }
         
             // console.log();
@@ -91,7 +101,7 @@ module.exports = class WebSocketManager {
             pl.payload[0].path == "" &&
             JSON.stringify(pl.payload[0].value) === "{}") {
     
-            console.log("init msg")
+            // console.log("init msg")
     
             let msg = {
                 "type": "MESSAGE",

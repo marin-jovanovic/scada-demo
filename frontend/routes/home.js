@@ -8,6 +8,8 @@ let eventManagerInstance = new eventManager().getInstance();
 
 router.get('/', function(req, res, next) {
 
+    console.log("new vals", eventManagerInstance.getVals());
+
     res.render('home', {
         title: 'Home',
         linkActive: 'home',

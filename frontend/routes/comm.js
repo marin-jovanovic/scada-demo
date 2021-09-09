@@ -5,7 +5,12 @@ router.get('/api/:id', function(req, res){
 
     let id = req.params.id;
 
-    console.log("get", id);
+    // console.log("get", id);
+
+
+    const eventManager = require('../pr_scripts/eventManager');
+    let eventManagerInstance = new eventManager().getInstance();
+    
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -16,6 +21,7 @@ router.get('/api/:id', function(req, res){
     (async () => {
     
        await delay(1000);
+    //    console.log("new vals", eventManagerInstance.getVals());
 
        res.json({
         '/adapter/20;2': getRandomInt(50),

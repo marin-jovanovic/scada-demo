@@ -1,3 +1,7 @@
+/**
+ * config for css
+ */
+
 const defaultTheme = require('tailwindcss/defaultTheme')
 const plugin = require('tailwindcss/plugin')
 const Color = require('color')

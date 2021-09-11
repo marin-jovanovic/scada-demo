@@ -10,16 +10,12 @@ router.get('/api/:id', function(req, res){
     
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-    }
-
     (async () => {
     
        await delay(1000);
     
        res.json({
-           id: eventManagerInstance.getValSingle(id),
+           value: eventManagerInstance.getValSingle(id),
        });
        
     })();
@@ -33,9 +29,9 @@ router.get('/api-all', function(req, res){
     
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-    }
+    // function getRandomInt(max) {
+    //     return Math.floor(Math.random() * max);
+    // }
 
     (async () => {
     

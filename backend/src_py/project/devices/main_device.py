@@ -79,23 +79,23 @@ class Device(hat.gateway.common.Device):
             #             type=hat.event.common.EventPayloadType.JSON,
             #             data=str(result)))])
             #
-            self._event_client.register([
-                hat.event.common.RegisterEvent(
-                    event_type=(*self._event_type_prefix,
-                                'gateway', 'counter'),
-                    source_timestamp=None,
-                    payload=hat.event.common.EventPayload(
-                        type=hat.event.common.EventPayloadType.JSON,
-                        data=counter))])
-
-            self._event_client.register([
-                hat.event.common.RegisterEvent(
-                    event_type=(*self._event_type_prefix,
-                                'gateway', 'sw0'),
-                    source_timestamp=None,
-                    payload=hat.event.common.EventPayload(
-                        type=hat.event.common.EventPayloadType.JSON,
-                        data=counter + 5))])
+            # self._event_client.register([
+            #     hat.event.common.RegisterEvent(
+            #         event_type=(*self._event_type_prefix,
+            #                     'gateway', 'counter'),
+            #         source_timestamp=None,
+            #         payload=hat.event.common.EventPayload(
+            #             type=hat.event.common.EventPayloadType.JSON,
+            #             data=counter))])
+            #
+            # self._event_client.register([
+            #     hat.event.common.RegisterEvent(
+            #         event_type=(*self._event_type_prefix,
+            #                     'gateway', 'sw0'),
+            #         source_timestamp=None,
+            #         payload=hat.event.common.EventPayload(
+            #             type=hat.event.common.EventPayloadType.JSON,
+            #             data=counter + 5))])
 
             counter += 1
 

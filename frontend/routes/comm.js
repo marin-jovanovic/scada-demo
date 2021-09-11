@@ -22,6 +22,23 @@ router.get('/api/:id', function(req, res){
 
 });
 
+router.get('/api-single/:id', function(req, res){
+
+    let id = req.params.id;
+
+    const eventManager = require('../pr_scripts/eventManager');
+    let eventManagerInstance = new eventManager().getInstance();
+    
+    (async () => {
+        
+       res.json({
+           value: eventManagerInstance.getValSingle(id),
+       });
+       
+    })();
+
+});
+
 router.get('/api-all', function(req, res){
 
     const eventManager = require('../pr_scripts/eventManager');

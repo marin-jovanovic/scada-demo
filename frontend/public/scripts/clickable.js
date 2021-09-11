@@ -129,57 +129,67 @@ function bus_clicked(bus_id) {
 
 }
 
+async function get_val(key) {
+    let response = await fetch('http://localhost:3000/api-single/' + key);
+    response = await response.json();
+    
+    console.log("--------------------");
+    console.log("response", response);
+    
+    return response["value"];            
+}
+
 function trafo_clicked() {
+    (async () => {
 
-    if (! pre(clickable.TRANSFROMATOR)) {
-        return;
-    }
+        if (! pre(clickable.TRANSFROMATOR)) {
+            return;
+        }
 
-    let main = document.querySelector("body > div > div > main > div > div > div.grid.gap-6.mb-8.md\\:grid-cols-2.xl\\:grid-cols-4");
+        let main = document.querySelector("body > div > div > main > div > div > div.grid.gap-6.mb-8.md\\:grid-cols-2.xl\\:grid-cols-4");
+        
+        current_selected = clickable.TRANSFROMATOR;
 
-    main.innerHTML = "";
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+
+        main.innerHTML = "";
+        
+        document.querySelector(".valsandg").style.visibility = "visible";
+
+        let categoryTemplate = document.querySelector('#card-template');
+
+        let title, val, category;
+
+        let mapper = {
+            "Aktivna snaga na strani s višim naponom [MW]": "20;0",
+            "Jalova snaga na strani s višim naponom [MVar]": "20;1",
+            "Aktivna snaga na strani s nižim naponom [MW]": "20;2",
+            "Jalova snaga na strani s nižim naponom [MVar]": "20;3",
+            "Opterećenje [%]": "20;4"
+        };
+
+        for (const [key, value] of Object.entries(mapper)) {
+        
+            category = categoryTemplate.content.cloneNode(true);
+            title = category.querySelector("div > div:nth-child(2) > p.mb-2.text-sm.font-medium.text-gray-600.dark\\:text-gray-400")
+            title.textContent = key;
+            val = category.querySelector("div > div:nth-child(2) > p.text-lg.font-semibold.text-gray-700.dark\\:text-gray-200")
+            val.textContent = await get_val(value);
+            val.id = value;
+            main.appendChild(category);
+        
+        }
     
-    current_selected = clickable.TRANSFROMATOR;
+        while (current_selected == clickable.TRANSFROMATOR) {
     
-    document.querySelector(".valsandg").style.visibility = "visible";
+            for (const [key, value] of Object.entries(mapper)) {
+                document.getElementById(value).innerHTML = await get_val(value);
+            }
+            
+            await delay(1000);
+        }
 
-    let categoryTemplate = document.querySelector('#card-template');
 
-    let title, val, category;
 
-    category = categoryTemplate.content.cloneNode(true);
-    title = category.querySelector("div > div:nth-child(2) > p.mb-2.text-sm.font-medium.text-gray-600.dark\\:text-gray-400")
-    title.textContent = "Aktivna snaga na strani s višim naponom [MW]";
-    val = category.querySelector("div > div:nth-child(2) > p.text-lg.font-semibold.text-gray-700.dark\\:text-gray-200")
-    val.textContent = "val 1";
-    main.appendChild(category);
-
-    category = categoryTemplate.content.cloneNode(true);
-    title = category.querySelector("div > div:nth-child(2) > p.mb-2.text-sm.font-medium.text-gray-600.dark\\:text-gray-400")
-    title.textContent = "Jalova snaga na strani s višim naponom [MVar]";
-    val = category.querySelector("div > div:nth-child(2) > p.text-lg.font-semibold.text-gray-700.dark\\:text-gray-200")
-    val.textContent = "val 1";
-    main.appendChild(category);
-
-    category = categoryTemplate.content.cloneNode(true);
-    title = category.querySelector("div > div:nth-child(2) > p.mb-2.text-sm.font-medium.text-gray-600.dark\\:text-gray-400")
-    title.textContent = "Aktivna snaga na strani s nižim naponom [MW]";
-    val = category.querySelector("div > div:nth-child(2) > p.text-lg.font-semibold.text-gray-700.dark\\:text-gray-200")
-    val.textContent = "val 1";
-    main.appendChild(category);
-
-    category = categoryTemplate.content.cloneNode(true);
-    title = category.querySelector("div > div:nth-child(2) > p.mb-2.text-sm.font-medium.text-gray-600.dark\\:text-gray-400")
-    title.textContent = "Jalova snaga na strani s nižim naponom [MVar]";
-    val = category.querySelector("div > div:nth-child(2) > p.text-lg.font-semibold.text-gray-700.dark\\:text-gray-200")
-    val.textContent = "val 1";
-    main.appendChild(category);
-
-    category = categoryTemplate.content.cloneNode(true);
-    title = category.querySelector("div > div:nth-child(2) > p.mb-2.text-sm.font-medium.text-gray-600.dark\\:text-gray-400")
-    title.textContent = "Opterećenje [%]";
-    val = category.querySelector("div > div:nth-child(2) > p.text-lg.font-semibold.text-gray-700.dark\\:text-gray-200")
-    val.textContent = "val 1";
-    main.appendChild(category);
-
+    })();
 }

@@ -2,7 +2,6 @@
  * switch click is in switch_logic.js
  */
 
-// const { map } = require("async");
 
 
 // todo check current selected
@@ -15,6 +14,7 @@ const clickable = {
 }
 
 let current_selected = clickable.OTHER;
+let curr_number = NaN;
 
 function pre(type) {
     if (current_selected == type) {
@@ -36,8 +36,8 @@ function pre(type) {
 
 function line_clicked(line_id) {
     (async () => {
-
         let curr = clickable.LINE;
+        curr_number = line_id;
         let mapper = {
             "Aktivna snaga na početku voda [MW]": "1" + String(line_id) + ";0",
             "Jalova snaga na početku voda [MVar]": "1" + String(line_id) + ";1",
@@ -46,37 +46,29 @@ function line_clicked(line_id) {
             "Opterećenje [%]": "1" + String(line_id) + ";4",
         }; 
 
-        click_action_general(curr, mapper);
+        click_action_general(curr, mapper, line_id);
 
     })();
-
 }
 
 function bus_clicked(bus_id) {
     (async () => {
-
         let curr = clickable.BUS;
+        curr_number = bus_id;
         let mapper = {
             "Aktivna snaga [MW]": String(bus_id) + ";0",
             "Jalova snaga [MVar]": String(bus_id) + ";1",
         };
 
-        click_action_general(curr, mapper);
-
-        let main2 = document.querySelector("body > div > div > main > div > div > div.tmp");
-        main2.innerHTML = "";
-        let graph_template = document.querySelector('#chart-template');
-        let graph = graph_template.content.cloneNode(true);        
-        main2.appendChild(graph);
-        plot_graph();
+        click_action_general(curr, mapper, bus_id);
 
     })();
-
 }
 
 function trafo_clicked() {
     (async () => {
         let curr = clickable.TRANSFROMATOR;
+        curr_number = -1;
         let mapper = {
             "Aktivna snaga na strani s višim naponom [MW]": "20;0",
             "Jalova snaga na strani s višim naponom [MVar]": "20;1",
@@ -85,8 +77,21 @@ function trafo_clicked() {
             "Opterećenje [%]": "20;4"
         };
     
-        click_action_general(curr, mapper);
+        click_action_general(curr, mapper, -1);
+    
     })();
+}
+
+async function draw_graph_driver() {
+    // for graph drawing, todo
+    
+    let main2 = document.querySelector("body > div > div > main > div > div > div.tmp");
+    main2.innerHTML = "";
+    let graph_template = document.querySelector('#chart-template');
+    let graph = graph_template.content.cloneNode(true);        
+    main2.appendChild(graph);
+    plot_graph();
+
 }
 
 async function click_action_general(curr, mapper) {
@@ -117,21 +122,20 @@ async function click_action_general(curr, mapper) {
     }
 
     reloader(curr);
-
 }
 
 async function get_val(key) {
     let response = await fetch('http://localhost:3000/api-single/' + key);
     response = await response.json();
-    
-    console.log("--------------------");
-    console.log("response", response);
-    
     return response["value"];            
 }
 
-async function reloader(currently_selected) {
-    while (current_selected == currently_selected) {
+async function reloader(currently_selected, curr_selected_number) {
+    /**
+     * refresh values every second
+     */
+
+    while (current_selected == currently_selected && curr_number == curr_selected_number) {
     
         for (const [key, value] of Object.entries(mapper)) {
             document.getElementById(value).innerHTML = await get_val(value);

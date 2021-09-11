@@ -32,9 +32,7 @@ window.addEventListener('load', function () {
     document.getElementById("maximize").onclick = 
         function() {maximize()}; 
 
-
     console.log('page is fully loaded');
-
 
 });
 

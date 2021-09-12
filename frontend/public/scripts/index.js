@@ -3,8 +3,7 @@ function clicked() {
 }
 
 window.addEventListener('load', function () {
-    console.log("page loaded");
-
+    
     driver_tab_name_changer();
 
     let num_of_switches = 8;
@@ -31,9 +30,7 @@ window.addEventListener('load', function () {
 
     document.getElementById("maximize").onclick = 
         function() {maximize()}; 
-
-    console.log('page is fully loaded');
-
+        
 });
 
 function maximize() {

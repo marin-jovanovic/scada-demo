@@ -202,6 +202,7 @@ function sw_clicked(switch_id) {
 
     let element = document.querySelector("#switch-" + String(switch_id));
 
+    // show notification on screen
     document.querySelector("#success").style.visibility = "visible";
     setTimeout(function () {
         document.querySelector("#success").style.visibility = "hidden";
@@ -220,6 +221,9 @@ function sw_clicked(switch_id) {
             break;
 
         default:
+
+            console.log("switch error on toggle");
+
             break;
     }
 

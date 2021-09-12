@@ -19,7 +19,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
     />
     <link rel="stylesheet" href="./css/svg_index.css" />
-    <link rel="stylesheet" type="text/css" href="./styles/main.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="./styles/main.css" /> -->
 
     <!-- js -->
     <script
@@ -30,7 +30,7 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
       defer
     ></script>
-    <script src="./js/charts-lines.js" defer></script>
+    <!-- <script src="./js/charts-lines.js" defer></script> -->
     <!-- <script src="./js/charts-pie.js" defer></script> -->
     <script src="./scripts/index.js"></script>
     <script src="./scripts/tab_name_changer.js"></script>
@@ -40,11 +40,13 @@
     <script src="./scripts/init-alpine.js"></script>
     <script src="./scripts/api_handler.js"></script>
 
+    <link href="./custom_assets/favicon.ico" type="image/x-icon" rel="icon" />
+
   </head>
   <body>
 
-    <div id="gfggg">
-    </div>
+    <!-- <div id="gfggg">
+    </div> -->
     <div
       class="flex h-screen bg-gray-50 dark:bg-gray-900"
       :class="{ 'overflow-hidden': isSideMenuOpen }"
@@ -279,9 +281,6 @@
         </header>
         <main class="h-full overflow-y-auto">
           <div class="container px-6 mx-auto grid">
-            <!-- <iframe src="svg/index.html" style="height: 500px; width: 100%;" ></iframe> -->
-            <!-- <div class="centered-container"> -->
-            <!-- <div class="alert-box success" id="success">Successful Alert !!!</div> -->
             <div style="visibility: hidden;" class="success" id="success">Switch changed</div>
             <div>
               <svg
@@ -294,8 +293,6 @@
                 <!-- 
                   width="100vw"
                   height="100vh"
-                  
-                  
                   -->
                 <defs />
                 <g>
@@ -2518,7 +2515,10 @@
                 dark:bg-gray-800
                 "
                 >
-                <div
+
+                <div></div>
+
+                <!-- <div
                   class="
                   p-3
                   mr-4
@@ -2529,13 +2529,20 @@
                   "
                   >
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path
+                  
+                                   <path
                       fill-rule="evenodd"
                       d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
                       clip-rule="evenodd"
                       ></path>
                   </svg>
-                </div>
+
+
+
+                  
+                </div> -->
+
+
                 <div>
                   <p
                     class="

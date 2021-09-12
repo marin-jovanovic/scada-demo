@@ -39,7 +39,7 @@ class Device(hat.gateway.common.Device):
 
         connection = await establish_connection()
 
-        counter = 0
+        # counter = 0
 
         # load all data
         await self.send_init_data(connection)
@@ -97,7 +97,7 @@ class Device(hat.gateway.common.Device):
             #             type=hat.event.common.EventPayloadType.JSON,
             #             data=counter + 5))])
 
-            counter += 1
+            # counter += 1
 
     async def send_init_data(self, connection):
         """

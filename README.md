@@ -97,3 +97,8 @@ pip install -r requirements.pip.txt
 http://localhost:23023/index.html
 user
 pass
+
+
+ligthing image
+	https://icon-library.com/icon/lightning-icon-png-15.html
+	

@@ -1,4 +1,4 @@
-class LogManager:
+wclass LogManager:
 
     def __init__(self, is_opened):
         self.is_opened = is_opened

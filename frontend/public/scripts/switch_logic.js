@@ -168,23 +168,38 @@ function init_switch_gui() {
         return;
     }
 
-    switch_gui_mapping["0"] = new SwitchGui("d: path(\"M 237 140 L 261 130\")", 
-    "d: path(\"M 237 140 L 261 140\")");
-    switch_gui_mapping["1"] = new SwitchGui("d: path(\"M 437 140 L 461 130\")", 
-    "d: path(\"M 437 140 L 461 140\")");
-    switch_gui_mapping["2"] = new SwitchGui("d: path(\"M 505 60 L 517 50\")", 
-    "d: path(\"M 505 60 L 517 60\")");
-    switch_gui_mapping["3"] = new SwitchGui("d: path(\"M 625 60 L 637 50\")", 
-    "d: path(\"M 625 60 L 637 60\")");
-    switch_gui_mapping["4"] = new SwitchGui("d: path(\"M 625 100 L 637 90\")", 
-    "d: path(\"M 625 100 L 637 100\")");
-    switch_gui_mapping["5"] = new SwitchGui("d: path(\"M 625 180 L 637 170\")", 
-    "d: path(\"M 625 180 L 637 180\")");
-    switch_gui_mapping["6"] = new SwitchGui("d: path(\"M 625 220 L 637 210\")", 
-    "d: path(\"M 625 220 L 637 220\")");
-    switch_gui_mapping["7"] = new SwitchGui("d: path(\"M 505 220 L 517 210\")", 
-    "d: path(\"M 505 220 L 517 220\")");
-
+    // switch_gui_mapping["0"] = new SwitchGui("d: path(\"M 237 140 L 261 130\")", 
+    // "d: path(\"M 237 140 L 261 140\")");
+    // switch_gui_mapping["1"] = new SwitchGui("d: path(\"M 437 140 L 461 130\")", 
+    // "d: path(\"M 437 140 L 461 140\")");
+    // switch_gui_mapping["2"] = new SwitchGui("d: path(\"M 505 60 L 517 50\")", 
+    // "d: path(\"M 505 60 L 517 60\")");
+    // switch_gui_mapping["3"] = new SwitchGui("d: path(\"M 625 60 L 637 50\")", 
+    // "d: path(\"M 625 60 L 637 60\")");
+    // switch_gui_mapping["4"] = new SwitchGui("d: path(\"M 625 100 L 637 90\")", 
+    // "d: path(\"M 625 100 L 637 100\")");
+    // switch_gui_mapping["5"] = new SwitchGui("d: path(\"M 625 180 L 637 170\")", 
+    // "d: path(\"M 625 180 L 637 180\")");
+    // switch_gui_mapping["6"] = new SwitchGui("d: path(\"M 625 220 L 637 210\")", 
+    // "d: path(\"M 625 220 L 637 220\")");
+    // switch_gui_mapping["7"] = new SwitchGui("d: path(\"M 505 220 L 517 210\")", 
+    // "d: path(\"M 505 220 L 517 220\")");
+    switch_gui_mapping["0"] = new SwitchGui("M 237 140 L 261 130", 
+    "M 237 140 L 261 140");
+    switch_gui_mapping["1"] = new SwitchGui("M 437 140 L 461 130", 
+    "M 437 140 L 461 140");
+    switch_gui_mapping["2"] = new SwitchGui("M 505 60 L 517 50", 
+    "M 505 60 L 517 60");
+    switch_gui_mapping["3"] = new SwitchGui("M 625 60 L 637 50", 
+    "M 625 60 L 637 60");
+    switch_gui_mapping["4"] = new SwitchGui("M 625 100 L 637 90", 
+    "M 625 100 L 637 100");
+    switch_gui_mapping["5"] = new SwitchGui("M 625 180 L 637 170", 
+    "M 625 180 L 637 180");
+    switch_gui_mapping["6"] = new SwitchGui("M 625 220 L 637 210", 
+    "M 625 220 L 637 220");
+    switch_gui_mapping["7"] = new SwitchGui("M 505 220 L 517 210", 
+    "M 505 220 L 517 220");
 }
 function fade(element) {
     var op = 1;  // initial opacity
@@ -211,12 +226,14 @@ function sw_clicked(switch_id) {
     switch (switch_states[switch_id]) {
         case switch_status.OPENED:
 
-            element.setAttribute("style", switch_gui_mapping[switch_id].closed);
+            // element.setAttribute("style", switch_gui_mapping[switch_id].closed);
+            element.setAttribute("d", switch_gui_mapping[switch_id].closed);
 
             break;
 
         case switch_status.CLOSED:
-            element.setAttribute("style", switch_gui_mapping[switch_id].opened);
+            // element.setAttribute("style", switch_gui_mapping[switch_id].opened);
+            element.setAttribute("d", switch_gui_mapping[switch_id].opened);
 
             break;
 

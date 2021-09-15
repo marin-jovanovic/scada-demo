@@ -191,14 +191,12 @@ function sw_clicked(switch_id) {
             last += 10;        
             reformated += String(last);
             element.setAttribute("d", reformated);
-            // switch_states[switch_id] = switch_states.CLOSED;
             break;
 
         case switch_status.CLOSED:
             last -= 10;
             reformated += String(last);
             element.setAttribute("d", reformated);
-            // switch_states[switch_id] = switch_states.OPENED;
             break;
 
         default:

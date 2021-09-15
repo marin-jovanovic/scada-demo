@@ -182,7 +182,6 @@ function sw_clicked(switch_id) {
     }, 2000);
 
     // update switch gui component
-    // update @switch_states
     let raw_string = element.getAttribute("d").split(" ");
     let last = Number(raw_string.pop());    
     let reformated = raw_string.join(" ") + " "
@@ -192,14 +191,14 @@ function sw_clicked(switch_id) {
             last += 10;        
             reformated += String(last);
             element.setAttribute("d", reformated);
-            switch_states[switch_id] = switch_states.CLOSED;
+            // switch_states[switch_id] = switch_states.CLOSED;
             break;
 
         case switch_status.CLOSED:
             last -= 10;
             reformated += String(last);
             element.setAttribute("d", reformated);
-            switch_states[switch_id] = switch_states.OPENED;
+            // switch_states[switch_id] = switch_states.OPENED;
             break;
 
         default:
@@ -209,65 +208,40 @@ function sw_clicked(switch_id) {
 
     // send command
     console.log("sending data");
- 
-    //         this._ws = new WebSocket('ws://127.0.0.1:23023/ws');
-
-
-    // this._ws.send(JSON.stringify(msg));
 
     var exampleSocket = new WebSocket("ws://127.0.0.1:23023/ws");
     exampleSocket.onopen = function (event) {
-        let msg = {
-            "type": "MESSAGE",
-            "payload": {
-                "type": "login",
-                "name": "user",
-                "password": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1"
-            }
-        };
-        exampleSocket.send(JSON.stringify(msg));
-        // exampleSocket.send(JSON.stringify('feedback_loop_adapter', {"asdu": 30, "value": 5, "io": 0}));
-        
-        // exampleSocket.send(JSON.stringify(
-        //     {
-        //         "type": "DATA", 
-        //         "payload": 
-        //             [
-        //                 {
-        //                     "op": "replace", 
-        //                     "path": "/adapter/13;3", 
-        //                     "value": 2.805577516555786
-        //                 }, 
-        //                 {
-        //                     "op": "replace", 
-        //                     "path": "/adapter/20;4", 
-        //                     "value": 20.976579666137695
-        //                 }, 
-        //             ]
-        //         }
-    
-        // ));
-        
-
+         
         exampleSocket.send(JSON.stringify(
-
-        {
-            "type":"MESSAGE",
-            "payload":{
-               "type":"adapter",
-               "name":"feedback_loop_adapter",
-               "data":{
-                  "asdu":30,
-                  "value":5,
-                  "io":0
-               }
+            {
+                "type": "MESSAGE",
+                "payload": {
+                    "type": "login",
+                    "name": "user",
+                    "password": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1"
+                }
             }
-         }
-
         ));
+        
+        exampleSocket.send(JSON.stringify(
+            {
+                "type":"MESSAGE",
+                "payload":{
+                    "type":"adapter",
+                    "name":"feedback_loop_adapter",
+                    "data":{
+                        "asdu":30,
+                        "value":5,
+                        "io":0
+                    }
+                }
+            }
+        ));
+
     };
 
+    // update @switch_states
     // toggle switch state
-    // switch_states[switch_id] = toggle_switch_status(switch_states[switch_id]);
+    switch_states[switch_id] = toggle_switch_status(switch_states[switch_id]);
 
 }

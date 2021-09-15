@@ -6,7 +6,7 @@ export {vt}
 
 function changeState() {
 
-    let t = r.get('remote', 'adapter', '13;0')
+    let t = r.get('remote', 'adapter', '30;0')
     console.log('13 0', t)
 
     hat.conn.send('feedback_loop_adapter', {asdu: 30, value: 5, io: 0});
@@ -28,18 +28,7 @@ function vt() {
             'kopfapok'
         ],
 
-        ['div', `${r.get('remote', 'adapter', 'counter')}`],
-
-        ['br'],
-        ['hr'],
-        ['div', `${r.get('remote', 'adapter', 'sw0')}`],
-
-        ['br'],
-        ['hr'],
-        ['div', `${r.get('remote', 'adapter', 'data')}`],
-        ['br'],
-        ['hr'],
-        ['div', `${r.get('remote', 'adapter', 'data')}`],
+     
 
         ['br'],
         ['hr'],
@@ -65,16 +54,12 @@ function vt() {
         ['br'],
         ['hr'],
         ['div', `${r.get('remote', 'adapter', '30;0')}`],
-        ['br'],
-        ['hr'],
-        ['div', `${r.get('remote', 'adapter', '30;1')}`],
+
 
         ['br'],
         ['hr'],
         ['div', `${r.get('remote', 'adapter', '31;0')}`],
-        ['br'],
-        ['hr'],
-        ['div', `${r.get('remote', 'adapter', '31;1')}`],
+     
     ];
 
 }

@@ -102,3 +102,11 @@ pass
 ligthing image
 	https://icon-library.com/icon/lightning-icon-png-15.html
 	
+
+todo 
+	
+	backend revert comm fix
+	maximize window button fix
+	check val refreshing
+	switch gui update
+	null value display

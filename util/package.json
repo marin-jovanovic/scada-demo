@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "extract-inline-css": "^1.0.1"
+  }
+}

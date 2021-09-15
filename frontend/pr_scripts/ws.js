@@ -118,5 +118,10 @@ module.exports = class WebSocketManager {
         }
     
     }    
+
+    send_data(data) {
+        this._ws.send(data);
+        // this._ws.send(JSON.stringify(msg));
+    }
     
 }

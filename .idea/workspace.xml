@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eafe340c-d83a-4db1-9722-f789510b0eb5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/scada-demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scada-demo.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulator/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulator/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/playground/run/system.sh" beforeDir="false" afterPath="$PROJECT_DIR$/backend/playground/run/system.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src_js/views/main/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src_js/views/main/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src_py/project/devices/main_device.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src_py/project/devices/main_device.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src_py/project/utils/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src_py/project/utils/connection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +87,7 @@
       <workItem from="1629997786160" duration="1297000" />
       <workItem from="1631205623558" duration="715000" />
       <workItem from="1631778681516" duration="13493000" />
+      <workItem from="1631801121668" duration="5230000" />
     </task>
     <servers />
   </component>
@@ -98,6 +104,19 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/backend/src_js/views/main/main.js</url>
+          <line>45</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/scada_demo$main.coverage" NAME="main Coverage Results" MODIFIED="1631797367646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simulator" />

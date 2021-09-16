@@ -39,27 +39,32 @@ class Device(hat.gateway.common.Device):
 
         connection = await establish_connection()
 
-        # counter = 0
-
         # load all data
         await self.send_init_data(connection)
+
 
         while True:
 
             result = await connection.receive()
 
-            # payload
-            value = result[0].value.value
+            with open("log.txt", "a") as myfile:
+                myfile.write(str(result))
+                myfile.write("\n")
+
             asdu_address = result[0].asdu_address
             io_address = result[0].io_address
 
             type_name = Address.get_formatted_name(asdu_address,
                                                    io_address)
+            value = result[0].value.value
+
+
+            with open("log.txt", "a") as myfile:
+                myfile.write(str([type_name, value]))
+                myfile.write("\n")
 
             self._event_client.register([
                 hat.event.common.RegisterEvent(
-                    # event_type=(*self._event_type_prefix,
-                    #             'gateway', "data"),
                     event_type=(*self._event_type_prefix,
                                 'gateway', type_name),
                     source_timestamp=None,
@@ -70,41 +75,13 @@ class Device(hat.gateway.common.Device):
                 )
             ])
 
-            # self._event_client.register([
-            #     hat.event.common.RegisterEvent(
-            #         event_type=(*self._event_type_prefix,
-            #                     'gateway', 'data'),
-            #         source_timestamp=None,
-            #         payload=hat.event.common.EventPayload(
-            #             type=hat.event.common.EventPayloadType.JSON,
-            #             data=str(result)))])
-            #
-            # self._event_client.register([
-            #     hat.event.common.RegisterEvent(
-            #         event_type=(*self._event_type_prefix,
-            #                     'gateway', 'counter'),
-            #         source_timestamp=None,
-            #         payload=hat.event.common.EventPayload(
-            #             type=hat.event.common.EventPayloadType.JSON,
-            #             data=counter))])
-            #
-            # self._event_client.register([
-            #     hat.event.common.RegisterEvent(
-            #         event_type=(*self._event_type_prefix,
-            #                     'gateway', 'sw0'),
-            #         source_timestamp=None,
-            #         payload=hat.event.common.EventPayload(
-            #             type=hat.event.common.EventPayloadType.JSON,
-            #             data=counter + 5))])
-
-            # counter += 1
-
     async def send_init_data(self, connection):
         """
         gets all initial (current) data
         """
 
         raw_data = await connection.interrogate(asdu_address=65535)
+
         for result in raw_data:
             value = result.value.value
 
@@ -114,19 +91,19 @@ class Device(hat.gateway.common.Device):
             type_name = Address.get_formatted_name(asdu_address,
                                                    io_address)
 
+
+            with open("log.txt", "a") as myfile:
+                myfile.write(str(["init", type_name, value]))
+                myfile.write("\n")
+
             self._event_client.register([
                 hat.event.common.RegisterEvent(
-                    # event_type=(*self._event_type_prefix,
-                    #             'gateway', "data"),
-
-                    # prefix = gateway, gateway, example, device,
 
                     event_type=(*self._event_type_prefix,
                                 'gateway', type_name),
                     source_timestamp=None,
                     payload=hat.event.common.EventPayload(
                         type=hat.event.common.EventPayloadType.JSON,
-                        # data=str(result)
                         data=value
                     )
                 )

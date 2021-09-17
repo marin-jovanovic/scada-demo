@@ -5,66 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eafe340c-d83a-4db1-9722-f789510b0eb5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/README.rst" beforeDir="false" afterPath="$PROJECT_DIR$/backend/README.rst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/playground/run/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/playground/run/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/requirements.pip.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/requirements.pip.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src_py/project/devices/main_device.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src_py/project/devices/main_device.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src_py/project/utils/address_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src_py/project/utils/address_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend_runner.sh" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend_runner.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/conf.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/architecture.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/docs/architecture.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assignment.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/docs/assignment.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/development_steps.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/docs/development_steps.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/docker.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/docs/docker.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/frontend.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/docs/frontend.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/resources/network.svg" beforeDir="false" afterPath="$PROJECT_DIR$/backend/docs/resources/network.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/resources/spa.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/backend/docs/resources/spa.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.prettierrc" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/.prettierrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/.vscode/settings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/eventManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/pr_scripts/eventManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/postcss.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/pr_scripts/postcss.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/pr_scripts/tailwind.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/ws.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/pr_scripts/ws.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/css/svg_index.css" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/css/svg_index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/css/tailwind.css" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/css/tailwind.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/css/tailwind.output.css" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/css/tailwind.output.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/custom_assets/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/custom_assets/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/custom_assets/fullscreen-12-xxl.png" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/custom_assets/fullscreen-12-xxl.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/custom_assets/lightning-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/custom_assets/lightning-icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/custom_assets/lightning-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/custom_assets/lightning-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/custom_assets/readME.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/custom_assets/readME.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/api_handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/api_handler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/charts-bars.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/charts-bars.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/charts-lines.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/charts-lines.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/charts-pie.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/charts-pie.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/clickable.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/clickable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/comm.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/comm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/focus-trap.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/focus-trap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/init-alpine.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/init-alpine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/switch_logic.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/switch_logic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/tab_name_changer.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/public/scripts/tab_name_changer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/routes/comm.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/routes/comm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/routes/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/routes/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/views/home.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/frontend/views/home.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iec104_playground/events/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/iec104_playground/events/events.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iec104_playground/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/iec104_playground/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.pip.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulator/conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/simulator/conf.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulator/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/simulator/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulator/old_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/simulator/old_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulator_runner.sh" beforeDir="false" afterPath="$PROJECT_DIR$/backend/simulator_runner.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/mirrorlist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/playground/run/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/playground/run/log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,10 +20,8 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/backend/playground/run/system.sh" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="ProjectId" id="1xH2dCYWBDRcAxQeJPnt8KoNQiK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -191,6 +135,7 @@
       <workItem from="1631205623558" duration="715000" />
       <workItem from="1631778681516" duration="13493000" />
       <workItem from="1631801121668" duration="5230000" />
+      <workItem from="1631866524981" duration="2083000" />
     </task>
     <servers />
   </component>

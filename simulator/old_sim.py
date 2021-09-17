@@ -52,8 +52,8 @@ async def async_main(conf):
                                    timestamp=time.time()))
     simulator._state = state
 
-    [print(i) for i in state.items()]
-    breakpoint()
+    # [print(i) for i in state.items()]
+    # breakpoint()
 
     simulator._change_queue = aio.Queue()
     simulator._power_flow_queue = aio.Queue()

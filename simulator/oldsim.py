@@ -214,5 +214,4 @@ def main(conf_path):
 
 
 if __name__ == '__main__':
-    print("STATERD")
     sys.exit(main())

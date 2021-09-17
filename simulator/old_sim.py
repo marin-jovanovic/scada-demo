@@ -16,8 +16,8 @@ from hat.drivers import iec104
 
 
 mlog = logging.getLogger('simulator')
-
 _reference_net = pandapower.networks.example_simple()
+default_conf_path = 'conf.yaml'
 
 
 async def async_main(conf):
@@ -36,7 +36,9 @@ async def async_main(conf):
 
     simulator._async_group = aio.Group()
     simulator._executor = aio.create_executor()
+    print("be await")
     await simulator._executor(_ext_power_flow, simulator._net)
+    print("af await")
     state = {}
     for asdu in conf['points']:
         for io in conf['points'][asdu]:
@@ -49,6 +51,9 @@ async def async_main(conf):
                                    cause=iec104.Cause.INITIALIZED,
                                    timestamp=time.time()))
     simulator._state = state
+
+    [print(i) for i in state.items()]
+    breakpoint()
 
     simulator._change_queue = aio.Queue()
     simulator._power_flow_queue = aio.Queue()
@@ -75,6 +80,7 @@ class Simulator(aio.Resource):
             lambda: self._connections.remove(connection))
 
     async def _interrogate_cb(self, _, asdu):
+
         data = self._data_from_state()
         if asdu == 0xFFFF:
             return data
@@ -89,11 +95,12 @@ class Simulator(aio.Resource):
                 continue
             conf = self._points[command.asdu_address][command.io_address]
             series = getattr(self._net, conf['table'])[conf['property']]
+
             if conf['type'] == 'float':
                 value = command.value
             elif conf['type'] == 'single':
-                value = (True if command.value == iec104.SingleValue.ON
-                         else False)
+                value = command.value == iec104.SingleValue.ON
+
             series[conf['id']] = value
             self._state = json.set_(
                 self._state, [str(command.asdu_address),
@@ -109,23 +116,17 @@ class Simulator(aio.Resource):
         while True:
             await asyncio.sleep(random.gauss(self._spontaneity['mu'],
                                              self._spontaneity['sigma']))
-            choices = []
-            for table in ('gen', 'sgen', 'load'):
-                for index, _ in getattr(self._net, table).iterrows():
-                    if table in ('load', 'sgen'):
-                        cols = ('p_mw', 'q_mvar')
-                    if table == 'gen':
-                        cols = ('p_mw', )
-                    else:
-                        cols = tuple()
-                    for column in cols:
-                        choices.append((table, column, index))
-            table, column, index = random.choice(choices)
+
+            index_pool = []
+            for index, _ in getattr(self._net, 'gen').iterrows():
+                index_pool.append(index)
+            index = random.choice(index_pool)
+            table = "gen"
+            column = "p_mw"
+
             ref_value = getattr(_reference_net, table)[column][index]
             getattr(self._net, table)[column] = max(
                 random.uniform(ref_value * 0.75, ref_value * 1.25), 0)
-            self._change_queue.put_nowait(None)
-            await asyncio.sleep(1)
             self._change_queue.put_nowait(None)
             self._power_flow_queue.put_nowait(None)
 
@@ -152,6 +153,7 @@ class Simulator(aio.Resource):
                                 timestamp=time.time()))
 
     def _data_from_state(self):
+
         for asdu_str, substate in self._state.items():
             for io_str, data in substate.items():
                 yield _104_data(data, int(asdu_str), int(io_str))
@@ -201,10 +203,6 @@ def _ext_power_flow(net):
     pandapower.runpp(net)
 
 
-root_path = Path(os.path.abspath(__file__)).parent.parent
-default_conf_path = root_path / 'conf.yaml'
-
-
 @click.command()
 @click.option('--conf-path', type=Path, default=default_conf_path)
 def main(conf_path):
@@ -214,4 +212,5 @@ def main(conf_path):
 
 
 if __name__ == '__main__':
+    print("simulator started")
     sys.exit(main())

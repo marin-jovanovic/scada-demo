@@ -1,3 +1,25 @@
+hat-quickstart
+==============
+
+This repository contains a minimal working example that uses
+`Hat-core <https://core.hat-open.com/docs>`_ for its infrastructure. The example
+makes use of all ``hat-core`` components that interact with monitor and event
+server, other components may be used optionally. To run, install the
+requirements and run scripts in the ``playground/run`` directory.
+
+This repository uses doit as its build tool, make sure to call ``doit list`` to
+check available tasks. Some functions require certain tasks to be executed
+before they can run properly, e.g. calling ``doit js_view`` is necessary to be
+able to access the graphical interface.
+
+Docker
+------
+
+The quickstart repository can also be run from docker. A Dockerfile is provided
+to create an image that contains all dependencies and can be used to run the
+whole system. To build and run, see the `Docker documentation
+<https://docs.docker.com/get-started/>`_.
+
 # scada-demo
 
 [Opis zadatka](docs/assignment.md).
@@ -30,7 +52,7 @@ launch simulator
 
 	python3 simulator/main.py
 
-launch backend 
+launch backend
 
 	from (venv) .../mnt/c/git/ket-praksa/assignment-marin-jovanovic/src/playground/run$ ./system.sh
 
@@ -41,13 +63,13 @@ external resources (frontend template):
 requirements (backend)
 
 	try:
-		
+
 		sudo apt-get install $(grep -vE "^\s*#" requirements.ubuntu.txt  | tr "\n" " ")
 	except:
-	
+
 		sudo apt-get install package1 package2 package3 ... # from requirements.ubuntu.txt
 
-		sudo apt-get install binutils-mingw-w64-x86-64 clang doxygen gcc gcc-mingw-w64-x86-64 git graphviz libffi-dev libisoburn-dev libjansson-dev libuv1-dev libyaml-dev nodejs npm openssl pandoc plantuml python3 python3-pip samba socat sqlite3 unixodbc yarn 
+		sudo apt-get install binutils-mingw-w64-x86-64 clang doxygen gcc gcc-mingw-w64-x86-64 git graphviz libffi-dev libisoburn-dev libjansson-dev libuv1-dev libyaml-dev nodejs npm openssl pandoc plantuml python3 python3-pip samba socat sqlite3 unixodbc yarn
 
 
 	pip install -r requirements.pip.txt
@@ -67,8 +89,8 @@ requirements (root)
 	except:
 		(backend)
 		doit run
-	
-	except:		
+
+	except:
 		doit docs
 		doit js_deps
 		doit js_view
@@ -78,14 +100,14 @@ requirements (root)
 
 
 start simulator
-	
+
 	python simulator/main.py
 	you should see "script started" in terminal
 
 
 start backend
 
-run from 
+run from
 (venv) .../mnt/c/git/ket-praksa/assignment-marin-jovanovic/src/playground/run$ ./system.sh
 
 
@@ -101,10 +123,10 @@ pass
 
 ligthing image
 	https://icon-library.com/icon/lightning-icon-png-15.html
-	
 
-todo 
-	
+
+todo
+
 	backend revert comm fix
 	maximize window button fix
 	check val refreshing

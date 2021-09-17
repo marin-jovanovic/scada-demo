@@ -1,3 +1,11 @@
+/.doit.db
+/build
+/cache
+/dist
+/node_modules
+__pycache__
+*.db
+
 node_modules/
 
 .doit.db/

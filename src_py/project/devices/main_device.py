@@ -42,6 +42,11 @@ class Device(hat.gateway.common.Device):
         # load all data
         await self.send_init_data(connection)
 
+        print("hello")
+        # breakpoint()
+        # with open("log.txt", "a") as myfile:
+        #     myfile.write(str([type_name, value]))
+        #     myfile.write("\n")
 
         while True:
 
@@ -50,6 +55,7 @@ class Device(hat.gateway.common.Device):
             with open("log.txt", "a") as myfile:
                 myfile.write(str(result))
                 myfile.write("\n")
+                print(result)
 
             asdu_address = result[0].asdu_address
             io_address = result[0].io_address
@@ -57,11 +63,6 @@ class Device(hat.gateway.common.Device):
             type_name = Address.get_formatted_name(asdu_address,
                                                    io_address)
             value = result[0].value.value
-
-
-            with open("log.txt", "a") as myfile:
-                myfile.write(str([type_name, value]))
-                myfile.write("\n")
 
             self._event_client.register([
                 hat.event.common.RegisterEvent(
@@ -90,11 +91,10 @@ class Device(hat.gateway.common.Device):
 
             type_name = Address.get_formatted_name(asdu_address,
                                                    io_address)
-
-
             with open("log.txt", "a") as myfile:
-                myfile.write(str(["init", type_name, value]))
+                myfile.write(str(["ini", type_name, value]))
                 myfile.write("\n")
+                print(type_name, value)
 
             self._event_client.register([
                 hat.event.common.RegisterEvent(

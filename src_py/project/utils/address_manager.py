@@ -44,8 +44,24 @@ async def load_addresses(connection=None):
     [print(i.formatted_name()) for i in ADDRESSES]
 
 
+async def async_main():
+    address = iec104.Address('127.0.0.1', 19999)
+    connection = await iec104.connect(address)
+
+    try:
+
+        raw_data = await connection.interrogate(asdu_address=65535)
+        print("r", raw_data)
+
+        print("fetch")
+        raw_data = await connection.receive()
+        print("r", raw_data)
+
+    except ConnectionError:
+        print("conn error")
+
 def main():
-    run_asyncio(load_addresses())
+    run_asyncio(async_main())
 
 
 if __name__ == '__main__':

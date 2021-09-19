@@ -4,6 +4,7 @@ utils for address translations
 
 from hat.aio import run_asyncio
 from hat.drivers import iec104
+from collections import defaultdict
 
 ADDRESSES = []
 
@@ -24,33 +25,6 @@ class Address:
         return Address.get_formatted_name(self.asdu_address, self.io_address)
 
 
-async def async_main():
-
-    connection = await connect()
-
-    raw_data = await connection.interrogate(asdu_address=65535)
-
-    print("init data send", len(raw_data))
-    print("fetch")
-
-    while True:
-
-        try:
-            raw_data = await connection.receive()
-            print("r", len(raw_data))
-
-        except ConnectionError:
-            connection = connect()
-
-
-def main():
-    run_asyncio(async_main())
-
-
-if __name__ == '__main__':
-    main()
-
-
 async def init_data_manager():
     data_manager = DataManager("127.0.0.1", 19999)
 
@@ -66,11 +40,24 @@ class DataManager:
 
     async def get_init_data(self):
         raw_data = await self.connection.interrogate(asdu_address=65535)
-        return raw_data
+
+        t = {}
+
+        for i in raw_data:
+            t[(i.asdu_address, i.io_address)] = i.value
+
+        return t
 
     async def get_curr_data(self):
         raw_data = await self.connection.receive()
-        return raw_data
+        raw_data = raw_data[0]
+
+        t = {}
+
+        for i in raw_data:
+            t[(i.asdu_address, i.io_address)] = i.value
+
+        return t
 
     async def connect(self):
         address = iec104.Address(self.domain_name, self.port)
@@ -88,3 +75,44 @@ class DataManager:
             #         print("trying to reconnect in", n - i)
             #         await asyncio.sleep(1)
             #     print("reconnecting\n")
+
+
+async def async_main():
+
+    data_manager = await init_data_manager()
+
+    t = await data_manager.get_init_data()
+    print("init data")
+    [print(i) for i in t]
+
+    t = await data_manager.get_curr_data()
+    print("curr data")
+    [print(i) for i in t]
+
+
+    #
+    # connection = await connect()
+    #
+    # raw_data = await connection.interrogate(asdu_address=65535)
+    #
+    # print("init data send", len(raw_data))
+    # print("fetch")
+    #
+    # while True:
+    #
+    #     try:
+    #         raw_data = await connection.receive()
+    #         print("r", len(raw_data))
+    #
+    #     except ConnectionError:
+    #         connection = connect()
+
+
+def main():
+    run_asyncio(async_main())
+
+
+if __name__ == '__main__':
+    main()
+
+

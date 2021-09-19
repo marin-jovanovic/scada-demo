@@ -1,12 +1,9 @@
 const EventEmitter = require('events');
+const { raw } = require('express');
 
 const eventTypes = {
     // new vals
     DEFAULT: 'default',
-}
-
-function init() {
-    
 }
 
 module.exports = class EventManager {
@@ -20,50 +17,7 @@ module.exports = class EventManager {
     }
 
     getVals() {
-
-        // EventManager.ret_vals = {};
-
-        // for (var key in EventManager.vals) {
-        //     if (key in EventManager.already_have) {
-        //         if (EventManager.vals != EventManager.already_have[key]) {
-        //             // new val
-        //             EventManager.ret_vals[key] = EventManager.vals;
-        //             EventManager.already_have[key] = EventManager.vals;
-        //         }
-
-        //         // ignore if same there
-        //     } else {
-        //         // dont have this, add it
-
-        //         EventManager.ret_vals[key] = EventManager.vals;
-        //         EventManager.already_have[key] = EventManager.vals;
-        //     }
-        // }
-
-        // console.log("new vals", EventManager.ret_vals);
-// ////////////////////
         return EventManager.vals;
-
-
-        // ////////////////////////////////
-
-        // let ret_dict = {};
-
-        // for (var key in EventManager.new_vals) {
-        //     ret_dict[key] = EventManager.new_vals[key];
-        // }
-
-        // // reset 
-        // EventManager.new_vals = {};
-
-        // console.log("new vals", ret_dict);
-
-        // return ret_dict;
-
-
-        // console.log("new vals", EventManager.new_vals);
-
-        // return EventManager.new_vals;
     }
 
     constructor() {
@@ -73,7 +27,6 @@ module.exports = class EventManager {
             EventManager.instance = new EventManager();
 
             EventManager.vals = {};
-            // EventManager.new_vals = {};
 
             EventManager.already_have = {};
 
@@ -86,28 +39,50 @@ module.exports = class EventManager {
             EventManager.messageEmitter.on(eventTypes.DEFAULT, (payload) => {
                 // console.log('event occurred with payload', payload);
 
-                if (payload.value.constructor == Object) {
+                payload = JSON.parse(payload);
+             
+                console.log("----------")
 
-                    for (const [key, value] of Object.entries(payload.value)) {
+                // new implementation
+                for (let [key, value] of Object.entries(payload)) {
 
-                        EventManager.vals[key] = value;
-                 
-                        // if (! key in EventManager.vals) {
-                        //     EventManager.vals[key] = value;
-                        //     EventManager.new_vals[key] = value;
-                        // } else if (EventManager.vals[key] == value) {
-                        //     // same val, already in vals, no need to add
-                        // } else if (EventManager.vals[key] != value) {
-                        //     // already in .vals but with different val
-                        //     EventManager.vals[key] = value;
-                            
-                        //     EventManager.new_vals[key] = value;
-                        // } 
+                    console.log(key, " -> ", value)
+
+                    let raw_key = key.substring(1, key.length -1).split(",")
+                    console.log(raw_key)
+
+                    if (value.startsWith("SingleValue")) {
+
+                        value = value.split(".")[1]
+                        console.log("val", value);
+
+                    } else if (value.startsWith("FloatingValue")) {
+                    
+                        console.log("float")
+                        console.log(typeof(value))
+                        value = value.substring(0, value.length - 1).split("=")[1]
+                        console.log("val", value);
+
                     }
 
-                } else {
-                    EventManager.vals[payload.path] = payload.value;
+                    EventManager.vals[key] = value;
+
+
+                    console.log()
                 }
+
+                // old implementation
+                // if (payload.value.constructor == Object) {
+
+                //     for (const [key, value] of Object.entries(payload.value)) {
+
+                //         EventManager.vals[key] = value;
+                 
+                //     }
+
+                // } else {
+                //     EventManager.vals[payload.path] = payload.value;
+                // }
 
                 // console.log(EventManager.vals);
 

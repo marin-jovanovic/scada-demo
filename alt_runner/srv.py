@@ -3,7 +3,7 @@ import websockets
 
 from data_manager import init_data_manager
 from hat.aio import run_asyncio
-
+import json
 import nest_asyncio
 
 class Server:
@@ -12,10 +12,22 @@ class Server:
         async for message in websocket:
 
             if message == "init_data":
-                await websocket.send(str(await self.data_manager.get_init_data()))
+                data = await self.data_manager.get_init_data()
+
+                json_data = json.dumps({
+                    str(k): str(v) for k, v in data.items()
+                })
+
+                await websocket.send(str(json_data))
 
             elif message == "curr_data":
-                await websocket.send(str(await self.data_manager.get_curr_data()))
+                data = await self.data_manager.get_curr_data()
+
+                json_data = json.dumps({
+                    str(k): str(v) for k, v in data.items()
+                })
+
+                await websocket.send(str(json_data))
 
             else:
                 await websocket.send(str("joiajidoioa"))

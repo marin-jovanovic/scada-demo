@@ -1,74 +1,111 @@
+/**
+ * websocket drivers
+ * 
+ * establishes connection with backend
+ * logs messages in console depending on the type (open, closed, message, other msg)
+ * 
+ * sends updated vals to @eventManagerInstance
+ * 
+ * 
+ */
 const WebSocket = require('ws');
 
 const eventManager = require('./eventManager');
 let eventManagerInstance = new eventManager().getInstance();
 
 
-ws = new WebSocket('ws://127.0.0.1:8765/ws');
 
 
-ws.addEventListener('open', () => {
-    // Send a message to the WebSocket server
-    console.log("open");
-    ws.send('init_data');
-
-});
-
-ws.addEventListener('message', event => {
-    // The `event` object is a typical DOM event object, and the message data sent
-    // by the server is stored in the `data` property
-    console.log('Received:', event.data);
-});
 
 
-// ws.addEventListener('close', () => {
-//     console.log("closed");
-// });
+// -----------------------------------------------------------------------
 
-// ws.addEventListener('message', evt => {
-//     console.log("msg");
+// const 
+// import { WebSocketServer } from 'ws';
 
-//     let msg = JSON.parse(evt.data);
+// const wss = new WebSocketServer({ port: 8080 });
 
-//     if (msg.type == "DATA") {
+// wss.on('connection', function connection(ws) {
+//   ws.on('message', function incoming(message) {
+//     console.log('received: %s', message);
+//   });
 
-//         msg.payload.forEach(element => {
-
-//             // console.log("elem", element);
-
-//             if (element.op == "add") {
-//                 // console.log("init vals");
-            
-//                 eventManagerInstance.emitEvent(element);
-
-//             } else if (element.op == "replace") {
-//                 // console.log("update vals");
-
-//                 eventManagerInstance.emitEvent(element);
-            
-//             } else {
-//                 // console.log("other");
-//             }
-
-//         });
-
-//     } else {
-//         console.log("other msg");
-
-//         msg.forEach(element => {
-
-//         console.log(element);
-//         });
-//     }
-
-//     // console.log();
+//   ws.send('something');
 // });
 
 
+module.exports = class WebSocketManager {
 
-// function send_data(data) {
-//         ws.send(data);
-//         // this._ws.send(JSON.stringify(msg));
-// }
+    getInstance() {
+        return WebSocketManager.instance;
+    }
 
-// send_data("jlkjlk")
+    constructor() {
+        this.is_logged_in = false;
+    
+        this.add_event_listeners();
+
+        let ws = new WebSocket('ws://127.0.0.1:8765/ws');
+
+        let is_open = false;
+        let curr_buffer;
+        
+        
+        
+        ws.onopen = function(event) {
+            console.log("ws open");
+            
+            is_open = true;
+            
+            ws.send("init_data");
+            
+            // ws.send("curr_data");
+            
+        };        
+
+        if (! WebSocketManager.is_instance_created) {
+            WebSocketManager.is_instance_created = true;
+            
+            WebSocketManager.instance = new WebSocketManager();
+        }
+    }
+
+    // get_init_data() {
+    //     ws.send("init_data");
+        
+    //     return curr_buffer;
+    // }
+        
+    add_event_listeners() {
+    
+        ws.addEventListener('open', () => {
+            // Send a message to the WebSocket server
+            console.log("open");
+        
+        });
+        
+        ws.addEventListener('message', event => {
+            // The `event` object is a typical DOM event object, 
+            // and the message data sent
+            // by the server is stored in the `data` property
+            console.log('Received:', event.data);
+        
+            curr_buffer = event.data;
+            eventManagerInstance.emitEvent(event.data);
+        
+            console.log("data");
+        });
+        
+        ws.addEventListener('close', () => {
+            console.log("closed");
+        });
+        
+    }
+
+    send_data(data) {
+        this._ws.send(data);
+        // this._ws.send(JSON.stringify(msg));
+    }
+    
+}
+

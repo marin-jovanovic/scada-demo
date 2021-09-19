@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="eafe340c-d83a-4db1-9722-f789510b0eb5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alt_runner/data_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/alt_runner/data_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alt_runner/srv.py" beforeDir="false" afterPath="$PROJECT_DIR$/alt_runner/srv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/eventManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pr_scripts/eventManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/pure_ws.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pr_scripts/pure_ws.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/tmp.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pr_scripts/tmp.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +66,7 @@
       <recent name="$PROJECT_DIR$/backend/docs" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.address_manager (1)">
+  <component name="RunManager" selected="Python.data_manager">
     <configuration name="address_manager (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -101,6 +103,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/src_py/project/utils/address_manager.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="data_manager" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/alt_runner" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/alt_runner/data_manager.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -155,6 +179,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.data_manager" />
         <item itemvalue="Python.address_manager (1)" />
         <item itemvalue="Python.old_sim" />
         <item itemvalue="Python.address_manager" />
@@ -177,7 +202,7 @@
       <workItem from="1631866524981" duration="2083000" />
       <workItem from="1631896473719" duration="4659000" />
       <workItem from="1632039845961" duration="2710000" />
-      <workItem from="1632042948714" duration="8445000" />
+      <workItem from="1632042948714" duration="10489000" />
     </task>
     <servers />
   </component>

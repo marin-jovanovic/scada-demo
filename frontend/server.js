@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 var path = require('path');
 
-const WebSocketManager = require("./pr_scripts/ws");
+const WebSocketManager = require("./pr_scripts/pure_ws");
 let webSocketManager = new WebSocketManager();
 // let webSocketManagerInstance = webSocketManager.getInstance();
 

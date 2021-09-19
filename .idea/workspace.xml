@@ -5,19 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eafe340c-d83a-4db1-9722-f789510b0eb5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/alt_runner/cli.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/alt_runner/data_manager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/alt_runner/srv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" afterPath="$PROJECT_DIR$/README.rst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/development_steps.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/development_steps.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.archlinux.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.docker.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src_py/project/utils/address_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/utils/address_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src_py/project/utils/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/utils/connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +177,7 @@
       <workItem from="1631866524981" duration="2083000" />
       <workItem from="1631896473719" duration="4659000" />
       <workItem from="1632039845961" duration="2710000" />
-      <workItem from="1632042948714" duration="6700000" />
+      <workItem from="1632042948714" duration="8445000" />
     </task>
     <servers />
   </component>

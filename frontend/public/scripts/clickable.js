@@ -94,7 +94,7 @@ async function draw_graph_driver() {
 
 }
 
-async function click_action_general(curr, mapper) {
+async function click_action_general(curr, mapper, num_id) {
 
     if (! pre(curr)) {
         return;
@@ -121,7 +121,7 @@ async function click_action_general(curr, mapper) {
     
     }
 
-    reloader(curr, 2, mapper);
+    reloader(curr, num_id, mapper);
 }
 
 async function get_val(key) {
@@ -136,21 +136,33 @@ async function reloader(currently_selected, curr_selected_number, mapper) {
      * refresh values every second
      */
 
-    console.log("reloader called");
+    // console.log("reloader called");
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    // while (current_selected == currently_selected && curr_number == curr_selected_number) {
-    while (current_selected == currently_selected) {
-    
+    let old_vals = {}
+
+    for (const [key, value] of Object.entries(mapper)) {
+        old_vals[key] = value;
+    }
+
+    while (current_selected == currently_selected && curr_number == curr_selected_number) {
+
         for (const [key, value] of Object.entries(mapper)) {
-            document.getElementById(value).innerHTML = await get_val(value);
+
+            let new_val = await get_val(value);
+
+            if (old_vals[key] != new_val) {
+                old_vals[key] = new_val
+
+                document.getElementById(value).innerHTML = await get_val(value);
+                console.log("new val");
+            }
+
         }
-        
-  
-        let response = await fetch('http://localhost:3000/refresh/');
+          
+        await fetch('http://localhost:3000/refresh/');
 
-        console.log("refreshing");
-
+        // console.log("refreshing");
 
         await delay(1000);
     }

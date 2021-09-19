@@ -50,7 +50,9 @@ class DataManager:
 
     async def get_curr_data(self):
         raw_data = await self.connection.receive()
-        raw_data = raw_data[0]
+
+        # raw_data = raw_data[0]
+        # print(raw_data)
 
         t = {}
 
@@ -76,6 +78,20 @@ class DataManager:
             #         await asyncio.sleep(1)
             #     print("reconnecting\n")
 
+    async def send_data(self, value, asdu, io):
+        # command = iec104.Command(value=iec104.SingleValue.OFF,
+
+        command = iec104.Command(
+            value=value,
+            asdu_address=asdu,
+            io_address=io,
+            action=iec104.Action.EXECUTE,
+            time=None,
+            qualifier=1
+        )
+
+        await self.connection.send_command(command)
+
 
 async def async_main():
 
@@ -88,7 +104,6 @@ async def async_main():
     t = await data_manager.get_curr_data()
     print("curr data")
     [print(i) for i in t]
-
 
     #
     # connection = await connect()

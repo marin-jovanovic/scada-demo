@@ -78,9 +78,30 @@ router.get('/refresh', function(req, res){
 
     (async () => {
             
-       res.json(
-        "done"
-       );
+       res.json({
+        value: "done"
+       });
+       
+    })();
+
+});
+
+router.get('/switch_toggle/:id', function(req, res){
+
+    let id = req.params.id;
+
+    const eventManager = require('../pr_scripts/eventManager');
+    let eventManagerInstance = new eventManager().getInstance();
+    
+    const webSocket = require('../pr_scripts/pure_ws');
+    let webSocketInstance = new webSocket().getInstance();
+    webSocketInstance.send_data("update;" + id);
+
+    (async () => {
+        
+        res.json({
+            value: "done"
+           });
        
     })();
 

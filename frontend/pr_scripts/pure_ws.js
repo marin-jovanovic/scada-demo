@@ -36,11 +36,21 @@ module.exports = class WebSocketManager {
     }
 
     constructor() {
+        if (! WebSocketManager.is_instance_created) {
+            WebSocketManager.is_instance_created = true;
+            
+            WebSocketManager.instance = new WebSocketManager();
+            return;
+        }
+        console.log("creating new ws manager")
+
         this.is_logged_in = false;
 
         this.ws = new WebSocket('ws://127.0.0.1:8765/ws');
+        console.log("created new ws")
 
         this.add_event_listeners();
+        console.log("added event listeners")
 
         this.is_open = false;
 
@@ -49,18 +59,12 @@ module.exports = class WebSocketManager {
 
             this.send("init_data");
         };
+        console.log("ws init done");
 
         // this.ws.onopen = function(event) {
             
         // };        
 
-        // this.ws.onopen = this.on_open;
-
-        if (! WebSocketManager.is_instance_created) {
-            WebSocketManager.is_instance_created = true;
-            
-            WebSocketManager.instance = new WebSocketManager();
-        }
     }
 
     on_open() {
@@ -70,7 +74,6 @@ module.exports = class WebSocketManager {
         
         this.ws.send("init_data");            
         // ws.send("curr_data");
-    
     }
 
     add_event_listeners() {

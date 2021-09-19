@@ -6,11 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="eafe340c-d83a-4db1-9722-f789510b0eb5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alt_runner/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/alt_runner/cli.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alt_runner/data_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/alt_runner/data_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alt_runner/srv.py" beforeDir="false" afterPath="$PROJECT_DIR$/alt_runner/srv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/eventManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pr_scripts/eventManager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/pure_ws.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pr_scripts/pure_ws.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/tmp.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pr_scripts/tmp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/clickable.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/scripts/clickable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/switch_logic.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/scripts/switch_logic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/routes/comm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/routes/comm.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +204,7 @@
       <workItem from="1631866524981" duration="2083000" />
       <workItem from="1631896473719" duration="4659000" />
       <workItem from="1632039845961" duration="2710000" />
-      <workItem from="1632042948714" duration="10489000" />
+      <workItem from="1632042948714" duration="14102000" />
     </task>
     <servers />
   </component>

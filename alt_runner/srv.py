@@ -29,6 +29,20 @@ class Server:
 
                 await websocket.send(str(json_data))
 
+            elif message.startswith("update"):
+                """
+                update;asdu;io;value
+                """
+
+                raw_d = message.split(";")
+                asdu = raw_d[1]
+                io = raw_d[2]
+                value = raw_d[3]
+
+                print(message)
+
+                await self.data_manager.send_data(value, asdu, io)
+
             else:
                 await websocket.send(str("joiajidoioa"))
 

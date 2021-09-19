@@ -204,42 +204,45 @@ function sw_clicked(switch_id) {
             break;
     }
 
-    // send command
-    console.log("sending data");
-
-    var exampleSocket = new WebSocket("ws://127.0.0.1:23023/ws");
-    exampleSocket.onopen = function (event) {
-         
-        exampleSocket.send(JSON.stringify(
-            {
-                "type": "MESSAGE",
-                "payload": {
-                    "type": "login",
-                    "name": "user",
-                    "password": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1"
-                }
-            }
-        ));
-        
-        exampleSocket.send(JSON.stringify(
-            {
-                "type":"MESSAGE",
-                "payload":{
-                    "type":"adapter",
-                    "name":"feedback_loop_adapter",
-                    "data":{
-                        "asdu":30,
-                        "value":5,
-                        "io":0
-                    }
-                }
-            }
-        ));
-
-    };
-
     // update @switch_states
     // toggle switch state
     switch_states[switch_id] = toggle_switch_status(switch_states[switch_id]);
+
+    // send command
+    console.log("sending data");
+
+    // var exampleSocket = new WebSocket("ws://127.0.0.1:23023/ws");
+    // exampleSocket.onopen = function (event) {
+         
+    //     exampleSocket.send(JSON.stringify(
+    //         {
+    //             "type": "MESSAGE",
+    //             "payload": {
+    //                 "type": "login",
+    //                 "name": "user",
+    //                 "password": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1"
+    //             }
+    //         }
+    //     ));
+        
+    //     exampleSocket.send(JSON.stringify(
+    //         {
+    //             "type":"MESSAGE",
+    //             "payload":{
+    //                 "type":"adapter",
+    //                 "name":"feedback_loop_adapter",
+    //                 "data":{
+    //                     "asdu":30,
+    //                     "value":5,
+    //                     "io":0
+    //                 }
+    //             }
+    //         }
+    //     ));
+
+    // };
+
+
+    await fetch('http://localhost:3000/switch_toggle/' + "30;" + switch_id + ";" + switch_states[switch_id]);
 
 }

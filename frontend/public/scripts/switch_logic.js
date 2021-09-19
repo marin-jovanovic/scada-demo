@@ -241,8 +241,10 @@ function sw_clicked(switch_id) {
     //     ));
 
     // };
-
-
+    (async () => {
     await fetch('http://localhost:3000/switch_toggle/' + "30;" + switch_id + ";" + switch_states[switch_id]);
+     })();
+// 
 
+   
 }

@@ -28,10 +28,6 @@ module.exports = class EventManager {
 
             EventManager.vals = {};
 
-            EventManager.already_have = {};
-
-            EventManager.ret_vals = {};
-    
             class MessageEmitter extends EventEmitter {};
 
             EventManager.messageEmitter = new MessageEmitter();
@@ -41,34 +37,33 @@ module.exports = class EventManager {
 
                 payload = JSON.parse(payload);
              
-                console.log("----------")
+                // console.log("----------")
 
                 // new implementation
                 for (let [key, value] of Object.entries(payload)) {
 
-                    console.log(key, " -> ", value)
+                    console.log(key, " -> ", value);
 
-                    let raw_key = key.substring(1, key.length -1).split(",")
-                    console.log(raw_key)
+                    let raw_key = key.substring(1, key.length -1).split(",");
+                    
+                    raw_key = raw_key.map((i) => Number(i));
 
                     if (value.startsWith("SingleValue")) {
 
-                        value = value.split(".")[1]
-                        console.log("val", value);
+                        value = value.split(".")[1];
 
                     } else if (value.startsWith("FloatingValue")) {
                     
-                        console.log("float")
-                        console.log(typeof(value))
-                        value = value.substring(0, value.length - 1).split("=")[1]
-                        console.log("val", value);
+                        value = value.substring(0, value.length - 1).split("=")[1];
 
                     }
 
-                    EventManager.vals[key] = value;
+                    // console.log(raw_key);
+                    // console.log("val", value);
 
+                    EventManager.vals[raw_key[0] + ";" + raw_key[1]] = value;
 
-                    console.log()
+                    // console.log();
                 }
 
                 // old implementation

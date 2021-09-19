@@ -121,27 +121,40 @@ async function click_action_general(curr, mapper) {
     
     }
 
-    reloader(curr);
+    reloader(curr, 2, mapper);
 }
 
 async function get_val(key) {
     let response = await fetch('http://localhost:3000/api-single/' + key);
     response = await response.json();
+    console.log("response", response);
     return response["value"];            
 }
 
-async function reloader(currently_selected, curr_selected_number) {
+async function reloader(currently_selected, curr_selected_number, mapper) {
     /**
      * refresh values every second
      */
 
-    while (current_selected == currently_selected && curr_number == curr_selected_number) {
+    console.log("reloader called");
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    // while (current_selected == currently_selected && curr_number == curr_selected_number) {
+    while (current_selected == currently_selected) {
     
         for (const [key, value] of Object.entries(mapper)) {
             document.getElementById(value).innerHTML = await get_val(value);
         }
         
+  
+        let response = await fetch('http://localhost:3000/refresh/');
+
+        console.log("refreshing");
+
+
         await delay(1000);
     }
+
+    console.log("reloader done");
 }
 

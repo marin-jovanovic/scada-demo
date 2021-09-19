@@ -83,7 +83,8 @@ module.exports = class WebSocketManager {
             // The `event` object is a typical DOM event object, 
             // and the message data sent
             // by the server is stored in the `data` property
-            console.log('Received:', event.data);
+           
+            // console.log('Received:', event.data);
         
             eventManagerInstance.emitEvent(event.data);
         

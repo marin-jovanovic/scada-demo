@@ -67,4 +67,24 @@ router.get('/api-all', function(req, res){
 
 });
 
+router.get('/refresh', function(req, res){
+
+    const eventManager = require('../pr_scripts/eventManager');
+    let eventManagerInstance = new eventManager().getInstance();
+    
+    const webSocket = require('../pr_scripts/pure_ws');
+    let webSocketInstance = new webSocket().getInstance();
+    webSocketInstance.send_data("curr_data");
+
+    (async () => {
+            
+       res.json(
+        "done"
+       );
+       
+    })();
+
+});
+
+
 module.exports = router;

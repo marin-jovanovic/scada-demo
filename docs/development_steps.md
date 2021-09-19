@@ -31,7 +31,7 @@
   u direktorij sa simulatorom (*assignment/simulator*) i pokretanjem naredbe:
 
   ```shell
-  python main.py
+  python data_manager.py
   ```
 
   Simulator će nastaviti raditi u pozadini i slati podatke koje je potrebno

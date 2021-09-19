@@ -5,16 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eafe340c-d83a-4db1-9722-f789510b0eb5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/alt_runner/cli.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alt_runner/data_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alt_runner/srv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulator/old_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulator/old_sim.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" afterPath="$PROJECT_DIR$/README.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/development_steps.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/development_steps.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.archlinux.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.docker.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src_py/project/utils/address_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/utils/address_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src_py/project/utils/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/utils/connection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src_py/project/utils/connection.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src_py/project/utils/mappers.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/alt_runner/data_manager.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src_py/project/utils/address_manager.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src_py/project/devices/main_device.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src_py/project/modules/enable_all.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/alt_runner/cli.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/alt_runner/srv.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src_py/project/utils/tools.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1xH2dCYWBDRcAxQeJPnt8KoNQiK" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -44,7 +73,29 @@
       <recent name="$PROJECT_DIR$/backend/docs" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.old_sim">
+  <component name="RunManager" selected="Python.address_manager (1)">
+    <configuration name="address_manager (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src_py/project/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src_py/project/utils/address_manager.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="address_manager" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="scada-demo" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -113,6 +164,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.address_manager (1)" />
         <item itemvalue="Python.old_sim" />
         <item itemvalue="Python.address_manager" />
         <item itemvalue="Python.main" />
@@ -133,6 +185,8 @@
       <workItem from="1631801121668" duration="5230000" />
       <workItem from="1631866524981" duration="2083000" />
       <workItem from="1631896473719" duration="4659000" />
+      <workItem from="1632039845961" duration="2710000" />
+      <workItem from="1632042948714" duration="6700000" />
     </task>
     <servers />
   </component>

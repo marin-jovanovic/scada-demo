@@ -48,17 +48,20 @@ async def async_main():
     address = iec104.Address('127.0.0.1', 19999)
     connection = await iec104.connect(address)
 
-    try:
+    raw_data = await connection.interrogate(asdu_address=65535)
+    print("r", raw_data)
 
-        raw_data = await connection.interrogate(asdu_address=65535)
-        print("r", raw_data)
+    while True:
 
-        print("fetch")
-        raw_data = await connection.receive()
-        print("r", raw_data)
+        try:
 
-    except ConnectionError:
-        print("conn error")
+            print("fetch")
+            raw_data = await connection.receive()
+            print("r", raw_data)
+
+        except ConnectionError:
+            print("conn error")
+            await asyncio.sleep(3)
 
 def main():
     run_asyncio(async_main())

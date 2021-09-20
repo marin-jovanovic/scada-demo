@@ -1,4 +1,4 @@
-wwqqqqqqqqqqqqqqqqqqqqqw"""
+"""
 connection util functions
 
 """

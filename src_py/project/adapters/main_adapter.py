@@ -48,14 +48,9 @@ class Adapter(hat.gui.common.Adapter):
         while True:
             events = await self._event_client.receive()
 
-            state_log = {}
-
             for e in events:
                 self._state = dict(self._state)
                 var_name = str(e.event_type[-1])
-
-                state_log[var_name] = e.payload.data
-                # self._state.update({var_name: e.payload.data})
 
                 self._state = dict(self._state, **{var_name: e.payload.data})
                 self._state_change_cb_registry.notify()

@@ -59,18 +59,11 @@ class Session(hat.event.server.common.ModuleSession):
 
         """
 
-        # for event in changes:
-        #     print(event.event_type[-1])
-
-        # print('changes', changes)
-
         return [
 
             self._engine.create_process_event(
                 self._source,
                 hat.event.server.common.RegisterEvent(
-                    # event_type=("counter",),
-                    # event_type=(event.event_type[-1],),
                     event_type=('oneway', event.event_type[-1],),
                     source_timestamp=None,
                     payload=event.payload

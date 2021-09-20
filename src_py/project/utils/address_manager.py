@@ -1,6 +1,7 @@
 """
 utils for address translations
 """
+import asyncio
 
 from hat.aio import run_asyncio
 from hat.drivers import iec104
@@ -62,6 +63,7 @@ async def async_main():
         except ConnectionError:
             print("conn error")
             await asyncio.sleep(3)
+
 
 def main():
     run_asyncio(async_main())

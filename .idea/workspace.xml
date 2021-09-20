@@ -6,13 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="eafe340c-d83a-4db1-9722-f789510b0eb5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alt_runner/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/alt_runner/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alt_runner/data_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/alt_runner/data_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alt_runner/srv.py" beforeDir="false" afterPath="$PROJECT_DIR$/alt_runner/srv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pr_scripts/pure_ws.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pr_scripts/pure_ws.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/clickable.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/scripts/clickable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/switch_logic.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/scripts/switch_logic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/routes/comm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/routes/comm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/api_handler.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/comm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/scripts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/views/home.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/views/home.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.pip.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.pip.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src_py/project/adapters/main_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/adapters/main_adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src_py/project/devices/main_device.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/devices/main_device.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src_py/project/modules/main_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/modules/main_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src_py/project/utils/address_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/utils/address_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src_py/project/utils/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/utils/connection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,15 +33,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src_py/project/utils/connection.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src_py/project/utils/mappers.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/alt_runner/srv.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/alt_runner/data_manager.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src_py/project/utils/tools.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src_py/project/utils/connection.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src_py/project/utils/address_manager.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src_py/project/devices/main_device.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src_py/project/modules/enable_all.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/alt_runner/cli.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/alt_runner/srv.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src_py/project/utils/tools.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src_py/project/modules/enable_all.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1xH2dCYWBDRcAxQeJPnt8KoNQiK" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -226,7 +229,9 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/scada_demo$old_sim.coverage" NAME="old_sim Coverage Results" MODIFIED="1631865050920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simulator" />
     <SUITE FILE_PATH="coverage/scada_demo$oldsim.coverage" NAME="oldsim Coverage Results" MODIFIED="1631860666515" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simulator" />
+    <SUITE FILE_PATH="coverage/scada_demo$address_manager__1_.coverage" NAME="address_manager (1) Coverage Results" MODIFIED="1631883657613" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src_py/project/utils" />
     <SUITE FILE_PATH="coverage/scada_demo$address_manager.coverage" NAME="address_manager Coverage Results" MODIFIED="1631862955637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/src_py/project/utils" />
+    <SUITE FILE_PATH="coverage/scada_demo$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1631878808439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test_pytest" />
     <SUITE FILE_PATH="coverage/scada_demo$main.coverage" NAME="main Coverage Results" MODIFIED="1631862784103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/simulator" />
   </component>
 </project>

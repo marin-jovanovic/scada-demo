@@ -88,7 +88,7 @@ function minimize() {
     current_selected = clickable.OTHER;
     current_id = -1;
 
-    //   zoom in image
+    //   zoom out image
     let img_svg = document.querySelector("div.grid:nth-child(1) > div:nth-child(2) > svg:nth-child(1)");
 
     img_svg.style.height = '100%'
@@ -98,7 +98,7 @@ function minimize() {
     img_svg.style.left = "00%";
     img_svg.style.right = "50%";
 
-    // remove zoom button
+    // add zoom button
 
     let max_img = document.querySelector("#maximize");
     max_img.style.display = "block";

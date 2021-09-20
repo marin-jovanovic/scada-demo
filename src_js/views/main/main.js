@@ -2,12 +2,15 @@ import 'main/index.scss';
 
 export {vt}
 
-function changeState() {
+console.log("Hello, World!");
 
-    let t = r.get('remote', 'adapter', '30;0')
+function changeState(i) {
+
+    let t = r.get('remote', 'adapter', '30;' + i);
     console.log('13 0', t)
+    console.log(1 - t, typeof(1 - t));
 
-    hat.conn.send('feedback_loop_adapter', {asdu: 30, value: 5, io: 0});
+    hat.conn.send('feedback_loop_adapter', {asdu: 30, value: 1 - t, io: 0});
 
 }
 
@@ -25,53 +28,6 @@ function vt() {
             },
             'change 30;0'
         ],
-
-        ['div', "0;0 -> ", `${r.get('remote', '0;0')}`],
-        ['div', "0;1 -> ", `${r.get('remote', '0;1')}`],
-        ['div', "1;0 -> ", `${r.get('remote', '1;0')}`],
-        ['div', "1;1 -> ", `${r.get('remote', '1;1')}`],
-        ['div', "2;0 -> ", `${r.get('remote', '2;0')}`],
-        ['div', "2;1 -> ", `${r.get('remote', '2;1')}`],
-        ['div', "3;0 -> ", `${r.get('remote', '3;0')}`],
-        ['div', "3;1 -> ", `${r.get('remote', '3;1')}`],
-        ['div', "4;0 -> ", `${r.get('remote', '4;0')}`],
-        ['div', "4;1 -> ", `${r.get('remote', '4;1')}`],
-        ['div', "5;0 -> ", `${r.get('remote', '5;0')}`],
-        ['div', "5;1 -> ", `${r.get('remote', '5;1')}`],
-        ['div', "6;0 -> ", `${r.get('remote', '6;0')}`],
-        ['div', "6;1 -> ", `${r.get('remote', '6;1')}`],
-
-        ['div', "10;0 -> ", `${r.get('remote', '10;0')}`],
-        ['div', "10;1 -> ", `${r.get('remote', '10;1')}`],
-        ['div', "10;2 -> ", `${r.get('remote', '10;2')}`],
-        ['div', "10;3 -> ", `${r.get('remote', '10;3')}`],
-        ['div', "11;0 -> ", `${r.get('remote', '11;0')}`],
-        ['div', "11;1 -> ", `${r.get('remote', '11;1')}`],
-        ['div', "11;2 -> ", `${r.get('remote', '11;2')}`],
-        ['div', "11;3 -> ", `${r.get('remote', '11;3')}`],
-        ['div', "12;0 -> ", `${r.get('remote', '12;0')}`],
-        ['div', "12;1 -> ", `${r.get('remote', '12;1')}`],
-        ['div', "12;2 -> ", `${r.get('remote', '12;2')}`],
-        ['div', "12;3 -> ", `${r.get('remote', '12;3')}`],
-        ['div', "13;0 -> ", `${r.get('remote', '13;0')}`],
-        ['div', "13;1 -> ", `${r.get('remote', '13;1')}`],
-        ['div', "13;2 -> ", `${r.get('remote', '13;2')}`],
-        ['div', "13;3 -> ", `${r.get('remote', '13;3')}`],
-
-        ['div', "20;0 -> ", `${r.get('remote', '20;0')}`],
-        ['div', "20;1 -> ", `${r.get('remote', '20;1')}`],
-        ['div', "20;2 -> ", `${r.get('remote', '20;2')}`],
-        ['div', "20;3 -> ", `${r.get('remote', '20;3')}`],
-        ['div', "20;4 -> ", `${r.get('remote', '20;4')}`],
-
-        ['div', "30;0 -> ", `${r.get('remote', '30;0')}`],
-        ['div', "31;0 -> ", `${r.get('remote', '31;0')}`],
-        ['div', "32;0 -> ", `${r.get('remote', '32;0')}`],
-        ['div', "33;0 -> ", `${r.get('remote', '33;0')}`],
-        ['div', "34;0 -> ", `${r.get('remote', '34;0')}`],
-        ['div', "35;0 -> ", `${r.get('remote', '35;0')}`],
-        ['div', "36;0 -> ", `${r.get('remote', '36;0')}`],
-        ['div', "37;0 -> ", `${r.get('remote', '37;0')}`],
 
         ['br'],
         ['hr'],

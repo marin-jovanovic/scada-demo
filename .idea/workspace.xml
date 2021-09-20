@@ -6,16 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="eafe340c-d83a-4db1-9722-f789510b0eb5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/api_handler.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/comm.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/scripts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/scripts/tab_name_changer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/scripts/tab_name_changer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/views/home.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/views/home.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.pip.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.pip.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src_py/project/adapters/main_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/adapters/main_adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playground/run/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/playground/run/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src_js/views/main/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src_js/views/main/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src_py/project/devices/main_device.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/devices/main_device.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src_py/project/modules/main_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/modules/main_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src_py/project/utils/address_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/utils/address_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src_py/project/utils/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/src_py/project/utils/connection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

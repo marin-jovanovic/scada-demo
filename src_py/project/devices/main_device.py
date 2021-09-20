@@ -89,13 +89,6 @@ class Device(hat.gateway.common.Device):
                 myfile.write(str(("init---", type_name, value)))
                 myfile.write("\n")
 
-            # breakpoint()
-
-            # with open("log.txt", "a") as myfile:
-            #     myfile.write(str(["ini", type_name, value]))
-            #     myfile.write("\n")
-            #     print(type_name, value)
-
             await self.register(type_name, value)
 
     async def register(self, type_name, value):
@@ -125,15 +118,20 @@ class Device(hat.gateway.common.Device):
 
             for e in events:
                 switch_asdu = e.payload.data["asdu"]
-                switch_val = e.payload.data["io"]
-                command = hat.drivers.iec104.Command(
-                    hat.drivers.iec104.Action.EXECUTE,
-                    hat.drivers.iec104.SingleValue.OFF if switch_val == "1"
-                    else hat.drivers.iec104.SingleValue.ON,
-                    switch_asdu,
-                    0,
-                    None,
-                    1
+                switch_val = e.payload.data["value"]
+
+                print("type", type(switch_val), switch_val)
+
+                val = hat.drivers.iec104.SingleValue.OFF if switch_val == 0 \
+                    else hat.drivers.iec104.SingleValue.ON
+
+                command = iec104.Command(
+                    action=iec104.Action.EXECUTE,
+                    value=val,
+                    asdu_address=switch_asdu,
+                    io_address=0,
+                    time=None,
+                    qualifier=1,
                 )
 
                 print("command", command)

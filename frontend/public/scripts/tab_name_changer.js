@@ -3,9 +3,8 @@ function driver_tab_name_changer() {
 
     var titles =  [
         "SCADA", 
-        "temp 1",
-        "temp 2",
-        "temp 3"
+        "KONCAR",
+        "KET",
     ];
     var driver = null;
    

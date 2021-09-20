@@ -33,71 +33,75 @@ window.addEventListener('load', function () {
         
 });
 
+let zoom_status = "min";
+
 function maximize() {
+
+    if (zoom_status == "max") {
+        return;
+    } else {
+        zoom_status = "max";
+    }
+
     console.log("maximize");
 
+    // hide current measurings
     let main = document.querySelector("body > div > div > main > div > div.valsandg");
-
-//    main.innerHTML = "";
 
     main.innerHTML = "<br><div class=\"grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4\"></div><div class=\"tmp\"></div>";
 
     current_selected = clickable.OTHER;
     current_id = -1;
 
-
-    function setZoom(zoom,el) {
-      
-        transformOrigin = [0,0];
-          el = el || instance.getContainer();
-          var p = ["webkit", "moz", "ms", "o"],
-              s = "scale(" + zoom + ")",
-              oString = (transformOrigin[0] * 100) + "% " + (transformOrigin[1] * 100) + "%";
-  
-          for (var i = 0; i < p.length; i++) {
-              el.style[p[i] + "Transform"] = s;
-              el.style[p[i] + "TransformOrigin"] = oString;
-          }
-  
-          el.style["transform"] = s;
-          el.style["transformOrigin"] = oString;
-        
-    }
-  
-  //setZoom(5,document.getElementsByClassName('container')[0]);
-  
-  function showVal(a, elem){
-     var zoomScale = Number(a)/10;
-     setZoom(zoomScale,elem)
-    //  document.getElementsByClassName('container')[0])
-  }
-
+//   zoom in image
     let img_svg = document.querySelector("div.grid:nth-child(1) > div:nth-child(2) > svg:nth-child(1)");
-    // let img_svg = document.querySelector("div.grid:nth-child(1)");
 
-        img_svg.style.height = '125%'
+    img_svg.style.height = '125%'
     img_svg.style.width = '140%'
 
-    // showVal(11, img_svg)
     img_svg.style.position = "relative";
     img_svg.style.left = "-20%";
     img_svg.style.right = "50%";
 
-    // todo remove zoom button
+    // remove zoom button
 
-    // img_svg.style.height = '130%'
-    // img_svg.style.width = '130%'
+    let max_img = document.querySelector("#maximize");
+    max_img.style.display = "none";
 
-    // img_svg.setAttribute("-ms-transform", "scale(0.5, 0.5)");
-    // img_svg.setAttribute("-webkit-transform", "scale(0.5, 0.5)");
-    // img_svg.setAttribute("transform", "scale(0.5, 0.5)");
+}
 
+function minimize() {
 
-    // div {
-    //     -ms-transform: scale(0.5, 0.5); /* IE 9 */
-    //     -webkit-transform: scale(0.5, 0.5); /* Safari */
-    //     transform: scale(0.5, 0.5);
-    // }
+    if (zoom_status == "min") {
+        return;
+    } else {
+        zoom_status = "min";
+    }
+
+    console.log("minimize");
+
+    // hide current measurings
+    let main = document.querySelector("body > div > div > main > div > div.valsandg");
+
+    main.innerHTML = "<br><div class=\"grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4\"></div><div class=\"tmp\"></div>";
+
+    current_selected = clickable.OTHER;
+    current_id = -1;
+
+    //   zoom in image
+    let img_svg = document.querySelector("div.grid:nth-child(1) > div:nth-child(2) > svg:nth-child(1)");
+
+    img_svg.style.height = '100%'
+    img_svg.style.width = '100%'
+
+    img_svg.style.position = "relative";
+    img_svg.style.left = "00%";
+    img_svg.style.right = "50%";
+
+    // remove zoom button
+
+    let max_img = document.querySelector("#maximize");
+    max_img.style.display = "block";
 
 }
 

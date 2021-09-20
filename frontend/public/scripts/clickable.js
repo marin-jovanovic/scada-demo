@@ -13,6 +13,11 @@ const clickable = {
     LINE: "line",
 }
 
+
+function click_linker() {
+    minimize();
+}
+
 let current_selected = clickable.OTHER;
 let curr_number = NaN;
 
@@ -35,7 +40,10 @@ function pre(type) {
 }
 
 function line_clicked(line_id) {
+
     (async () => {
+
+        click_linker();
         let curr = clickable.LINE;
         curr_number = line_id;
         let mapper = {
@@ -53,6 +61,7 @@ function line_clicked(line_id) {
 
 function bus_clicked(bus_id) {
     (async () => {
+        click_linker();
         let curr = clickable.BUS;
         curr_number = bus_id;
         let mapper = {
@@ -67,6 +76,7 @@ function bus_clicked(bus_id) {
 
 function trafo_clicked() {
     (async () => {
+        click_linker();
         let curr = clickable.TRANSFROMATOR;
         curr_number = -1;
         let mapper = {

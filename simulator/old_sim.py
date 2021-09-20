@@ -25,9 +25,11 @@ async def async_main(conf):
     simulator._points = conf['points']
     simulator._spontaneity = conf['spontaneity']
 
+    address = iec104.Address(conf['address']['host'], conf['address']['port'])
+
     simulator._srv = await iec104.listen(
         connection_cb=simulator._connection_cb,
-        addr=iec104.Address(conf['address']['host'], conf['address']['port']),
+        addr=address,
         interrogate_cb=simulator._interrogate_cb,
         command_cb=simulator._command_cb)
     simulator._connections = set()
@@ -36,27 +38,39 @@ async def async_main(conf):
 
     simulator._async_group = aio.Group()
     simulator._executor = aio.create_executor()
-    print("be await")
+
     await simulator._executor(_ext_power_flow, simulator._net)
-    print("af await")
-    state = {}
+    print("simulator::_executor DONE")
+    simulator._state = {}
     for asdu in conf['points']:
         for io in conf['points'][asdu]:
             point_conf = conf['points'][asdu][io]
             table = getattr(simulator._net, point_conf['table'])
             series = table[point_conf['property']]
-            state = json.set_(state, [str(asdu), str(io)],
-                              Data(value=_104_value(series[point_conf['id']],
-                                                    point_conf['type']),
-                                   cause=iec104.Cause.INITIALIZED,
-                                   timestamp=time.time()))
-    simulator._state = state
 
-    # [print(i) for i in state.items()]
-    # breakpoint()
+            simulator.push_new_value_to_state(
+                asdu,
+                io,
+                _104_value(series[point_conf['id']], point_conf['type']),
+                iec104.Cause.INITIALIZED)
+
+
+    print("conf -> state DONE")
+    # state['0'] = {'0': Data(value=FloatingValue(value=6.7411152961887),
+    #             cause=<Cause.INITIALIZED: 4>, timestamp=1632142984.2038605),
+    #              '1': Data(value=FloatingValue(value=7.146882966888771),
+    #               cause=<Cause.INITIALIZED: 4>,
+    #             timestamp=1632142984.2039707)}
+    # state['0']['0'] ) = Data(value=FloatingValue(value=6.7411152961887),
+    #               cause=<Cause.INITIALIZED: 4>, timestamp=1632142984.2038605)
+
+    # for i in state.items():
+    #     print(i)
+    #     break
 
     simulator._change_queue = aio.Queue()
     simulator._power_flow_queue = aio.Queue()
+
     simulator._async_group.spawn(simulator._spontaneous_loop)
     simulator._async_group.spawn(simulator._notification_loop)
     simulator._async_group.spawn(simulator._power_flow_loop)
@@ -71,6 +85,7 @@ class Simulator(aio.Resource):
         return self._async_group
 
     async def _connection_cb(self, connection):
+        print("connection callback CALL")
         self._connections.add(connection)
         connection.async_group.spawn(
             aio.call_on_cancel,
@@ -80,7 +95,7 @@ class Simulator(aio.Resource):
             lambda: self._connections.remove(connection))
 
     async def _interrogate_cb(self, _, asdu):
-
+        print("interrogate callback CALL")
         data = self._data_from_state()
         if asdu == 0xFFFF:
             return data
@@ -88,6 +103,7 @@ class Simulator(aio.Resource):
                 for d in data if d.asdu_address == asdu]
 
     async def _command_cb(self, _, commands):
+        print("command callback CALL")
         for command in commands:
             if command.action != iec104.Action.EXECUTE:
                 mlog.warning('received action %s, only EXECUTE is supported',
@@ -102,18 +118,17 @@ class Simulator(aio.Resource):
                 value = command.value == iec104.SingleValue.ON
 
             series[conf['id']] = value
-            self._state = json.set_(
-                self._state, [str(command.asdu_address),
-                              str(command.io_address)],
-                Data(value=command.value,
-                     cause=iec104.Cause.REMOTE_COMMAND,
-                     timestamp=time.time()))
+
+            self.push_new_value_to_state(command.asdu_address,command.io_address,
+                                         command.value, iec104.Cause.REMOTE_COMMAND)
+
         self._change_queue.put_nowait(None)
         self._power_flow_queue.put_nowait(None)
         return True
 
     async def _spontaneous_loop(self):
         while True:
+            # print("sp_loop")
             await asyncio.sleep(random.gauss(self._spontaneity['mu'],
                                              self._spontaneity['sigma']))
 
@@ -123,21 +138,35 @@ class Simulator(aio.Resource):
             index = random.choice(index_pool)
             table = "gen"
             column = "p_mw"
-
             ref_value = getattr(_reference_net, table)[column][index]
+
+            # print(index, index_pool, ref_value,)
+            # -> 0 [0] 6.0
+
             getattr(self._net, table)[column] = max(
                 random.uniform(ref_value * 0.75, ref_value * 1.25), 0)
+
+            # print(getattr(self._net, table)[column])
+            # p_mw == something random
+
             self._change_queue.put_nowait(None)
             self._power_flow_queue.put_nowait(None)
 
     async def _power_flow_loop(self):
         while True:
+            print(self._state['0']['0'])
+            # print("pw loop")
             await self._power_flow_queue.get_until_empty()
             await self._executor(_ext_power_flow, self._net)
             for asdu in self._points:
                 for io in self._points[asdu]:
+
                     point_conf = self._points[asdu][io]
+                    # {'id': 0, 'property': 'p_mw', 'table': 'res_bus', 'type': 'float'}
+
                     table = getattr(self._net, point_conf['table'])
+                    # point_conf['table'] = 'res_bus'
+
                     series = table[point_conf['property']]
                     new_value = _104_value(series[point_conf['id']],
                                            point_conf['type'])
@@ -145,12 +174,21 @@ class Simulator(aio.Resource):
                     old_data = json.get(self._state, [str(asdu), str(io)])
                     if old_data:
                         old_value = old_data.value
-                    if old_value != new_value:
-                        self._state = json.set_(
-                            self._state, [str(asdu), str(io)], Data(
-                                value=new_value,
-                                cause=iec104.Cause.SPONTANEOUS,
-                                timestamp=time.time()))
+                    else:
+                        # fixme never triggers
+                        breakpoint()
+                    # new_value = 5
+                    self.push_new_value_to_state(asdu, io, new_value,iec104.Cause.SPONTANEOUS)
+
+    def push_new_value_to_state(self, asdu, io, value,cause):
+        self._state = json.set_(
+            self._state, [str(asdu), str(io)], Data(
+                value=value,
+                cause=iec104.Cause.SPONTANEOUS,
+                timestamp=time.time()))
+
+
+
 
     def _data_from_state(self):
 
@@ -163,6 +201,7 @@ class Simulator(aio.Resource):
         self._send(data)
         previous = set(data)
         while True:
+            # print("nf loop")
             await self._change_queue.get()
             data = list(self._data_from_state())
             self._send([d for d in data if d not in previous])

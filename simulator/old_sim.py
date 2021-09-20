@@ -16,12 +16,40 @@ from hat.drivers import iec104
 
 
 mlog = logging.getLogger('simulator')
-_reference_net = pandapower.networks.example_simple()
+# _reference_net = pandapower.networks.example_simple()
 default_conf_path = 'conf.yaml'
+
+
+class PandaPowerExample:
+    # example of a simple network
+    def __init__(self):
+        self.reference_net = pandapower.networks.example_simple()
+        self.net = pandapower.networks.example_simple()
+
+    def get_ref_value(self, table, column, index):
+        """
+
+        Args:
+            table: element of the network
+            column: specific value that that element has
+            index: which element of type 'table'
+
+        """
+        return getattr(self.reference_net, table)[column][index]
+
+    def get_value(self, table, column, index):
+        return getattr(self.net, table)[column][index]
+
+    def set_net_value_random(self,table,column,ref_value):
+        getattr(self.net, table)[column] = max(
+            random.uniform(ref_value * 0.75, ref_value * 1.25), 0)
+
 
 
 async def async_main(conf):
     simulator = Simulator()
+    simulator.pp = PandaPowerExample()
+
     simulator._points = conf['points']
     simulator._spontaneity = conf['spontaneity']
 
@@ -34,18 +62,18 @@ async def async_main(conf):
         command_cb=simulator._command_cb)
     simulator._connections = set()
 
-    simulator._net = pandapower.networks.example_simple()
+    # simulator._net = pandapower.networks.example_simple()
 
     simulator._async_group = aio.Group()
     simulator._executor = aio.create_executor()
 
-    await simulator._executor(_ext_power_flow, simulator._net)
+    await simulator._executor(_ext_power_flow, simulator.pp.net)
     print("simulator::_executor DONE")
     simulator._state = {}
     for asdu in conf['points']:
         for io in conf['points'][asdu]:
             point_conf = conf['points'][asdu][io]
-            table = getattr(simulator._net, point_conf['table'])
+            table = getattr(simulator.pp.net, point_conf['table'])
             series = table[point_conf['property']]
 
             simulator.push_new_value_to_state(
@@ -110,7 +138,10 @@ class Simulator(aio.Resource):
                              command.action)
                 continue
             conf = self._points[command.asdu_address][command.io_address]
-            series = getattr(self._net, conf['table'])[conf['property']]
+
+            series = getattr(self.pp.net, conf['table'])[conf['property']]
+
+            # series = self.pp.get_value
 
             if conf['type'] == 'float':
                 value = command.value
@@ -127,24 +158,27 @@ class Simulator(aio.Resource):
         return True
 
     async def _spontaneous_loop(self):
+
         while True:
+
             # print("sp_loop")
             await asyncio.sleep(random.gauss(self._spontaneity['mu'],
                                              self._spontaneity['sigma']))
 
             index_pool = []
-            for index, _ in getattr(self._net, 'gen').iterrows():
+            for index, _ in getattr(self.pp.net, 'gen').iterrows():
                 index_pool.append(index)
             index = random.choice(index_pool)
             table = "gen"
             column = "p_mw"
-            ref_value = getattr(_reference_net, table)[column][index]
+
+            # ref_value = getattr(_reference_net, table)[column][index]
+            ref_value = self.pp.get_ref_value(table, column, index)
 
             # print(index, index_pool, ref_value,)
             # -> 0 [0] 6.0
 
-            getattr(self._net, table)[column] = max(
-                random.uniform(ref_value * 0.75, ref_value * 1.25), 0)
+            self.pp.set_net_value_random(table,column,ref_value)
 
             # print(getattr(self._net, table)[column])
             # p_mw == something random
@@ -157,14 +191,14 @@ class Simulator(aio.Resource):
             print(self._state['0']['0'])
             # print("pw loop")
             await self._power_flow_queue.get_until_empty()
-            await self._executor(_ext_power_flow, self._net)
+            await self._executor(_ext_power_flow, self.pp.net)
             for asdu in self._points:
                 for io in self._points[asdu]:
 
                     point_conf = self._points[asdu][io]
                     # {'id': 0, 'property': 'p_mw', 'table': 'res_bus', 'type': 'float'}
 
-                    table = getattr(self._net, point_conf['table'])
+                    table = getattr(self.pp.net, point_conf['table'])
                     # point_conf['table'] = 'res_bus'
 
                     series = table[point_conf['property']]
@@ -180,15 +214,12 @@ class Simulator(aio.Resource):
                     # new_value = 5
                     self.push_new_value_to_state(asdu, io, new_value,iec104.Cause.SPONTANEOUS)
 
-    def push_new_value_to_state(self, asdu, io, value,cause):
+    def push_new_value_to_state(self, asdu, io, value, cause):
         self._state = json.set_(
             self._state, [str(asdu), str(io)], Data(
                 value=value,
-                cause=iec104.Cause.SPONTANEOUS,
+                cause=cause,
                 timestamp=time.time()))
-
-
-
 
     def _data_from_state(self):
 

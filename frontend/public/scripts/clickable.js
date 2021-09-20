@@ -92,7 +92,7 @@ function trafo_clicked() {
     })();
 }
 
-async function draw_graph_driver() {
+async function draw_graph_driver(labels) {
     // for graph drawing, todo
     
     let main2 = document.querySelector("body > div > div > main > div > div > div.tmp");
@@ -100,7 +100,9 @@ async function draw_graph_driver() {
     let graph_template = document.querySelector('#chart-template');
     let graph = graph_template.content.cloneNode(true);        
     main2.appendChild(graph);
-    plot_graph();
+
+
+    plot_graph(labels);
 
 }
 
@@ -119,6 +121,8 @@ async function click_action_general(curr, mapper, num_id) {
 
     let categoryTemplate = document.querySelector('#card-template');
 
+    let v = [];
+
     for (const [key, value] of Object.entries(mapper)) {
     
         let category = categoryTemplate.content.cloneNode(true);
@@ -129,7 +133,10 @@ async function click_action_general(curr, mapper, num_id) {
         val.id = value;
         main.appendChild(category);
     
+        v.push(key);
     }
+
+    draw_graph_driver(mapper);
 
     reloader(curr, num_id, mapper);
 }
@@ -137,7 +144,7 @@ async function click_action_general(curr, mapper, num_id) {
 async function get_val(key) {
     let response = await fetch('http://localhost:3000/api-single/' + key);
     response = await response.json();
-    console.log("response", response);
+    // console.log("response", response);
     return response["value"];            
 }
 

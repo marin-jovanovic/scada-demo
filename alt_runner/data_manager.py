@@ -51,9 +51,6 @@ class DataManager:
     async def get_curr_data(self):
         raw_data = await self.connection.receive()
 
-        # raw_data = raw_data[0]
-        # print(raw_data)
-
         t = {}
 
         for i in raw_data:

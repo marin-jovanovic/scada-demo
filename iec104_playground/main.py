@@ -5,8 +5,6 @@ from hat.drivers import iec104
 
 
 async def async_main():
-    print("async main;")
-
     address = iec104.Address('127.0.0.1', 19999)
 
     connection = await iec104.connect(address)
@@ -25,28 +23,16 @@ async def async_main():
 
         result = await connection.receive()
 
-        # print(f"{result=}")
-
         result = result[0]
         print(f"{result=}")
 
         value = result.value.value
-
         asdu_address = result.asdu_address
-
         io_address = result.io_address
 
         print(f"{value=}")
         print(f"{asdu_address=}")
         print(f"{io_address=}")
-
-
-        # value = result[0].value.value
-        # print(f"{value=}")
-
-
-        print()
-        # input("press any key to continue")
 
     # await conn1.async_close()
 

@@ -106,5 +106,43 @@ async function click_action_general( mapper, num_id) {
     }
 
 
-    // reloader(curr, num_id, mapper);
+    reloader( mapper);
+}
+
+async function reloader(mapper) {
+    /**
+     * refresh values every second
+     */
+
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    let old_vals = {}
+
+    for (const [key, value] of Object.entries(mapper)) {
+        old_vals[key] = value;
+    }
+
+    while (true) {
+
+        for (const [key, value] of Object.entries(mapper)) {
+
+            let new_val = await get_val(value);
+
+            if (old_vals[key] != new_val) {
+                old_vals[key] = new_val;
+
+                document.getElementById(value).innerHTML = new_val;
+
+            }
+
+        }
+
+        await fetch('http://localhost:3000/refresh/');
+
+        // console.log("refreshing");
+
+        await delay(1000);
+    }
+
+    console.log("reloader done");
 }

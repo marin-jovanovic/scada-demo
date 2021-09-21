@@ -21,4 +21,20 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/vals', function(req, res, next) {
+
+    // console.log("new vals", eventManagerInstance.getVals());
+
+    console.log("fetching vals");
+    res.render('vals', {
+        title: 'Home',
+        linkActive: 'home',
+        // updates: eventManagerInstance.getVals(),
+    });
+
+
+    // res.reload();
+
+});
+
 module.exports = router;

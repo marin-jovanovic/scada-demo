@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>SCADA</title>
+       
+    <!-- css -->
+    <!-- 
+      todo 
+        change ids on svg to asdu io address
+        add view with asdu io and values
+        add button on top of the screeen
+        addd option for changig black and white theme 
+        button hover eff  
+        show on svg which vals are being displayed
+
+      done
+        check if switches are positioned correctly on load
+        delete previous clicked graph
+
+
+
+
+     -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/tailwind.output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+    />
+    <link rel="stylesheet" href="./css/svg_index.css" />
+    <link rel="stylesheet" href="./css/other.css" />
+
+    <!-- js -->
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+      defer
+    ></script>
+    <!-- <script src="./scripts/index.js"></script> -->
+    <script src="./scripts/tab_name_changer.js"></script>
+    <!-- <script src="./scripts/switch_logic.js"></script> -->
+    <script src="./scripts/clickable.js"></script>
+    <script src="./scripts/init-alpine.js"></script>
+    <script src="./scripts/charts-lines.js"></script>
+  
+    <link href="./custom_assets/favicon.ico" type="image/x-icon" rel="icon" />
+
+    <!--  -->
+    <script src="./scripts/vals_m.js"></script>
+ 
+
+  </head>
+  <body>
+
+    <div
+      class="flex h-screen bg-gray-50 dark:bg-gray-900"
+      :class="{ 'overflow-hidden': isSideMenuOpen }"
+      >
+      <div class="flex flex-col flex-1 w-full">
+        <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+          <div
+            class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"
+            >
+            <h2
+              class="
+              text-2xl
+              font-semibold
+              text-gray-700
+              dark:text-gray-200
+              "
+              > 
+              Končar KET
+            </h2>
+
+            <h2
+            class="
+            text-2xl
+            font-semibold
+            text-gray-700
+            dark:text-gray-200
+            "
+            id="show-all-button"
+            > 
+            <!-- Show all -->
+          </h2>
+            <li class="flex">
+              <button
+                class="rounded-md focus:outline-none focus:shadow-outline-purple"
+                @click="toggleTheme"
+                aria-label="Toggle color mode"
+                >
+                <template x-if="!dark">
+                  <svg
+                    class="w-5 h-5"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    >
+                    <path
+                      d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+                      ></path>
+                  </svg>
+                </template>
+                <template x-if="dark">
+                    <svg
+                    class="w-5 h-5"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    >
+                    <path 
+                      fill-rule="evenodd"
+                      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                      clip-rule="evenodd"
+                      ></path>
+                  </svg>
+                </template>
+              </button>
+            </li>
+            </ul>
+          </div>
+        </header>
+        <main class="h-full overflow-y-auto">
+
+          <!-- <div id="tmp1">
+            <div id="text">click me Text</div>
+          </div> -->
+
+
+          <div class="container px-6 mx-auto grid">
+            <div style="visibility: hidden;" class="success" id="success">Switch changed</div>
+            <div>
+          
+            </div>
+            <br>
+
+
+            <!-- values -->
+                 
+            <template id="card-template">
+              <div
+                class="
+                flex
+                items-center
+                p-4
+                bg-white
+                rounded-lg
+                shadow-xs
+                dark:bg-gray-800
+                "
+                >
+
+                <div></div>
+
+                <div>
+                  <p
+                    class="
+                    mb-2
+                    text-sm
+                    font-medium
+                    text-gray-600
+                    dark:text-gray-400
+                    "
+                    >
+                    ASDU address
+                  </p>
+                  <p
+                    class="
+                    text-lg
+                    font-semibold
+                    text-gray-700
+                    dark:text-gray-200
+                    "
+                    >
+                    13
+                  </p>
+                </div>
+              </div>
+            </template>
+            <div class="valsandg" style="visibility: hidden;">
+              <br>
+              <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+              </div>
+              <div class="tmp">
+              </div>
+            </div>
+            <br>
+            <template  class="chart-template" id="chart-template">
+                <!-- Charts -->
+                <h2
+                class="
+                my-6
+                text-2xl
+                font-semibold
+                text-gray-700
+                dark:text-gray-200
+                "
+                >
+                Charts
+              </h2>
+              <!-- <div class="grid gap-6 mb-8 md:grid-cols-2"> -->
+              <div>
+                <div
+                  class="
+                  min-w-0
+                  p-4
+                  bg-white
+                  rounded-lg
+                  shadow-xs
+                  dark:bg-gray-800
+                  "
+                  >
+                  <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+                    Last 20 seconds
+                  </h4>
+                  <canvas id="line"></canvas>
+                  <div
+                    class="
+                    flex
+                    justify-center
+                    mt-4
+                    space-x-3
+                    text-sm text-gray-600
+                    dark:text-gray-400
+                    "
+                    >
+                    <!-- Chart legend -->
+                    <div class="flex items-center">
+                      <span></span>
+                      <span></span>
+                      <!-- <span
+                        class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
+                        ></span>
+                      <span>Organic</span> -->
+                    </div>
+                    <div class="flex items-center">
+                      <span></span>
+                      <span></span>
+                      <!-- <span
+                        class="
+                        inline-block
+                        w-3
+                        h-3
+                        mr-1
+                        bg-purple-600
+                        rounded-full
+                        "
+                        ></span>
+                      <span>Paid</span> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <div id="overlay">
+            <div id="text">
+              <!-- Overlay Text -->
+            </div>
+          </div>
+
+          <div id="show-all-panel">
+            <!-- <div id="text">
+            </div> -->
+          </div>
+
+
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

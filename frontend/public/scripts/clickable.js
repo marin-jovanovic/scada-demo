@@ -235,6 +235,17 @@ function off() {
     do_i_need_to_reload_graph = false;
 }
 
+function show_all_on() {
+    console.log("show all on");
+
+    document.getElementById("show-all-panel").style.display = "block";
+}
+
+function show_all_off() {
+    console.log("show all of");
+    document.getElementById("show-all-panel").style.display = "none";
+}
+
 window.addEventListener('load', (event) => {
     document.getElementById("overlay").onclick = function() {
         off();
@@ -250,6 +261,14 @@ window.addEventListener('load', (event) => {
         // console.log("mouse out");
 
         graph_is_mouse_in = false;
+    };
+
+    document.getElementById("show-all-button").onclick = function() {
+        // show_all_on();
+        // function openInNewTab(url) {
+            window.open("http://localhost:3000/vals", '_blank').focus();
+        //    }
+
     };
 
 

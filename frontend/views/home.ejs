@@ -15,11 +15,11 @@
         add button on top of the screeen
         addd option for changig black and white theme 
         button hover eff  
-        delete previous clicked graph
         show on svg which vals are being displayed
 
       done
         check if switches are positioned correctly on load
+        delete previous clicked graph
 
 
 
@@ -77,6 +77,18 @@
               > 
               Končar KET
             </h2>
+
+            <h2
+            class="
+            text-2xl
+            font-semibold
+            text-gray-700
+            dark:text-gray-200
+            "
+            id="show-all-button"
+            > 
+            Show all
+          </h2>
             <li class="flex">
               <button
                 class="rounded-md focus:outline-none focus:shadow-outline-purple"
@@ -1151,7 +1163,7 @@
                               word-wrap: normal;
                               "
                               >
-                              0
+                              10
                             </div>
                           </div>
                         </div>
@@ -1165,7 +1177,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        0
+                        10
                       </text>
                     </switch>
                   </g>
@@ -1209,7 +1221,7 @@
                               word-wrap: normal;
                               "
                               >
-                              1
+                              11
                             </div>
                           </div>
                         </div>
@@ -1223,7 +1235,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        1
+                        11
                       </text>
                     </switch>
                   </g>
@@ -1267,7 +1279,7 @@
                               word-wrap: normal;
                               "
                               >
-                              3
+                              13
                             </div>
                           </div>
                         </div>
@@ -1281,7 +1293,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        3
+                        13
                       </text>
                     </switch>
                   </g>
@@ -1325,7 +1337,7 @@
                               word-wrap: normal;
                               "
                               >
-                              2
+                              12
                             </div>
                           </div>
                         </div>
@@ -1339,7 +1351,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        2
+                        12
                       </text>
                     </switch>
                   </g>
@@ -1383,7 +1395,7 @@
                               word-wrap: normal;
                               "
                               >
-                              0
+                              30
                             </div>
                           </div>
                         </div>
@@ -1397,7 +1409,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        0
+                        30
                       </text>
                     </switch>
                   </g>
@@ -1441,7 +1453,7 @@
                               word-wrap: normal;
                               "
                               >
-                              1
+                              31
                             </div>
                           </div>
                         </div>
@@ -1455,7 +1467,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        1
+                        31
                       </text>
                     </switch>
                   </g>
@@ -1513,7 +1525,7 @@
                               word-wrap: normal;
                               "
                               >
-                              2
+                              32
                             </div>
                           </div>
                         </div>
@@ -1527,7 +1539,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        2
+                        32
                       </text>
                     </switch>
                   </g>
@@ -1585,7 +1597,7 @@
                               word-wrap: normal;
                               "
                               >
-                              3
+                              33
                             </div>
                           </div>
                         </div>
@@ -1599,7 +1611,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        3
+                        33
                       </text>
                     </switch>
                   </g>
@@ -1657,7 +1669,7 @@
                               word-wrap: normal;
                               "
                               >
-                              4
+                              34
                             </div>
                           </div>
                         </div>
@@ -1671,7 +1683,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        4
+                        34
                       </text>
                     </switch>
                   </g>
@@ -1729,7 +1741,7 @@
                               word-wrap: normal;
                               "
                               >
-                              5
+                              35
                             </div>
                           </div>
                         </div>
@@ -1743,7 +1755,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        5 
+                        35 
                       </text>
                     </switch>
                   </g>
@@ -1801,7 +1813,7 @@
                               word-wrap: normal;
                               "
                               >
-                              6
+                              36
                             </div>
                           </div>
                         </div>
@@ -1815,7 +1827,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        6
+                        36
                       </text>
                     </switch>
                   </g>
@@ -1873,7 +1885,7 @@
                               word-wrap: normal;
                               "
                               >
-                              7
+                              37
                             </div>
                           </div>
                         </div>
@@ -1887,7 +1899,7 @@
                         font-size="12px"
                         text-anchor="middle"
                         >
-                        7
+                        37
                       </text>
                     </switch>
                   </g>
@@ -2414,7 +2426,7 @@
                   "
                   >
                   <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-                    Traffic
+                    Last 20 seconds
                   </h4>
                   <canvas id="line"></canvas>
                   <div
@@ -2429,13 +2441,17 @@
                     >
                     <!-- Chart legend -->
                     <div class="flex items-center">
-                      <span
+                      <span></span>
+                      <span></span>
+                      <!-- <span
                         class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
                         ></span>
-                      <span>Organic</span>
+                      <span>Organic</span> -->
                     </div>
                     <div class="flex items-center">
-                      <span
+                      <span></span>
+                      <span></span>
+                      <!-- <span
                         class="
                         inline-block
                         w-3
@@ -2445,7 +2461,7 @@
                         rounded-full
                         "
                         ></span>
-                      <span>Paid</span>
+                      <span>Paid</span> -->
                     </div>
                   </div>
                 </div>
@@ -2454,8 +2470,16 @@
           </div>
 
           <div id="overlay">
-            <div id="text">Overlay Text</div>
+            <div id="text">
+              <!-- Overlay Text -->
+            </div>
           </div>
+
+          <div id="show-all-panel">
+            <!-- <div id="text">
+            </div> -->
+          </div>
+
 
         </main>
       </div>

@@ -58,19 +58,17 @@ function plot_graph(labels_type) {
       // Will display time in 10:30:23 format
       var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
-      console.log(formattedTime);
+      // console.log(formattedTime);
     
       return [hours, minutes.substr(-2), seconds.substr(-2)];
     }
 
-    console.log("curr time", current_timestamp)
-    // timestamp_to_sth_readable(current_timestamp);
-
     let curr_offset = 0;
+
+    let t_d = {};
 
     data.forEach(element => {
       let raw = element.split(";");
-      console.log(raw);
 
       let that_time = Number(raw[1]);
 
@@ -86,25 +84,33 @@ function plot_graph(labels_type) {
       if (h_diff == 0 && m_diff == 0) {
         console.log("smae all dunno secS  ")
 
-        
+        t_d[s_diff] = raw[0];
 
-        // while (s_diff != curr_offset) {
-        //   curr_offset++;
-        //   t.push(-1);
-        // }
-        t.push(raw[0]);
-
+        if (s_diff > 20) {
+          console.log("more than 20s");
+          // continue;
+        }
 
       }
 
-
+      t.push(raw[0]);
 
     });
 
-    // for (const [key, value] of Object.entries(data)) {
-      
+    console.log(t_d);
 
-    // }
+    let prev;
+    let fol;
+
+    for (let i = 0; i < 21; i++) {
+      if (! (i in t_d)) {
+        t_d[i] = 0;
+      } 
+    }
+
+    for (const [key, value] of Object.entries(t_d)) {
+      console.log(key, "->", value)
+    }
 
     payload.push(
       {

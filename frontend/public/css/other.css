@@ -1,0 +1,38 @@
+#overlay {
+    position: fixed;
+    display: none;
+    width: 70%;
+    height: 70%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: rgba(0,0,0,0.5); */
+    /* z-index: 2; */
+    cursor: pointer;
+
+    position: absolute;
+    float: right;
+    right: 0;
+  
+    margin-left: auto;
+}
+
+/* #leftbox {
+    float:left; 
+    background:Red;
+    width:25%;
+    height:280px;
+}
+#middlebox{
+    float:left; 
+    background:Green;
+    width:50%;
+    height:280px;
+}
+#rightbox{
+    float:right;
+    background:blue;
+    width:25%;
+    height:280px;
+} */

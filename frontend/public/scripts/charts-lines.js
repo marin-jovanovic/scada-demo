@@ -3,17 +3,16 @@
  */
 
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 function plot_graph(labels_type) {
   (async () => {
 
   // console.log("labels", labels_type);
 
   let payload = [];
-
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
-
   let data;
   
   for (const [key, value] of Object.entries(labels_type)) {
@@ -26,33 +25,18 @@ function plot_graph(labels_type) {
     
     data = response["data"];
 
-    // console.log("repsones");
-    // console.log(data);
-
+    let t = [];
     data.forEach(element => {
-      console.log(element.date, element.value);
-    });
-
-    t = [];
-    data.forEach(element => {
-      // console.log(element.date, element.value);
-    
       t.push(element.value);
     });
-
-    
 
     payload.push(
       {
         label: key,
         backgroundColor: '#0694a2',
         borderColor: '#0694a2',
-
         data: t,
-        // data: [getRandomInt(52), getRandomInt(52), getRandomInt(55), getRandomInt(15)],
-
         fill: false,
-
       }
     );
 
@@ -130,6 +114,8 @@ function plot_graph(labels_type) {
     },
   }
 
+
+  
 
   // change this to the id of your chart element in HMTL
   const lineCtx = document.getElementById("line");

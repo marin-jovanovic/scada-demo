@@ -15,7 +15,12 @@ const clickable = {
 
 
 function click_linker() {
+    
     minimize();
+
+// open graph
+    open_graph();
+
 }
 
 let current_selected = clickable.OTHER;
@@ -95,14 +100,48 @@ function trafo_clicked() {
 async function draw_graph_driver(labels) {
     // for graph drawing, todo
     
-    let main2 = document.querySelector("body > div > div > main > div > div > div.tmp");
+
+    let t = document.querySelector("div.grid:nth-child(1)");
+    t.style.float = "left";
+    // t.style.background = "Red";
+    t.style.width = "50%";
+    t.style.height = "100%";
+
+    // float:left; 
+    // background:Red;
+    // width:25%;
+    // height:280px;
+
+
+
+    // let main2 = document.querySelector("body > div > div > main > div > div > div.tmp");
+    let main2 = document.getElementById("overlay");
     main2.innerHTML = "";
+    
     let graph_template = document.querySelector('#chart-template');
     let graph = graph_template.content.cloneNode(true);        
     main2.appendChild(graph);
 
-
     plot_graph(labels);
+
+    // main2.innerHTML = "";
+    //  graph_template = document.querySelector('#chart-template');
+    //   graph = graph_template.content.cloneNode(true);        
+    // main2.appendChild(graph);
+    // plot_graph(labels);
+
+    t = main2;
+    // let t = document.querySelector("div.grid:nth-child(1)");
+    t.style.float = "right";
+    // t.style.background = "blue";
+    t.style.width = "50%";
+    t.style.height = "100%";
+
+
+    // float:right;
+    // background:blue;
+    // width:25%;
+    // height:280px;
 
 }
 
@@ -169,7 +208,7 @@ async function reloader(currently_selected, curr_selected_number, mapper) {
             let new_val = await get_val(value);
 
             if (old_vals[key] != new_val) {
-                old_vals[key] = new_val
+                old_vals[key] = new_val;
 
                 document.getElementById(value).innerHTML = await get_val(value);
                 console.log("new val");
@@ -187,3 +226,38 @@ async function reloader(currently_selected, curr_selected_number, mapper) {
     console.log("reloader done");
 }
 
+function on() {
+    document.getElementById("overlay").style.display = "block";
+}
+  
+function off() {
+    document.getElementById("overlay").style.display = "none";
+
+    let main2 = document.getElementById("overlay");
+    main2.innerHTML = "";
+    
+
+    let t = document.querySelector("div.grid:nth-child(1)");
+    t.style.removeProperty("float");
+    t.style.removeProperty("width");
+    t.style.removeProperty("height");
+
+    // t.style.float = "left";
+    // // t.style.background = "Red";
+    // t.style.width = "100%";
+    // t.style.height = "100%";
+}
+
+window.addEventListener('load', (event) => {
+    document.getElementById("overlay").onclick = function() {
+        off();
+    };      
+
+    // document.getElementById("tmp1").onclick = function() {
+    //     on();
+    // };      
+});
+
+function open_graph() {
+    on();
+}

@@ -33,7 +33,13 @@ window.addEventListener('load', function () {
         
 });
 
+// logging for min/ max button
 let zoom_status = "min";
+
+/**
+ * for button that is on svg image to maximize svg image
+ *  * @returns 
+ */
 
 function maximize() {
 
@@ -70,6 +76,10 @@ function maximize() {
 
 }
 
+/**
+ * for button that is on svg image to minimize svg image when something is clicked
+ * @returns 
+ */
 function minimize() {
 
     if (zoom_status == "min") {

@@ -163,12 +163,13 @@ function fade(element) {
     var timer = setInterval(function () {
         if (op <= 0.1){
             clearInterval(timer);
-            element.style.display = 'none';
+            element.style.visibility = "hidden";
+            // element.style.display = 'none';
         }
         element.style.opacity = op;
         element.style.filter = 'alpha(opacity=' + op * 100 + ")";
         op -= op * 0.1;
-    }, 50);
+    }, 100);
 }
 
 function sw_clicked(switch_id) {
@@ -177,9 +178,11 @@ function sw_clicked(switch_id) {
 
     // show notification on screen
     document.querySelector("#success").style.visibility = "visible";
-    setTimeout(function () {
-        document.querySelector("#success").style.visibility = "hidden";
-    }, 2000);
+    fade(document.querySelector("#success"));
+
+    // setTimeout(function () {
+    //     document.querySelector("#success").style.visibility = "hidden";
+    // }, 2000);
 
     // update switch gui component
     let raw_string = element.getAttribute("d").split(" ");

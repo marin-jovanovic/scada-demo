@@ -17,15 +17,14 @@ import hat.drivers
 
 
 mlog = logging.getLogger('simulator')
-# _reference_net = pandapower.networks.example_simple()
-default_conf_path = 'conf.yaml'
+default_conf_path = '../conf.yaml'
 
 
 class PandaPowerExample:
     # example of a simple network
     def __init__(self):
-        self.reference_net = pandapower.networks.example_simple()
         self.net = pandapower.networks.example_simple()
+        self.reference_net = self.net
 
     def get_ref_value(self, table, column, index):
         """
@@ -36,7 +35,7 @@ class PandaPowerExample:
             index: which element of type 'table'
 
         """
-        return getattr(self.reference_net, table)[column][index]
+        return getattr(self.net, table)[column][index]
 
     def get_value(self, table, column, index):
         return getattr(self.net, table)[column][index]
@@ -172,7 +171,6 @@ class Simulator(aio.Resource):
         return True
 
     async def _spontaneous_loop(self):
-
         while True:
             # print("sp_loop")
             await asyncio.sleep(random.gauss(self._spontaneity['mu'],
@@ -191,12 +189,9 @@ class Simulator(aio.Resource):
             self._change_queue.put_nowait(None)
             self._power_flow_queue.put_nowait(None)
 
-    async def _power_flow_loop(self):
-        while True:
-            print(self._state['30'])
-            # print("pw loop")
-            await self._power_flow_queue.get_until_empty()
-            await self._executor(_ext_power_flow, self.pp.net)
+            ########################## power_loop
+            _ext_power_flow(self.pp.net)
+
             for asdu in self._points:
                 for io in self._points[asdu]:
 
@@ -227,6 +222,12 @@ class Simulator(aio.Resource):
                         self.push_new_value_to_state(asdu, io,
                                                      new_value,
                                                      iec104.Cause.SPONTANEOUS)
+
+    async def _power_flow_loop(self):
+        return
+        # while True:
+        #     # print([v for v in self._state['10']['0']])
+        #     await self._power_flow_queue.get_until_empty()
 
     def push_new_value_to_state(self, asdu, io, value, cause):
         self._state = json.set_(

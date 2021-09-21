@@ -9,10 +9,11 @@ import random
 import sys
 import time
 import typing
-
+import math
 from hat import aio
 from hat import json
 from hat.drivers import iec104
+import hat.drivers
 
 
 mlog = logging.getLogger('simulator')
@@ -40,10 +41,13 @@ class PandaPowerExample:
     def get_value(self, table, column, index):
         return getattr(self.net, table)[column][index]
 
-    def set_net_value_random(self,table,column,ref_value):
+    def set_net_value_random(self, table, column, ref_value):
         getattr(self.net, table)[column] = max(
             random.uniform(ref_value * 0.75, ref_value * 1.25), 0)
 
+
+def _ext_power_flow(net):
+    pandapower.runpp(net)
 
 
 async def async_main(conf):
@@ -106,6 +110,14 @@ async def async_main(conf):
     await simulator.wait_closed()
 
 
+def check_difference(value_type, value_old, value_new):
+    if value_type == hat.drivers.iec104.common.FloatingValue:
+        return math.isclose(value_old.value, value_new.value, rel_tol=1e-5)
+    elif value_type == hat.drivers.iec104.common.SingleValue:
+        return value_old.value == value_new.value
+    raise TypeError
+
+
 class Simulator(aio.Resource):
 
     @property
@@ -150,8 +162,10 @@ class Simulator(aio.Resource):
 
             series[conf['id']] = value
 
-            self.push_new_value_to_state(command.asdu_address,command.io_address,
-                                         command.value, iec104.Cause.REMOTE_COMMAND)
+            self.push_new_value_to_state(command.asdu_address,
+                                         command.io_address,
+                                         command.value,
+                                         iec104.Cause.REMOTE_COMMAND)
 
         self._change_queue.put_nowait(None)
         self._power_flow_queue.put_nowait(None)
@@ -160,35 +174,26 @@ class Simulator(aio.Resource):
     async def _spontaneous_loop(self):
 
         while True:
-
             # print("sp_loop")
             await asyncio.sleep(random.gauss(self._spontaneity['mu'],
                                              self._spontaneity['sigma']))
 
             index_pool = []
-            for index, _ in getattr(self.pp.net, 'gen').iterrows():
+            for index, _ in self.pp.net['gen'].iterrows():
                 index_pool.append(index)
+
             index = random.choice(index_pool)
-            table = "gen"
-            column = "p_mw"
+            data_point = ("gen", "p_mw")
 
-            # ref_value = getattr(_reference_net, table)[column][index]
-            ref_value = self.pp.get_ref_value(table, column, index)
-
-            # print(index, index_pool, ref_value,)
-            # -> 0 [0] 6.0
-
-            self.pp.set_net_value_random(table,column,ref_value)
-
-            # print(getattr(self._net, table)[column])
-            # p_mw == something random
+            ref_value = self.pp.get_ref_value(*data_point, index)
+            self.pp.set_net_value_random(*data_point, ref_value)
 
             self._change_queue.put_nowait(None)
             self._power_flow_queue.put_nowait(None)
 
     async def _power_flow_loop(self):
         while True:
-            print(self._state['0']['0'])
+            print(self._state['30'])
             # print("pw loop")
             await self._power_flow_queue.get_until_empty()
             await self._executor(_ext_power_flow, self.pp.net)
@@ -196,23 +201,32 @@ class Simulator(aio.Resource):
                 for io in self._points[asdu]:
 
                     point_conf = self._points[asdu][io]
-                    # {'id': 0, 'property': 'p_mw', 'table': 'res_bus', 'type': 'float'}
+                    # { 'id': 0,
+                    #   'property': 'p_mw',
+                    #   'table': 'res_bus',
+                    #   'type': 'float'
+                    # }
 
-                    table = getattr(self.pp.net, point_conf['table'])
-                    # point_conf['table'] = 'res_bus'
+                    table = self.pp.net[point_conf['table']]
+                    #                      'res_bus'
 
                     series = table[point_conf['property']]
+                    #                       'p_mw'
+
                     new_value = _104_value(series[point_conf['id']],
                                            point_conf['type'])
-                    old_value = None
+                    #                   point_conf['id'] = 0
+                    # breakpoint()
+
                     old_data = json.get(self._state, [str(asdu), str(io)])
-                    if old_data:
-                        old_value = old_data.value
-                    else:
-                        # fixme never triggers
-                        breakpoint()
-                    # new_value = 5
-                    self.push_new_value_to_state(asdu, io, new_value,iec104.Cause.SPONTANEOUS)
+                    old_value = old_data.value
+                    if not check_difference(
+                            type(old_value),
+                            old_value,
+                            new_value):
+                        self.push_new_value_to_state(asdu, io,
+                                                     new_value,
+                                                     iec104.Cause.SPONTANEOUS)
 
     def push_new_value_to_state(self, asdu, io, value, cause):
         self._state = json.set_(
@@ -222,7 +236,6 @@ class Simulator(aio.Resource):
                 timestamp=time.time()))
 
     def _data_from_state(self):
-
         for asdu_str, substate in self._state.items():
             for io_str, data in substate.items():
                 yield _104_data(data, int(asdu_str), int(io_str))
@@ -267,10 +280,6 @@ def _104_value(value, type_104):
     if type_104 == 'single':
         return iec104.SingleValue.ON if value else iec104.SingleValue.OFF
     raise ValueError(f'{type_104}')
-
-
-def _ext_power_flow(net):
-    pandapower.runpp(net)
 
 
 @click.command()

@@ -156,7 +156,7 @@ async function click_action_general(curr, mapper, num_id) {
         let title = category.querySelector("div > div:nth-child(2) > p.mb-2.text-sm.font-medium.text-gray-600.dark\\:text-gray-400")
         title.textContent = key;
         let val = category.querySelector("div > div:nth-child(2) > p.text-lg.font-semibold.text-gray-700.dark\\:text-gray-200")
-        val.textContent = await get_val(value);
+        val.textContent = parseFloat(await get_val(value)).toFixed(5);
         val.id = value;
         main.appendChild(category);
 
@@ -170,7 +170,6 @@ async function click_action_general(curr, mapper, num_id) {
 async function get_val(key) {
     let response = await fetch('http://localhost:3000/api-single/' + key);
     response = await response.json();
-    // console.log("response", response);
     return response["value"];
 }
 
@@ -179,7 +178,6 @@ async function reloader(currently_selected, curr_selected_number, mapper) {
      * refresh values every second
      */
 
-    // console.log("reloader called");
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
     let old_vals = {}
@@ -197,8 +195,8 @@ async function reloader(currently_selected, curr_selected_number, mapper) {
             if (old_vals[key] != new_val) {
                 old_vals[key] = new_val;
 
-                document.getElementById(value).innerHTML = await get_val(value);
-                // console.log("new val");
+                document.getElementById(value).innerHTML = parseFloat(new_val).toFixed(5);
+
             }
 
         }

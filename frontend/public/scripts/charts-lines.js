@@ -16,8 +16,31 @@ function timestamp_to_sth_readable(timestamp_time) {
   return [hours, minutes.substr(-2), seconds.substr(-2)];
 }
 
+let do_i_need_to_reload_graph = false;
+
+let current_graph;
+
+function graph_reloader() {
+  (async () => {
+
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    while (do_i_need_to_reload_graph) {
+
+      console.log("graph reloading, insert payload");
+
+      await delay(1000);
+    }
+
+    console.log("graph reloader done");
+
+  })();
+}
+
 function plot_graph(labels_type) {
   (async () => {
+
+    new Chart(document.getElementById("line"), {});
 
       let payload = [];
       let data;
@@ -34,17 +57,9 @@ function plot_graph(labels_type) {
         "#FFBF00",
         "#FF7F50",
         "#DE3163",
-        "#9FE2BF",
-        "#40E0D0",
-        "#6495ED",
-        "#CCCCFF"
       ]
 
       for (const [key, value] of Object.entries(labels_type)) {
-          console.log();
-          console.log();
-          console.log();
-
           let raw = value.split(";");
 
           let response = await fetch('http://localhost:3000/historical_vals/' + raw[0] + '/' + raw[1]);
@@ -56,7 +71,6 @@ function plot_graph(labels_type) {
 
           let max_interval_exceded = false;
 
-          console.log("prep data", data);
           /**
            * reverse because data is processed in chronological order
            */
@@ -80,7 +94,6 @@ function plot_graph(labels_type) {
 
                   if (s_diff > 20) {
 
-                    console.log("more than 20s passed, will not log after this");
                     max_interval_exceded = true;
 
                   } else {
@@ -94,22 +107,6 @@ function plot_graph(labels_type) {
               }
 
           });
-
-          /**
-           * key is time that tells how old this data is
-           * val
-           */
-          console.log("poor data", t_d);
-
-          let max_index = -1;
-
-          for (const [key, value] of Object.entries(t_d)) {
-              if (key > max_index) {
-                  max_index = key;
-              }
-          }
-
-          console.log("max index", max_index);
 
           /**
            * transform to right direction
@@ -142,36 +139,20 @@ function plot_graph(labels_type) {
                     }
                   }
 
-                  console.log("current", i);
                   if (! next_) {
-                    console.log("no next");
-                    next_ = prev;
 
                     t_d[i] = prev;
                   } else {
                     t_d[i] = (Number(prev) + Number(next_)) / 2;
                   }
-                  // console.log("match", prev, next_);
-                  // t_d[i] = 444;
                 }
-
-                  // for (let j = i; j < 21; j++) {
-
-                  // }
 
               } else {
-                if (! have_i_seen_first_val) {
-                  have_i_seen_first_val = true;
-                }
+                have_i_seen_first_val = true;
                 prev = t_d[i];
               }
 
           }
-
-          console.log("rich data", t_d);
-          // for (const [key, value] of Object.entries(t_d)) {
-          //   console.log(key, "->", value)
-          // }
 
           let t = [];
           for (const [key, value] of Object.entries(t_d)) {
@@ -237,7 +218,9 @@ function plot_graph(labels_type) {
       }
 
       const lineCtx = document.getElementById("line");
-      window.myLine = new Chart(lineCtx, lineConfig);
+      // window.myLine = new Chart(lineCtx, lineConfig);
+
+      new Chart(lineCtx, lineConfig);
 
   })();
 }

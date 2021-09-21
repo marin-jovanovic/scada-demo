@@ -66,6 +66,7 @@ function plot_graph(labels_type) {
     console.log("curr time", current_timestamp)
     // timestamp_to_sth_readable(current_timestamp);
 
+    let curr_offset = 0;
 
     data.forEach(element => {
       let raw = element.split(";");
@@ -73,9 +74,6 @@ function plot_graph(labels_type) {
 
       let that_time = Number(raw[1]);
 
-      // let curr_diff_time = Math.abs(current_timestamp - new Date(raw[1]).getTime());
-      // console.log("curr diff time", curr_diff_time);
-      // console.log("prettyp ritn");
       let f = timestamp_to_sth_readable(current_timestamp);
       let s = timestamp_to_sth_readable(that_time);
 
@@ -86,13 +84,21 @@ function plot_graph(labels_type) {
       console.log("diff", h_diff, m_diff, s_diff);
       
       if (h_diff == 0 && m_diff == 0) {
-        console.log("smae all dunno secS")
-      }
-      // console.log("diff", curr_diff_time);  
-      // timestamp_to_sth_readable(curr_diff_time)
+        console.log("smae all dunno secS  ")
 
-      t.push(raw[0]);      
-      // t.push(element.value);
+        
+
+        // while (s_diff != curr_offset) {
+        //   curr_offset++;
+        //   t.push(-1);
+        // }
+        t.push(raw[0]);
+
+
+      }
+
+
+
     });
 
     // for (const [key, value] of Object.entries(data)) {

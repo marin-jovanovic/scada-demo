@@ -1,26 +1,17 @@
 /**
  * For usage, visit Chart.js docs https://www.chartjs.org/docs/latest/
  */
- function getRandomInt(max) {
+
+function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
 function timestamp_to_sth_readable(timestamp_time) {
-  // let unix_timestamp = 1549312452 1632216484479
   let unix_timestamp = timestamp_time;
-  // Create a new JavaScript Date object based on the timestamp
-  // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-  // var date = new Date(unix_timestamp * 1000);
-  var date = new Date(unix_timestamp);
-  // Hours part from the timestamp
-  var hours = date.getHours();
-  // Minutes part from the timestamp
-  var minutes = "0" + date.getMinutes();
-  // Seconds part from the timestamp
-  var seconds = "0" + date.getSeconds();
-
-  // Will display time in 10:30:23 format
-  // var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+  let date = new Date(unix_timestamp);
+  let hours = date.getHours();
+  let minutes = "0" + date.getMinutes();
+  let seconds = "0" + date.getSeconds();
 
   return [hours, minutes.substr(-2), seconds.substr(-2)];
 }
@@ -61,49 +52,53 @@ function plot_graph(labels_type) {
 
           data = response["value"];
 
-          // let t = [];
-          let current_timestamp = new Date().getTime();
-
           let t_d = {};
 
           let max_interval_exceded = false;
 
           console.log("prep data", data);
+          /**
+           * reverse because data is processed in chronological order
+           */
           data.reverse().forEach(element => {
 
               if (!max_interval_exceded) {
-                  let raw = element.split(";");
+                let raw = element.split(";");
 
-                  let that_time = Number(raw[1]);
+                let that_time = Number(raw[1]);
 
-                  let f = timestamp_to_sth_readable(current_timestamp);
-                  let s = timestamp_to_sth_readable(that_time);
+                let current_timestamp = new Date().getTime();
+                let f = timestamp_to_sth_readable(current_timestamp);
+                let s = timestamp_to_sth_readable(that_time);
 
-                  let h_diff = f[0] - s[0];
-                  let m_diff = f[1] - s[1];
+                let h_diff = f[0] - s[0];
+                let m_diff = f[1] - s[1];
+
+                if (h_diff == 0 && m_diff == 0) {
+
                   let s_diff = f[2] - s[2];
 
-                  if (h_diff == 0 && m_diff == 0) {
+                  if (s_diff > 20) {
 
+                    console.log("more than 20s passed, will not log after this");
+                    max_interval_exceded = true;
 
-                      if (s_diff > 20) {
+                  } else {
 
-                          console.log("more than 20s passed, will not log after this");
-                          max_interval_exceded = true;
-
-                      } else {
-
-                          t_d[s_diff] = raw[0];
-
-                      }
+                    t_d[s_diff] = raw[0];
 
                   }
 
-                  // t.push(raw[0]);
+                }
+
               }
 
           });
 
+          /**
+           * key is time that tells how old this data is
+           * val
+           */
           console.log("poor data", t_d);
 
           let max_index = -1;
@@ -116,15 +111,59 @@ function plot_graph(labels_type) {
 
           console.log("max index", max_index);
 
+          /**
+           * transform to right direction
+           */
+          let new_t_d = {};
+          for (const [key, value] of Object.entries(t_d)) {
+            new_t_d[20 - key] = value;
+
+          }
+          t_d = new_t_d;
+
+          /**
+           * insert missing values
+           */
+          let have_i_seen_first_val = false;
+          let prev;
+
           for (let i = 0; i < 21; i++) {
 
               if (!(i in t_d)) {
+                if (! have_i_seen_first_val) {
                   t_d[i] = 0;
+                } else {
+                  let next_;
+
+                  for (let j = i; j < 21; j++) {
+                    if (j in t_d) {
+                      next_ = t_d[j];
+                      break;
+                    }
+                  }
+
+                  console.log("current", i);
+                  if (! next_) {
+                    console.log("no next");
+                    next_ = prev;
+
+                    t_d[i] = prev;
+                  } else {
+                    t_d[i] = (Number(prev) + Number(next_)) / 2;
+                  }
+                  // console.log("match", prev, next_);
+                  // t_d[i] = 444;
+                }
 
                   // for (let j = i; j < 21; j++) {
 
                   // }
 
+              } else {
+                if (! have_i_seen_first_val) {
+                  have_i_seen_first_val = true;
+                }
+                prev = t_d[i];
               }
 
           }
@@ -139,15 +178,11 @@ function plot_graph(labels_type) {
               t.push(value);
           }
 
-
-
           payload.push({
               label: key,
-              // backgroundColor: '#0694a2',
               backgroundColor: colors[colors_i],
-              // borderColor: '#0694a2',
               borderColor: colors[colors_i + 1],
-              data: t.reverse(),
+              data: t,
               fill: false,
           });
 

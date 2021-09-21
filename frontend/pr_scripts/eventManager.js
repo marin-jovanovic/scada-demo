@@ -22,9 +22,9 @@ module.exports = class EventManager {
 
     getHistoricalVals(asdu, io) {
 
-        console.log("getting")
+        // console.log("getting")
 
-        console.log(EventManager.historic_vals)
+        // console.log(EventManager.historic_vals)
 
         return EventManager.historic_vals[asdu + ";" + io];
     }
@@ -59,7 +59,7 @@ module.exports = class EventManager {
                 let date_ob = new Date();
                 let seconds = date_ob.getSeconds();
 
-                console.log("current seconds", seconds);
+                // console.log("current seconds", seconds);
 
                 // console.log("----------")
 

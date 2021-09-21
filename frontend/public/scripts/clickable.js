@@ -26,6 +26,9 @@ function click_linker() {
 let current_selected = clickable.OTHER;
 let curr_number = NaN;
 
+// is any graph showing on right part of the screen
+let is_any_graph_displayed = false;
+
 function pre(type) {
     if (current_selected == type) {
             console.log("already showing this")
@@ -98,23 +101,14 @@ function trafo_clicked() {
 }
 
 async function draw_graph_driver(labels) {
-    // for graph drawing, todo
-    
+
+    is_any_graph_displayed = true;
 
     let t = document.querySelector("div.grid:nth-child(1)");
     t.style.float = "left";
-    // t.style.background = "Red";
     t.style.width = "50%";
     t.style.height = "100%";
 
-    // float:left; 
-    // background:Red;
-    // width:25%;
-    // height:280px;
-
-
-
-    // let main2 = document.querySelector("body > div > div > main > div > div > div.tmp");
     let main2 = document.getElementById("overlay");
     main2.innerHTML = "";
     
@@ -124,28 +118,26 @@ async function draw_graph_driver(labels) {
 
     plot_graph(labels);
 
-    // main2.innerHTML = "";
-    //  graph_template = document.querySelector('#chart-template');
-    //   graph = graph_template.content.cloneNode(true);        
-    // main2.appendChild(graph);
-    // plot_graph(labels);
-
     t = main2;
-    // let t = document.querySelector("div.grid:nth-child(1)");
     t.style.float = "right";
-    // t.style.background = "blue";
     t.style.width = "50%";
     t.style.height = "100%";
-
-
-    // float:right;
-    // background:blue;
-    // width:25%;
-    // height:280px;
-
 }
 
 async function click_action_general(curr, mapper, num_id) {
+
+    if (! is_any_graph_displayed) {
+            draw_graph_driver(mapper);
+
+    } else if ( !(    current_selected == curr && curr_number == num_id)) {
+        
+        // draw_graph_driver(mapper);
+        plot_graph(mapper);
+
+    
+    } 
+
+        
 
     if (! pre(curr)) {
         return;
@@ -175,7 +167,6 @@ async function click_action_general(curr, mapper, num_id) {
         v.push(key);
     }
 
-    draw_graph_driver(mapper);
 
     reloader(curr, num_id, mapper);
 }
@@ -231,31 +222,24 @@ function on() {
 }
   
 function off() {
+    is_any_graph_displayed = false;
+
     document.getElementById("overlay").style.display = "none";
 
     let main2 = document.getElementById("overlay");
     main2.innerHTML = "";
     
-
     let t = document.querySelector("div.grid:nth-child(1)");
     t.style.removeProperty("float");
     t.style.removeProperty("width");
     t.style.removeProperty("height");
 
-    // t.style.float = "left";
-    // // t.style.background = "Red";
-    // t.style.width = "100%";
-    // t.style.height = "100%";
 }
 
 window.addEventListener('load', (event) => {
     document.getElementById("overlay").onclick = function() {
         off();
-    };      
-
-    // document.getElementById("tmp1").onclick = function() {
-    //     on();
-    // };      
+    };            
 });
 
 function open_graph() {

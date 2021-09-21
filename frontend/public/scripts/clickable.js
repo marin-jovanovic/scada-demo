@@ -28,8 +28,8 @@ let curr_number = NaN;
 // is any graph showing on right part of the screen
 let is_any_graph_displayed = false;
 
-function pre(type) {
-    if (current_selected == type) {
+function pre(type, num_id) {
+    if (current_selected == type ) {
         console.log("already showing this")
 
         let info_block = document.querySelector(".valsandg");
@@ -139,8 +139,8 @@ async function click_action_general(curr, mapper, num_id) {
 
     }
 
-    if (!pre(curr)) {
-        return;
+    if (!pre(curr, num_id)) {
+        // return;
     }
 
     let main = document.querySelector("body > div > div > main > div > div > div.grid.gap-6.mb-8.md\\:grid-cols-2.xl\\:grid-cols-4");

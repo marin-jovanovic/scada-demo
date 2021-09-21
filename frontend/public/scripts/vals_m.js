@@ -11,15 +11,6 @@ function line_clicked(line_id) {
 
     (async () => {
 
-        // let mapper = {
-        //     "Aktivna snaga na početku voda [MW]": "1" + String(line_id) + ";0",
-        //     "Jalova snaga na početku voda [MVar]": "1" + String(line_id) + ";1",
-        //     "Aktivna snaga na kraju voda [MW]": "1" + String(line_id) + ";2",
-        //     "Jalova snaga na kraju voda [MVar]": "1" + String(line_id) + ";3",
-        //     "Opterećenje [%]": "1" + String(line_id) + ";4",
-        // };
-
-
         let mapper = {
 
             "asdu:0, io:0": "0;0",

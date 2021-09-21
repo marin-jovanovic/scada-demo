@@ -62,7 +62,7 @@ function maximize() {
 //   zoom in image
     let img_svg = document.querySelector("div.grid:nth-child(1) > div:nth-child(2) > svg:nth-child(1)");
 
-    img_svg.style.height = '125%'
+    img_svg.style.height = '115%'
     img_svg.style.width = '140%'
 
     img_svg.style.position = "relative";

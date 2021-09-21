@@ -131,8 +131,9 @@ async function click_action_general(curr, mapper, num_id) {
 
     } else if (!(current_selected == curr && curr_number == num_id)) {
         
-        plot_graph(mapper);
-    
+        // plot_graph(mapper);
+        draw_graph_driver(mapper);
+
     }
 
     if (!pre(curr)) {

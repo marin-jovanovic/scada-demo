@@ -24,11 +24,6 @@ function plot_graph(labels_type) {
 
     console.log("actual data", response);
 
-    // todo add desc or asc
-    //  response = await fetch('http://localhost:8000/'+raw[0]+'/'+raw[1]+'/10');
-    // response = await response.json();
-    
-    // data = response["data"];
 
     data = response["value"];
 
@@ -68,6 +63,10 @@ function plot_graph(labels_type) {
     let t_d = {};
 
     data.forEach(element => {
+      console.log();
+      console.log();
+      console.log();
+      
       let raw = element.split(";");
 
       let that_time = Number(raw[1]);
@@ -99,17 +98,63 @@ function plot_graph(labels_type) {
 
     console.log(t_d);
 
-    let prev;
-    let fol;
+    let max_index = -1;
+
+    for (const [key, value] of Object.entries(t_d)) {
+      if (key > max_index) {
+        max_index = key;
+      }
+    }
+
+    console.log("max index", max_index);  
 
     for (let i = 0; i < 21; i++) {
-      if (! (i in t_d)) {
-        t_d[i] = 0;
-      } 
+      // const element = array[i];
+
+        if (! (i in t_d)) {
+          t_d[i] = 0;
+        }
+
     }
+
+
+    // let prev;
+    // let fol;
+
+    // for (let i = 0; i < 21; i++) {
+    //   if (! (i in t_d)) {
+    //     if (! prev) {
+    //       console.log("no prev", t_d)
+    //       for (let j = i; j < 21; j++) {
+    //         if (j in t_d) {
+    //           console.log("using", t_d[j]);
+    //           t_d[i] = t_d[j];
+              
+    //           prev = t_d[j];
+    //           break;
+    //         }
+    //       }
+    //     } else {
+    //       console.log("prev", t_d)
+    //       for (let j = i; j < 21; j++) {
+    //         if (j in t_d) {
+    //           console.log("using", t_d[j]);
+    //           t_d[i] = (prev + t_d[j]) / 2;
+    //           break;
+    //         }
+    //       }
+    //     }
+    //   } 
+    // }
 
     for (const [key, value] of Object.entries(t_d)) {
       console.log(key, "->", value)
+    }
+
+    t = [];
+    for (const [key, value] of Object.entries(t_d)) {
+      // console.log(key, "->", value)
+      t.push(value);
     }
 
     payload.push(
@@ -126,9 +171,10 @@ function plot_graph(labels_type) {
 
 
   let time_labels = [];
-  for (let i = 0; i < 21; i++) {
-    time_labels.push("-" + i);
+  for (let i = 1; i < 21; i++) {
+    time_labels.push("-" + (21 - i));
   }
+  time_labels.push("0")
 
   const lineConfig = {
     type: 'line',

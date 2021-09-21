@@ -49,6 +49,8 @@ function maximize() {
         zoom_status = "max";
     }
 
+    off();
+
     console.log("maximize");
 
     // hide current measurings

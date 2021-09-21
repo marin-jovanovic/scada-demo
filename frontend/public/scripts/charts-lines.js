@@ -17,19 +17,46 @@ function timestamp_to_sth_readable(timestamp_time) {
 }
 
 let do_i_need_to_reload_graph = false;
-
+let what_to_reload;
 let current_graph;
+let graph_is_mouse_in = false;
 
-function graph_reloader() {
+function graph_reloader(labels) {
   (async () => {
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
+    what_to_reload = labels;
+
     while (do_i_need_to_reload_graph) {
+      is_any_graph_displayed = true;
 
-      console.log("graph reloading, insert payload");
+      if (! graph_is_mouse_in) {
+        let t = document.querySelector("div.grid:nth-child(1)");
+        t.style.float = "left";
+        t.style.width = "50%";
+        t.style.height = "100%";
+    
+        let main2 = document.getElementById("overlay");
+        main2.innerHTML = "";
+    
+        let graph_template = document.querySelector('#chart-template');
+        let graph = graph_template.content.cloneNode(true);
+        main2.appendChild(graph);
+    
+        plot_graph(what_to_reload);
+    
+        t = main2;
+        t.style.float = "right";
+        t.style.width = "50%";
+        t.style.height = "100%";
+    
+        do_i_need_to_reload_graph = true;
+  
+  
+      }
 
-      await delay(1000);
+      await delay(9000);
     }
 
     console.log("graph reloader done");

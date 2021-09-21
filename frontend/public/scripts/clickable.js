@@ -121,6 +121,9 @@ async function draw_graph_driver(labels) {
     t.style.float = "right";
     t.style.width = "50%";
     t.style.height = "100%";
+
+    do_i_need_to_reload_graph = true;
+    graph_reloader(labels);
 }
 
 async function click_action_general(curr, mapper, num_id) {
@@ -229,12 +232,27 @@ function off() {
     t.style.removeProperty("width");
     t.style.removeProperty("height");
 
+    do_i_need_to_reload_graph = false;
 }
 
 window.addEventListener('load', (event) => {
     document.getElementById("overlay").onclick = function() {
         off();
     };
+
+    document.getElementById("overlay").onmouseenter = function() {
+        // console.log("mouse in");
+
+        graph_is_mouse_in = true;
+    };
+
+    document.getElementById("overlay").onmouseleave = function() {
+        // console.log("mouse out");
+
+        graph_is_mouse_in = false;
+    };
+
+
 });
 
 function open_graph() {

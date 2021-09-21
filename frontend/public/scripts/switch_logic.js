@@ -11,7 +11,32 @@
  
      switch_logic(num_of_switches);
      init_switch_states(num_of_switches);
- 
+
+    //  console.log("switch position", switch_positions);
+
+    // async function get_val(key) {
+    //     let response = await fetch('http://localhost:3000/api-single/' + key);
+    //     response = await response.json();
+    //     return response["value"];
+    // }
+    
+    (async () => {
+        for (let i = 0; i < 8; i++) {
+            let vals = await get_val("3"+i+";0" );
+
+            // console.log("vals", vals, i);
+                
+
+            if (vals == "OFF") {
+
+                sw_clicked_driver(i);
+            }
+        }
+
+
+    })();
+
+
  }
  
  function switch_logic(number_of_switches) {
@@ -170,24 +195,14 @@
      }, 100);
  }
  
- function sw_clicked(switch_id) {
- 
-     let element = document.querySelector("#switch-" + String(switch_id));
- 
-     // show notification on screen
-     document.querySelector("#success").style.visibility = "visible";
-     fade(document.querySelector("#success"));
- 
-     // setTimeout(function () {
-     //     document.querySelector("#success").style.visibility = "hidden";
-     // }, 2000);
- 
-     // update switch gui component
+function sw_clicked_driver(switch_id) {
+    let element = document.querySelector("#switch-" + String(switch_id));
+    // update switch gui component
      let raw_string = element.getAttribute("d").split(" ");
      let last = Number(raw_string.pop());
      let reformated = raw_string.join(" ") + " "
  
-     switch (switch_states[switch_id]) {
+    switch (switch_states[switch_id]) {
          case switch_status.OPENED:
              last += 10;
              reformated += String(last);
@@ -208,10 +223,27 @@
      // update @switch_states
      // toggle switch state
      switch_states[switch_id] = toggle_switch_status(switch_states[switch_id]);
-  
+
+}
+
+ function sw_clicked(switch_id) {
+ 
+ 
+     // show notification on screen
+     document.querySelector("#success").style.visibility = "visible";
+     fade(document.querySelector("#success"));
+ 
+     // setTimeout(function () {
+     //     document.querySelector("#success").style.visibility = "hidden";
+     // }, 2000);
+ 
+
+    sw_clicked_driver(switch_id);
+     
+
 //  update switch in simulation
      (async () => {
          await fetch('http://localhost:3000/switch_toggle/' + "30;" + switch_id + ";" + switch_states[switch_id]);
      })();
  
- }
+}

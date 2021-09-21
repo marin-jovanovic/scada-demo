@@ -1,3 +1,6 @@
+.idea/
+.vscode/
+
 /.doit.db
 /build
 /cache

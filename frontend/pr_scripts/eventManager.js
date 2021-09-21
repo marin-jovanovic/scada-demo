@@ -38,7 +38,7 @@ module.exports = class EventManager {
             EventManager.vals = {};
 
             /**
-             * asdu;io -> [val1, val2, ... 20]
+             * asdu;io -> [val1;timestamp, val2;timestamp, ... 20]
              */
             EventManager.historic_vals = {};
 

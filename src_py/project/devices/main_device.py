@@ -63,9 +63,9 @@ class Device(hat.gateway.common.Device):
                                                    io_address)
             value = result[0].value.value
 
-            with open("log.txt", "a") as myfile:
-                myfile.write(str((type_name, value)))
-                myfile.write("\n")
+            # with open("log.txt", "a") as myfile:
+            #     myfile.write(str((type_name, value)))
+            #     myfile.write("\n")
             await self.register(type_name, value)
 
     async def send_init_data(self, connection):
@@ -85,9 +85,9 @@ class Device(hat.gateway.common.Device):
             type_name = Address.get_formatted_name(asdu_address,
                                                    io_address)
             print(type_name, value)
-            with open("log.txt", "a") as myfile:
-                myfile.write(str(("init---", type_name, value)))
-                myfile.write("\n")
+            # with open("log.txt", "a") as myfile:
+            #     myfile.write(str(("init---", type_name, value)))
+            #     myfile.write("\n")
 
             await self.register(type_name, value)
 

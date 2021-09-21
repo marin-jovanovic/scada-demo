@@ -126,15 +126,14 @@ async function draw_graph_driver(labels) {
 async function click_action_general(curr, mapper, num_id) {
 
     if (!is_any_graph_displayed) {
+        
         draw_graph_driver(mapper);
 
     } else if (!(current_selected == curr && curr_number == num_id)) {
+        
         plot_graph(mapper);
-
-
+    
     }
-
-
 
     if (!pre(curr)) {
         return;
@@ -199,7 +198,7 @@ async function reloader(currently_selected, curr_selected_number, mapper) {
                 old_vals[key] = new_val;
 
                 document.getElementById(value).innerHTML = await get_val(value);
-                console.log("new val");
+                // console.log("new val");
             }
 
         }

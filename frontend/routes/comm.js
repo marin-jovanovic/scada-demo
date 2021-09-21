@@ -107,5 +107,32 @@ router.get('/switch_toggle/:id', function(req, res){
 
 });
 
+router.get('/historical_vals/:asdu/:io', function(req, res){
+
+    let asdu = req.params.asdu;
+    let io = req.params.io;
+
+
+    const eventManager = require('../pr_scripts/eventManager');
+    let eventManagerInstance = new eventManager().getInstance();
+    
+    let historical_vals = eventManagerInstance.getHistoricalVals(asdu, io);
+
+
+    console.log("fetched historical vals", historical_vals);
+
+    (async () => {
+        
+        res.json({
+            statusCode: "done", 
+            value: historical_vals,
+           });
+       
+    })();
+
+});
+
+const eventManager = require('../pr_scripts/eventManager');
+let eventManagerInstance = new eventManager().getInstance();
 
 module.exports = router;

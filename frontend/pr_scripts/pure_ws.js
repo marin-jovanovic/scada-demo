@@ -13,22 +13,6 @@ const WebSocket = require('ws');
 const eventManager = require('./eventManager');
 let eventManagerInstance = new eventManager().getInstance();
 
-// -----------------------------------------------------------------------
-
-// const 
-// import { WebSocketServer } from 'ws';
-
-// const wss = new WebSocketServer({ port: 8080 });
-
-// wss.on('connection', function connection(ws) {
-//   ws.on('message', function incoming(message) {
-//     console.log('received: %s', message);
-//   });
-
-//   ws.send('something');
-// });
-
-
 module.exports = class WebSocketManager {
 
     getInstance() {
@@ -67,14 +51,14 @@ module.exports = class WebSocketManager {
 
     }
 
-    on_open() {
-        console.log("ws open");
+    // on_open() {
+    //     console.log("ws open");
             
-        this.is_open = true;
+    //     this.is_open = true;
         
-        this.ws.send("init_data");            
-        // ws.send("curr_data");
-    }
+    //     this.ws.send("init_data");            
+    //     // ws.send("curr_data");
+    // }
 
     add_event_listeners() {
     

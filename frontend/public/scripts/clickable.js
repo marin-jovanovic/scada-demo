@@ -5,20 +5,19 @@
 
 
 // todo check current selected
-
 const clickable = {
-	TRANSFROMATOR: "transformator",
-	BUS: "bus",
-	OTHER: "other",
+    TRANSFROMATOR: "transformator",
+    BUS: "bus",
+    OTHER: "other",
     LINE: "line",
 }
 
 
 function click_linker() {
-    
+
     minimize();
 
-// open graph
+    // open graph
     open_graph();
 
 }
@@ -31,18 +30,18 @@ let is_any_graph_displayed = false;
 
 function pre(type) {
     if (current_selected == type) {
-            console.log("already showing this")
+        console.log("already showing this")
 
         let info_block = document.querySelector(".valsandg");
 
         info_block.style.visibility = "hidden";
 
-        setTimeout(function () {
+        setTimeout(function() {
             info_block.style.visibility = "visible";
         }, 100);
-        
+
         return false;
-    } 
+    }
 
     return true;
 }
@@ -58,9 +57,9 @@ function line_clicked(line_id) {
             "Aktivna snaga na početku voda [MW]": "1" + String(line_id) + ";0",
             "Jalova snaga na početku voda [MVar]": "1" + String(line_id) + ";1",
             "Aktivna snaga na kraju voda [MW]": "1" + String(line_id) + ";2",
-            "Jalova snaga na kraju voda [MVar]": "1" + String(line_id) + ";3", 
+            "Jalova snaga na kraju voda [MVar]": "1" + String(line_id) + ";3",
             "Opterećenje [%]": "1" + String(line_id) + ";4",
-        }; 
+        };
 
         click_action_general(curr, mapper, line_id);
 
@@ -94,9 +93,9 @@ function trafo_clicked() {
             "Jalova snaga na strani s nižim naponom [MVar]": "20;3",
             "Opterećenje [%]": "20;4"
         };
-    
+
         click_action_general(curr, mapper, -1);
-    
+
     })();
 }
 
@@ -111,9 +110,9 @@ async function draw_graph_driver(labels) {
 
     let main2 = document.getElementById("overlay");
     main2.innerHTML = "";
-    
+
     let graph_template = document.querySelector('#chart-template');
-    let graph = graph_template.content.cloneNode(true);        
+    let graph = graph_template.content.cloneNode(true);
     main2.appendChild(graph);
 
     plot_graph(labels);
@@ -126,28 +125,26 @@ async function draw_graph_driver(labels) {
 
 async function click_action_general(curr, mapper, num_id) {
 
-    if (! is_any_graph_displayed) {
-            draw_graph_driver(mapper);
+    if (!is_any_graph_displayed) {
+        draw_graph_driver(mapper);
 
-    } else if ( !(    current_selected == curr && curr_number == num_id)) {
-        
-        // draw_graph_driver(mapper);
+    } else if (!(current_selected == curr && curr_number == num_id)) {
         plot_graph(mapper);
 
-    
-    } 
 
-        
+    }
 
-    if (! pre(curr)) {
+
+
+    if (!pre(curr)) {
         return;
     }
 
     let main = document.querySelector("body > div > div > main > div > div > div.grid.gap-6.mb-8.md\\:grid-cols-2.xl\\:grid-cols-4");
     main.innerHTML = "";
-    
+
     current_selected = curr;
-    
+
     document.querySelector(".valsandg").style.visibility = "visible";
 
     let categoryTemplate = document.querySelector('#card-template');
@@ -155,7 +152,7 @@ async function click_action_general(curr, mapper, num_id) {
     let v = [];
 
     for (const [key, value] of Object.entries(mapper)) {
-    
+
         let category = categoryTemplate.content.cloneNode(true);
         let title = category.querySelector("div > div:nth-child(2) > p.mb-2.text-sm.font-medium.text-gray-600.dark\\:text-gray-400")
         title.textContent = key;
@@ -163,7 +160,7 @@ async function click_action_general(curr, mapper, num_id) {
         val.textContent = await get_val(value);
         val.id = value;
         main.appendChild(category);
-    
+
         v.push(key);
     }
 
@@ -175,7 +172,7 @@ async function get_val(key) {
     let response = await fetch('http://localhost:3000/api-single/' + key);
     response = await response.json();
     // console.log("response", response);
-    return response["value"];            
+    return response["value"];
 }
 
 async function reloader(currently_selected, curr_selected_number, mapper) {
@@ -206,7 +203,7 @@ async function reloader(currently_selected, curr_selected_number, mapper) {
             }
 
         }
-          
+
         await fetch('http://localhost:3000/refresh/');
 
         // console.log("refreshing");
@@ -220,7 +217,7 @@ async function reloader(currently_selected, curr_selected_number, mapper) {
 function on() {
     document.getElementById("overlay").style.display = "block";
 }
-  
+
 function off() {
     is_any_graph_displayed = false;
 
@@ -228,7 +225,7 @@ function off() {
 
     let main2 = document.getElementById("overlay");
     main2.innerHTML = "";
-    
+
     let t = document.querySelector("div.grid:nth-child(1)");
     t.style.removeProperty("float");
     t.style.removeProperty("width");
@@ -239,7 +236,7 @@ function off() {
 window.addEventListener('load', (event) => {
     document.getElementById("overlay").onclick = function() {
         off();
-    };            
+    };
 });
 
 function open_graph() {

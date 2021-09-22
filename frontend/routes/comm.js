@@ -39,16 +39,13 @@ router.get('/api-single/:id', function(req, res){
 
 });
 
+
 router.get('/api-all', function(req, res){
 
     const eventManager = require('../pr_scripts/eventManager');
     let eventManagerInstance = new eventManager().getInstance();
     
     const delay = ms => new Promise(res => setTimeout(res, ms));
-
-    // function getRandomInt(max) {
-    //     return Math.floor(Math.random() * max);
-    // }
 
     function sortObjectByKeys(o) {
         return Object.keys(o).sort().reduce((r, k) => (r[k] = o[k], r), {});
@@ -60,7 +57,6 @@ router.get('/api-all', function(req, res){
     
        res.json(
         sortObjectByKeys(eventManagerInstance.getVals())
-        //   eventManagerInstance.getVals()
        );
        
     })();
@@ -96,7 +92,6 @@ router.get('/switch_toggle/:id', function(req, res){
     const webSocket = require('../pr_scripts/pure_ws');
     let webSocketInstance = new webSocket().getInstance();
     webSocketInstance.send_data("update;" + id);
-    // webSocketInstance.send_data("update;" + "34;0");
 
     (async () => {
         

@@ -1,13 +1,12 @@
-# scada-demo
-hat-quickstart
+scada-demo
 ==============
-
+Simple scada project build
 
 This repository uses doit as its build tool, make sure to call ``doit list`` to
 check available tasks. 
 
 ------
-
+#Documentation (Croatian)
 
 [Opis zadatka](docs/assignment.md).
 
@@ -20,7 +19,10 @@ check available tasks.
 [Docker workflow](docs/docker.md).
 
 
-install (on ubuntu)
+
+
+------
+#Setup (on ubuntu)
 
 create venv
 
@@ -30,82 +32,79 @@ activate venv
 
 	source venv/bin/activate
 
-------
-
 install requirements
 
 	pip install -r requirements.pip.txt
 
-
-------
-
-
-requirements (backend)
-
 	try:
-
 		sudo apt-get install $(grep -vE "^\s*#" requirements.ubuntu.txt  | tr "\n" " ")
 	except:
-
-		sudo apt-get install package1 package2 package3 ... # from requirements.ubuntu.txt
-
 		sudo apt-get install binutils-mingw-w64-x86-64 clang doxygen gcc gcc-mingw-w64-x86-64 git graphviz libffi-dev libisoburn-dev libjansson-dev libuv1-dev libyaml-dev nodejs npm openssl pandoc plantuml python3 python3-pip samba socat sqlite3 unixodbc yarn
 
-requirements
-
-	pip install -r requirements.pip.txt
-
------------------
-
-doit 
-	doit list
-
 	try:
-		doit -f backend/dodo.py
 		doit
 
 	except:
 		doit docs
 		doit js_deps
 		doit js_view
-		doit py_test
+
+------
+#Starting project
+
 
 launch simulator
 
+	# from (venv) 
 	python3 simulator/main.py
-	# you should see "script started" in terminal
-
 
 launch backend
 
-	from (venv) .../mnt/c/git/ket-praksa/assignment-marin-jovanovic/src/playground/run$ ./system.sh
+	# from (venv) 
+	.../playground/run$ ./system.sh
+	# login credentials:
+	# 	user: user
+	# 	password: pass
 
+launch frontend
 
+	.../frontend/ nodemon server.js
 
+------
+#Used ports
+	
+	simulator - iec-104: 19999
+	gui - http: 3000
+	hat gui - http: 23023
+	hat manager - http: 23021
 
-http://localhost:23023/index.html
-user
-pass
+#Scheme
 
+![port cheme](docs/resources/scheme_cropped.png)
+------
+#External resources
 
-ligthing image
+hat open collection of libraries
+    
+    https://github.com/hat-open
 
-	https://icon-library.com/icon/lightning-icon-png-15.html
-
-external resources (frontend template):
+frontend template
 
 	https://github.com/estevanmaito/windmill-dashboard
 
-
-websockets
+websocket package (websockets)
 
     https://pythonrepo.com/repo/aaugustin-websockets-python-websocket
 
-todo
+full screen image
+    
+    https://www.iconsdb.com/gray-icons/fullscreen-12-icon.html
+
+favicon image
+
+    https://www.favicon-generator.org/search/
+------
+#todo
 
 	backend revert comm fix
-	maximize window button fix
-	check val refreshing
-	switch gui update
-	null value display
  	todo ad db to gitignore

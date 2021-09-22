@@ -5,19 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eafe340c-d83a-4db1-9722-f789510b0eb5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scada-demo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/playground/run/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/playground/run/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/custom_assets/lightning-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/custom_assets/lightning-icon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/custom_assets/readME.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulator/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulator/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulator/old_sim.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulator/oldsim.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +206,9 @@
       <workItem from="1631896473719" duration="4659000" />
       <workItem from="1632039845961" duration="2710000" />
       <workItem from="1632042948714" duration="14102000" />
-      <workItem from="1632202277714" duration="19059000" />
+      <workItem from="1632202277714" duration="20422000" />
+      <workItem from="1632288531195" duration="2576000" />
+      <workItem from="1632292053345" duration="1594000" />
     </task>
     <servers />
   </component>

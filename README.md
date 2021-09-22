@@ -1,7 +1,8 @@
 Simple SCADA project build
 ==============
+
+Documentation (Croatian)
 ------
-#Documentation (Croatian)
 
 [Opis zadatka](docs/assignment.md).
 

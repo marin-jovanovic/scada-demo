@@ -8,6 +8,7 @@ from collections import defaultdict
 
 ADDRESSES = []
 
+
 class Address:
 
     @staticmethod
@@ -76,10 +77,22 @@ class DataManager:
             #     print("reconnecting\n")
 
     async def send_data(self, value, asdu, io):
-        # command = iec104.Command(value=iec104.SingleValue.OFF,
+        from hat.drivers import iec104
+        print(value)
+
+        # print(message)
+        print(asdu, io, value, type(value))
+
+        asdu = int(asdu)
+        io = int(io)
+
+        if value == "closed":
+            val = iec104.common.SingleValue.OFF
+        else:
+            val = iec104.common.SingleValue.ON
 
         command = iec104.Command(
-            value=value,
+            value=val,
             asdu_address=asdu,
             io_address=io,
             action=iec104.Action.EXECUTE,
@@ -87,7 +100,11 @@ class DataManager:
             qualifier=1
         )
 
+        print("command", command)
+
         await self.connection.send_command(command)
+
+
 
 
 async def async_main():

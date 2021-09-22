@@ -39,11 +39,11 @@ class Server:
                 io = raw_d[2]
                 value = raw_d[3]
 
-                print(message)
 
                 await self.data_manager.send_data(value, asdu, io)
 
             else:
+                print("other msg", message)
                 await websocket.send(str("joiajidoioa"))
 
     async def init_data_manager(self):

@@ -1,6 +1,6 @@
-
 import asyncio
 import websockets
+
 
 async def hello(uri):
     async with websockets.connect(uri) as websocket:
@@ -13,7 +13,6 @@ async def hello(uri):
         t = await websocket.recv()
         print(t)
         print()
-
 
         await websocket.send("curr_data")
         t = await websocket.recv()

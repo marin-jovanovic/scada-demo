@@ -96,6 +96,7 @@ router.get('/switch_toggle/:id', function(req, res){
     const webSocket = require('../pr_scripts/pure_ws');
     let webSocketInstance = new webSocket().getInstance();
     webSocketInstance.send_data("update;" + id);
+    // webSocketInstance.send_data("update;" + "34;0");
 
     (async () => {
         

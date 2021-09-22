@@ -17,7 +17,7 @@ import hat.drivers
 
 
 mlog = logging.getLogger('simulator')
-default_conf_path = '../conf.yaml'
+default_conf_path = 'conf.yaml'
 
 
 class PandaPowerExample:
@@ -65,8 +65,6 @@ async def async_main(conf):
         command_cb=simulator._command_cb)
     simulator._connections = set()
 
-    # simulator._net = pandapower.networks.example_simple()
-
     simulator._async_group = aio.Group()
     simulator._executor = aio.create_executor()
 
@@ -84,20 +82,6 @@ async def async_main(conf):
                 io,
                 _104_value(series[point_conf['id']], point_conf['type']),
                 iec104.Cause.INITIALIZED)
-
-
-    print("conf -> state DONE")
-    # state['0'] = {'0': Data(value=FloatingValue(value=6.7411152961887),
-    #             cause=<Cause.INITIALIZED: 4>, timestamp=1632142984.2038605),
-    #              '1': Data(value=FloatingValue(value=7.146882966888771),
-    #               cause=<Cause.INITIALIZED: 4>,
-    #             timestamp=1632142984.2039707)}
-    # state['0']['0'] ) = Data(value=FloatingValue(value=6.7411152961887),
-    #               cause=<Cause.INITIALIZED: 4>, timestamp=1632142984.2038605)
-
-    # for i in state.items():
-    #     print(i)
-    #     break
 
     simulator._change_queue = aio.Queue()
     simulator._power_flow_queue = aio.Queue()
@@ -151,8 +135,6 @@ class Simulator(aio.Resource):
             conf = self._points[command.asdu_address][command.io_address]
 
             series = getattr(self.pp.net, conf['table'])[conf['property']]
-
-            # series = self.pp.get_value
 
             if conf['type'] == 'float':
                 value = command.value
@@ -246,7 +228,6 @@ class Simulator(aio.Resource):
         self._send(data)
         previous = set(data)
         while True:
-            # print("nf loop")
             await self._change_queue.get()
             data = list(self._data_from_state())
             self._send([d for d in data if d not in previous])

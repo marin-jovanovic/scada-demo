@@ -243,7 +243,7 @@ function sw_clicked_driver(switch_id) {
 
 //  update switch in simulation
      (async () => {
-         await fetch('http://localhost:3000/switch_toggle/' + "30;" + switch_id + ";" + switch_states[switch_id]);
+         await fetch('http://localhost:3000/switch_toggle/' + "3"+switch_id+";" + "0" + ";" + switch_states[switch_id]);
      })();
  
 }

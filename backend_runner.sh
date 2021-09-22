@@ -2,11 +2,11 @@
 # init_venv.sh
 
 activate () {
-  . /mnt/c/git/marin-jovanovic/scada-demo/venv/bin/activate
+  . /Documents/git/marin-jovanovic/scada-demo/venv/bin/activate
   echo "activated"
 }
 activate
-cd backend/playground/run
+cd playground/run
 echo "venv activated"
 echo "listen on:"
 echo "localhost:23023"

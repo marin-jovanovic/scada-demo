@@ -1,4 +1,4 @@
-window.addEventListener('load', function () {
+window.addEventListener('load', function() {
 
     console.log("on loadd");
 
@@ -66,13 +66,13 @@ function line_clicked(line_id) {
 
         };
 
-        click_action_general( mapper, line_id);
+        click_action_general(mapper, line_id);
 
     })();
 }
 
 
-async function click_action_general( mapper, num_id) {
+async function click_action_general(mapper, num_id) {
 
     let main = document.querySelector("body > div > div > main > div > div > div.grid.gap-6.mb-8.md\\:grid-cols-2.xl\\:grid-cols-4");
     main.innerHTML = "";
@@ -93,7 +93,7 @@ async function click_action_general( mapper, num_id) {
 
         if (new_val == "OFF") {
             new_val = "CLOSED";
-        } else if (new_val == "ON"){
+        } else if (new_val == "ON") {
             new_val = "OPENED";
         }
         val.textContent = new_val;
@@ -104,7 +104,7 @@ async function click_action_general( mapper, num_id) {
     }
 
 
-    reloader( mapper);
+    reloader(mapper);
 }
 
 async function reloader(mapper) {
@@ -131,7 +131,7 @@ async function reloader(mapper) {
 
                 if (new_val == "OFF") {
                     new_val = "CLOSED";
-                } else if (new_val == "ON"){
+                } else if (new_val == "ON") {
                     new_val = "OPENED";
                 }
 

@@ -11,21 +11,21 @@
  
      switch_logic(num_of_switches);
      init_switch_states(num_of_switches);
-
-    (async () => {
-        for (let i = 0; i < 8; i++) {
-            let vals = await get_val("3"+i+";0" );
-
-            if (vals == "OFF") {
-
-                sw_clicked_driver(i);
-            }
-        }
-
-
-    })();
-
-
+ 
+     (async () => {
+         for (let i = 0; i < 8; i++) {
+             let vals = await get_val("3" + i + ";0");
+ 
+             if (vals == "OFF") {
+ 
+                 sw_clicked_driver(i);
+             }
+         }
+ 
+ 
+     })();
+ 
+ 
  }
  
  function switch_logic(number_of_switches) {
@@ -184,14 +184,14 @@
      }, 100);
  }
  
-function sw_clicked_driver(switch_id) {
-    let element = document.querySelector("#switch-" + String(switch_id));
-    // update switch gui component
+ function sw_clicked_driver(switch_id) {
+     let element = document.querySelector("#switch-" + String(switch_id));
+     // update switch gui component
      let raw_string = element.getAttribute("d").split(" ");
      let last = Number(raw_string.pop());
      let reformated = raw_string.join(" ") + " "
  
-    switch (switch_states[switch_id]) {
+     switch (switch_states[switch_id]) {
          case switch_status.OPENED:
              last += 10;
              reformated += String(last);
@@ -212,9 +212,9 @@ function sw_clicked_driver(switch_id) {
      // update @switch_states
      // toggle switch state
      switch_states[switch_id] = toggle_switch_status(switch_states[switch_id]);
-
-}
-
+ 
+ }
+ 
  function sw_clicked(switch_id) {
  
  
@@ -226,21 +226,21 @@ function sw_clicked_driver(switch_id) {
      //     document.querySelector("#success").style.visibility = "hidden";
      // }, 2000);
  
-
-    sw_clicked_driver(switch_id);
-     
-
-//  update switch in simulation
+ 
+     sw_clicked_driver(switch_id);
+ 
+ 
+     //  update switch in simulation
      (async () => {
-        let state = switch_states[switch_id].toLowerCase();
-
-        if (state == "closed") {
-            state = "opened";
-        } else if (state == "opened"){
-            state = "closed";
-        }
-
-         await fetch('http://localhost:3000/switch_toggle/' + "3"+switch_id+";" + "0" + ";" + state);
+         let state = switch_states[switch_id].toLowerCase();
+ 
+         if (state == "closed") {
+             state = "opened";
+         } else if (state == "opened") {
+             state = "closed";
+         }
+ 
+         await fetch('http://localhost:3000/switch_toggle/' + "3" + switch_id + ";" + "0" + ";" + state);
      })();
  
-}
+ }

@@ -29,7 +29,7 @@ let curr_number = NaN;
 let is_any_graph_displayed = false;
 
 function pre(type, num_id) {
-    if (current_selected == type ) {
+    if (current_selected == type) {
         console.log("already showing this")
 
         let info_block = document.querySelector(".valsandg");
@@ -129,11 +129,11 @@ async function draw_graph_driver(labels) {
 async function click_action_general(curr, mapper, num_id) {
 
     if (!is_any_graph_displayed) {
-        
+
         draw_graph_driver(mapper);
 
     } else if (!(current_selected == curr && curr_number == num_id)) {
-        
+
         // plot_graph(mapper);
         draw_graph_driver(mapper);
 
@@ -268,7 +268,7 @@ window.addEventListener('load', (event) => {
     document.getElementById("show-all-button").onclick = function() {
         // show_all_on();
         // function openInNewTab(url) {
-            window.open("http://localhost:3000/vals", '_blank').focus();
+        window.open("http://localhost:3000/vals", '_blank').focus();
         //    }
 
     };

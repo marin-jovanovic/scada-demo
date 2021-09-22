@@ -2,8 +2,8 @@ function clicked() {
     // alert("clicked");
 }
 
-window.addEventListener('load', function () {
-    
+window.addEventListener('load', function() {
+
     driver_tab_name_changer();
 
     let num_of_switches = 8;
@@ -11,26 +11,36 @@ window.addEventListener('load', function () {
     init_switch_drivers(num_of_switches);
 
     for (let i = 0; i < 7; i++) {
-        document.getElementById("bus-" + String(i)).onclick = 
-            function() {bus_clicked(i)};    
+        document.getElementById("bus-" + String(i)).onclick =
+            function() {
+                bus_clicked(i)
+            };
     }
 
     for (let i = 0; i < 4; i++) {
-        document.getElementById("line-" + String(i)).onclick = 
-            function() {line_clicked(i)};    
+        document.getElementById("line-" + String(i)).onclick =
+            function() {
+                line_clicked(i)
+            };
     }
-    
+
     for (let i = 0; i < 8; i++) {
-        document.getElementById("switch-" + String(i)).onclick = 
-            function() {sw_clicked(i)};    
+        document.getElementById("switch-" + String(i)).onclick =
+            function() {
+                sw_clicked(i)
+            };
     }
 
-    document.getElementsByClassName("transformator")[0].onclick = 
-        function() {trafo_clicked()};    
+    document.getElementsByClassName("transformator")[0].onclick =
+        function() {
+            trafo_clicked()
+        };
 
-    document.getElementById("maximize").onclick = 
-        function() {maximize()}; 
-        
+    document.getElementById("maximize").onclick =
+        function() {
+            maximize()
+        };
+
 });
 
 // logging for min/ max button
@@ -61,7 +71,7 @@ function maximize() {
     current_selected = clickable.OTHER;
     current_id = -1;
 
-//   zoom in image
+    //   zoom in image
     let img_svg = document.querySelector("div.grid:nth-child(1) > div:nth-child(2) > svg:nth-child(1)");
 
     img_svg.style.height = '115%'
@@ -118,4 +128,3 @@ function minimize() {
     switch_logic(num_of_switches);
 
 }
-

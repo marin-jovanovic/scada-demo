@@ -1,10 +1,5 @@
-scada-demo
+Simple SCADA project build
 ==============
-Simple scada project build
-
-This repository uses doit as its build tool, make sure to call ``doit list`` to
-check available tasks. 
-
 ------
 #Documentation (Croatian)
 
@@ -15,11 +10,6 @@ check available tasks.
 [Opis arhitekture](docs/architecture.md).
 
 [Frontend tutorial](docs/frontend.md).
-
-[Docker workflow](docs/docker.md).
-
-
-
 
 ------
 #Setup (on ubuntu)

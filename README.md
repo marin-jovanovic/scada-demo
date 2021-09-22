@@ -11,8 +11,8 @@ Simple SCADA project build
 
 [Frontend tutorial](docs/frontend.md).
 
+Setup (on ubuntu)
 ------
-#Setup (on ubuntu)
 
 create venv
 
@@ -41,9 +41,8 @@ install requirements
 
     npm i
 
+Starting project
 ------
-#Starting project
-
 
 launch simulator
 
@@ -62,20 +61,22 @@ launch frontend
 
 	.../frontend/ nodemon server.js
 
+Used ports
 ------
-#Used ports
-	
+
 	simulator - iec-104: 19999
 	gui - http: 3000
 	hat gui - http: 23023
 	hat manager - http: 23021
     db api - 8000
 
-#Scheme
+Scheme
+------
 
 ![port cheme](docs/resources/scheme_cropped.png)
+
+External resources
 ------
-#External resources
 
 hat open collection of libraries
     
@@ -96,9 +97,9 @@ full screen image
 favicon image
 
     https://www.favicon-generator.org/search/
-------
- database API
 
+database API
+------
 launch 
 
     .../db/ nodemon server.js

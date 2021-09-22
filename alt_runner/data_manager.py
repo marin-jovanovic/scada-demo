@@ -86,10 +86,12 @@ class DataManager:
         asdu = int(asdu)
         io = int(io)
 
-        if value == "closed":
-            val = iec104.common.SingleValue.OFF
-        else:
-            val = iec104.common.SingleValue.ON
+        # if value == "closed":
+        #     val = iec104.common.SingleValue.OFF
+        # else:
+        #     val = iec104.common.SingleValue.ON
+
+        val = iec104.common.SingleValue(1 if value == "closed" else 0)
 
         command = iec104.Command(
             value=val,

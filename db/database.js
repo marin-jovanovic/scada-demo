@@ -2,7 +2,7 @@ var sqlite3 = require('sqlite3').verbose()
 var md5 = require('md5')
 
 // database file name
-const DBSOURCE = "curr_log.db" 
+const DBSOURCE = "../playground/run/db_log/sql_db.db" 
 
 let db = new sqlite3.Database(DBSOURCE, (err) => {
     if (err) {

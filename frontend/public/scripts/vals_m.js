@@ -122,6 +122,12 @@ async function reloader(mapper) {
             if (old_vals[key] != new_val) {
                 old_vals[key] = new_val;
 
+                // if (new_val == "OFF") {
+                //     new_val = "CLOSED";
+                // } else if (new_val == "ON"){
+                //     new_val = "OPENED";
+                // }
+
                 document.getElementById(value).innerHTML = new_val;
 
             }

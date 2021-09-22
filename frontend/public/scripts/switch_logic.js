@@ -243,7 +243,15 @@ function sw_clicked_driver(switch_id) {
 
 //  update switch in simulation
      (async () => {
-         await fetch('http://localhost:3000/switch_toggle/' + "3"+switch_id+";" + "0" + ";" + switch_states[switch_id]);
+        let state = switch_states[switch_id].toLowerCase();
+
+        if (state == "closed") {
+            state = "opened";
+        } else if (state == "opened"){
+            state = "closed";
+        }
+
+         await fetch('http://localhost:3000/switch_toggle/' + "3"+switch_id+";" + "0" + ";" + state);
      })();
  
 }

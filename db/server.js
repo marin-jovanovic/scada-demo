@@ -63,6 +63,7 @@ app.get("/:asdu/:io/:limit", access_control_mw, (req, res, next) => {
 // Root path
 app.get("/", (req, res, next) => {
     res.json({
-        "message": "Ok"
+        "message": "Ok",
+        "elaborate": "server is runing, make api call"
     })
 });

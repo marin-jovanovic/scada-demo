@@ -89,7 +89,14 @@ async function click_action_general( mapper, num_id) {
         let title = category.querySelector("div > div:nth-child(2) > p.mb-2.text-sm.font-medium.text-gray-600.dark\\:text-gray-400")
         title.textContent = key;
         let val = category.querySelector("div > div:nth-child(2) > p.text-lg.font-semibold.text-gray-700.dark\\:text-gray-200")
-        val.textContent = await get_val(value);
+        new_val = await get_val(value);
+
+        if (new_val == "OFF") {
+            new_val = "CLOSED";
+        } else if (new_val == "ON"){
+            new_val = "OPENED";
+        }
+        val.textContent = new_val;
         val.id = value;
         main.appendChild(category);
 
@@ -122,11 +129,11 @@ async function reloader(mapper) {
             if (old_vals[key] != new_val) {
                 old_vals[key] = new_val;
 
-                // if (new_val == "OFF") {
-                //     new_val = "CLOSED";
-                // } else if (new_val == "ON"){
-                //     new_val = "OPENED";
-                // }
+                if (new_val == "OFF") {
+                    new_val = "CLOSED";
+                } else if (new_val == "ON"){
+                    new_val = "OPENED";
+                }
 
                 document.getElementById(value).innerHTML = new_val;
 
@@ -135,8 +142,6 @@ async function reloader(mapper) {
         }
 
         await fetch('http://localhost:3000/refresh/');
-
-        // console.log("refreshing");
 
         await delay(1000);
     }

@@ -39,6 +39,8 @@ install requirements
 		doit js_deps
 		doit js_view
 
+    npm i
+
 ------
 #Starting project
 
@@ -67,6 +69,7 @@ launch frontend
 	gui - http: 3000
 	hat gui - http: 23023
 	hat manager - http: 23021
+    db api - 8000
 
 #Scheme
 
@@ -94,7 +97,18 @@ favicon image
 
     https://www.favicon-generator.org/search/
 ------
-#todo
+#database API
 
-	backend revert comm fix
- 	todo ad db to gitignore
+launch 
+
+    .../db/ nodemon server.js
+
+listen on port 8000
+
+make query on 
+    
+    /:asdu/:io/:limit
+    
+where
+    
+    SELECT * FROM t where asdu = ? and io = ? limit ?

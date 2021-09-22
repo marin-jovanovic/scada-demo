@@ -233,6 +233,8 @@ function off() {
     t.style.removeProperty("height");
 
     do_i_need_to_reload_graph = false;
+    switch_logic(num_of_switches);
+
 }
 
 function show_all_on() {

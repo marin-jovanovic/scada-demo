@@ -75,6 +75,7 @@ function maximize() {
 
     let max_img = document.querySelector("#maximize");
     max_img.style.display = "none";
+    switch_logic(num_of_switches);
 
 }
 
@@ -114,6 +115,7 @@ function minimize() {
 
     let max_img = document.querySelector("#maximize");
     max_img.style.display = "block";
+    switch_logic(num_of_switches);
 
 }
 

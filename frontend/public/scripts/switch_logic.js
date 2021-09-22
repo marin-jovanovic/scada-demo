@@ -12,20 +12,9 @@
      switch_logic(num_of_switches);
      init_switch_states(num_of_switches);
 
-    //  console.log("switch position", switch_positions);
-
-    // async function get_val(key) {
-    //     let response = await fetch('http://localhost:3000/api-single/' + key);
-    //     response = await response.json();
-    //     return response["value"];
-    // }
-    
     (async () => {
         for (let i = 0; i < 8; i++) {
             let vals = await get_val("3"+i+";0" );
-
-            // console.log("vals", vals, i);
-                
 
             if (vals == "OFF") {
 

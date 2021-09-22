@@ -97,7 +97,7 @@ favicon image
 
     https://www.favicon-generator.org/search/
 ------
-#database API
+ database API
 
 launch 
 

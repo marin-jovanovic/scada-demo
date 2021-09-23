@@ -5,6 +5,8 @@ utils for address translations
 from hat.aio import run_asyncio
 from hat.drivers import iec104
 from collections import defaultdict
+from hat.drivers import iec104
+import asyncio
 
 ADDRESSES = []
 
@@ -27,71 +29,68 @@ class Address:
 
 
 async def init_data_manager():
-    data_manager = DataManager("127.0.0.1", 19999)
+    data_manager = DataManager(
+        domain_name="127.0.0.1",
+        port=19999,
+        reconnect_delay=3,
+        send_retry_count=3
+        )
 
-    data_manager.connection = await data_manager.connect()
+    data_manager.connection = await data_manager._connect()
 
     return data_manager
 
+
 class DataManager:
 
-    def __init__(self, domain_name, port):
+    def __init__(self, domain_name, port, reconnect_delay, send_retry_count):
+        """
+        @reconnect_delay delay for this much seconds before retrying to connect
+        @send_retry_count try to send this much times command to simulation
+        """
+
         self.domain_name = domain_name
         self.port = port
+        self.reconnect_delay = reconnect_delay
+        self.send_retry_count = send_retry_count
 
     async def get_init_data(self):
         raw_data = await self.connection.interrogate(asdu_address=65535)
 
-        t = {}
-
-        for i in raw_data:
-            t[(i.asdu_address, i.io_address)] = i.value
-
-        return t
+        return {(i.asdu_address, i.io_address): i.value for i in raw_data}
 
     async def get_curr_data(self):
         raw_data = await self.connection.receive()
 
-        t = {}
+        return {(i.asdu_address, i.io_address): i.value for i in raw_data}
 
-        for i in raw_data:
-            t[(i.asdu_address, i.io_address)] = i.value
-
-        return t
-
-    async def connect(self):
+    async def _connect(self):
         address = iec104.Address(self.domain_name, self.port)
 
         while True:
-            connection = await iec104.connect(address)
-            return connection
 
-            # try:
-            #     connection = await iec104.connect(address)
-            #     return connection
-            # except:
-            #     n = 3
-            #     for i in range(n):
-            #         print("trying to reconnect in", n - i)
-            #         await asyncio.sleep(1)
-            #     print("reconnecting\n")
+            try:
+                connection = await iec104.connect(address)
+                return connection
+
+            except ConnectionRefusedError:
+                for i in range(self.reconnect_delay):
+                    print("trying to reconnect in", self.reconnect_delay - i)
+                    await asyncio.sleep(1)
+
+                print("reconnecting\n")
 
     async def send_data(self, value, asdu, io):
-        from hat.drivers import iec104
-        print(value)
 
-        # print(message)
         print(asdu, io, value, type(value))
 
-        asdu = int(asdu)
-        io = int(io)
-
-        # if value == "closed":
-        #     val = iec104.common.SingleValue.OFF
-        # else:
-        #     val = iec104.common.SingleValue.ON
-
-        val = iec104.common.SingleValue(1 if value == "closed" else 0)
+        try:
+            asdu = int(asdu)
+            io = int(io)
+            # todo fix this in other part
+            val = iec104.common.SingleValue(1 if value == "closed" else 0)
+        except ValueError:
+            return
 
         command = iec104.Command(
             value=val,
@@ -104,9 +103,15 @@ class DataManager:
 
         print("command", command)
 
-        await self.connection.send_command(command)
+        result = await self.connection.send_command(command)
 
+        for _ in range(self.send_retry_count):
+            if result:
+                return
 
+            result = await connection.send_command(command)
+
+        raise Exception("can not send command")
 
 
 async def async_main():
@@ -121,22 +126,9 @@ async def async_main():
     print("curr data")
     [print(i) for i in t]
 
-    #
-    # connection = await connect()
-    #
-    # raw_data = await connection.interrogate(asdu_address=65535)
-    #
-    # print("init data send", len(raw_data))
-    # print("fetch")
-    #
-    # while True:
-    #
-    #     try:
-    #         raw_data = await connection.receive()
-    #         print("r", len(raw_data))
-    #
-    #     except ConnectionError:
-    #         connection = connect()
+    # todo handle other cases
+    await data_manager.send_data("closed", 30, 0)
+    print("data sent")
 
 
 def main():

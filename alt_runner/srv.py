@@ -6,6 +6,7 @@ from hat.aio import run_asyncio
 import json
 import nest_asyncio
 
+
 class Server:
 
     async def echo(self, websocket, path):
@@ -39,12 +40,12 @@ class Server:
                 io = raw_d[2]
                 value = raw_d[3]
 
-
                 await self.data_manager.send_data(value, asdu, io)
 
             else:
                 print("other msg", message)
-                await websocket.send(str("joiajidoioa"))
+                await websocket.send(str("other message data, echo:" +
+                                         str(message)))
 
     async def init_data_manager(self):
         self.data_manager = await init_data_manager()

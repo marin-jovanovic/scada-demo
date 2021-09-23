@@ -51,12 +51,15 @@ def _ext_power_flow(net):
 
 async def async_main(conf):
     simulator = Simulator()
+
     simulator.pp = PandaPowerExample()
 
     simulator._points = conf['points']
     simulator._spontaneity = conf['spontaneity']
 
     address = iec104.Address(conf['address']['host'], conf['address']['port'])
+
+
 
     simulator._srv = await iec104.listen(
         connection_cb=simulator._connection_cb,
@@ -87,7 +90,12 @@ async def async_main(conf):
     simulator._power_flow_queue = aio.Queue()
 
     simulator._async_group.spawn(simulator._spontaneous_loop)
-    simulator._async_group.spawn(simulator._notification_loop)
+
+    # simulator._async_group.spawn(simulator._notification_loop)
+    # notif loop
+    simulator.data = list(simulator._data_from_state())
+    simulator._send(simulator.data)
+    simulator.previous = set(simulator.data)
 
     await simulator.wait_closed()
 
@@ -147,7 +155,13 @@ class Simulator(aio.Resource):
                                          command.value,
                                          iec104.Cause.REMOTE_COMMAND)
 
-        self._change_queue.put_nowait(None)
+        # fixme _notification_loop
+        # self._change_queue.put_nowait(None)
+        # data = list(self._data_from_state())
+        # self._send([d for d in data if d not in self.previous])
+        # self.previous = set(data)
+        await self._notify()
+
         self._power_flow_queue.put_nowait(None)
         return True
 
@@ -167,7 +181,13 @@ class Simulator(aio.Resource):
             ref_value = self.pp.get_ref_value(*data_point, index)
             self.pp.set_net_value_random(*data_point, ref_value)
 
-            self._change_queue.put_nowait(None)
+            # fixme _notification_loop
+            # self._change_queue.put_nowait(None)
+            # data = list(self._data_from_state())
+            # self._send([d for d in data if d not in self.previous])
+            # self.previous = set(data)
+            await self._notify()
+
             self._power_flow_queue.put_nowait(None)
 
             ########################## power_loop
@@ -216,6 +236,11 @@ class Simulator(aio.Resource):
             data = list(self._data_from_state())
             self._send([d for d in data if d not in previous])
             previous = set(data)
+
+    async def _notify(self):
+        data = list(self._data_from_state())
+        self._send([d for d in data if d not in self.previous])
+        self.previous = set(data)
 
     def _send(self, data):
         for connection in self._connections:

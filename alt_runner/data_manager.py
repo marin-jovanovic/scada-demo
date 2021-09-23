@@ -120,15 +120,20 @@ async def async_main():
 
     t = await data_manager.get_init_data()
     print("init data")
-    [print(i) for i in t]
+    [print(i) for i in t.items()]
 
     t = await data_manager.get_curr_data()
     print("curr data")
-    [print(i) for i in t]
+    [print(i) for i in t.items()]
 
     # todo handle other cases
     await data_manager.send_data("closed", 30, 0)
     print("data sent")
+
+    while True:
+        t = await data_manager.get_curr_data()
+        print("curr data")
+        [print(i) for i in t.items()]
 
 
 def main():

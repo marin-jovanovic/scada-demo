@@ -14,7 +14,7 @@ from hat import aio
 from hat import json
 from hat.drivers import iec104
 import hat.drivers
-
+from hat.drivers.iec104.common import FloatingValue, SingleValue
 
 mlog = logging.getLogger('simulator')
 default_conf_path = 'conf.yaml'
@@ -59,8 +59,6 @@ async def async_main(conf):
 
     address = iec104.Address(conf['address']['host'], conf['address']['port'])
 
-
-
     simulator._srv = await iec104.listen(
         connection_cb=simulator._connection_cb,
         addr=address,
@@ -72,7 +70,6 @@ async def async_main(conf):
     simulator._executor = aio.create_executor()
 
     await simulator._executor(_ext_power_flow, simulator.pp.net)
-    print("simulator::_executor DONE")
     simulator._state = {}
     for asdu in conf['points']:
         for io in conf['points'][asdu]:
@@ -84,26 +81,22 @@ async def async_main(conf):
                 asdu,
                 io,
                 _104_value(series[point_conf['id']], point_conf['type']),
-                iec104.Cause.INITIALIZED)
-
-    simulator._change_queue = aio.Queue()
-    simulator._power_flow_queue = aio.Queue()
+                iec104.Cause.INITIALIZED
+            )
 
     simulator._async_group.spawn(simulator._spontaneous_loop)
 
-    # simulator._async_group.spawn(simulator._notification_loop)
-    # notif loop
-    simulator.data = list(simulator._data_from_state())
-    simulator._send(simulator.data)
-    simulator.previous = set(simulator.data)
+    simulator.previous = set()
+    await simulator._notify()
 
     await simulator.wait_closed()
 
 
-def check_difference(value_type, value_old, value_new):
-    if value_type == hat.drivers.iec104.common.FloatingValue:
+def check_difference(value_old, value_new):
+
+    if isinstance(value_old, FloatingValue):
         return math.isclose(value_old.value, value_new.value, rel_tol=1e-5)
-    elif value_type == hat.drivers.iec104.common.SingleValue:
+    elif isinstance(value_old, SingleValue):
         return value_old.value == value_new.value
     raise TypeError
 
@@ -125,7 +118,6 @@ class Simulator(aio.Resource):
             lambda: self._connections.remove(connection))
 
     async def _interrogate_cb(self, _, asdu):
-        print("interrogate callback CALL")
         data = self._data_from_state()
         if asdu == 0xFFFF:
             return data
@@ -133,7 +125,6 @@ class Simulator(aio.Resource):
                 for d in data if d.asdu_address == asdu]
 
     async def _command_cb(self, _, commands):
-        print("command callback CALL")
         for command in commands:
             if command.action != iec104.Action.EXECUTE:
                 mlog.warning('received action %s, only EXECUTE is supported',
@@ -150,24 +141,19 @@ class Simulator(aio.Resource):
 
             series[conf['id']] = value
 
-            self.push_new_value_to_state(command.asdu_address,
-                                         command.io_address,
-                                         command.value,
-                                         iec104.Cause.REMOTE_COMMAND)
+            self.push_new_value_to_state(
+                command.asdu_address,
+                command.io_address,
+                command.value,
+                iec104.Cause.REMOTE_COMMAND
+            )
 
-        # fixme _notification_loop
-        # self._change_queue.put_nowait(None)
-        # data = list(self._data_from_state())
-        # self._send([d for d in data if d not in self.previous])
-        # self.previous = set(data)
         await self._notify()
 
-        self._power_flow_queue.put_nowait(None)
         return True
 
     async def _spontaneous_loop(self):
         while True:
-            # print("sp_loop")
             await asyncio.sleep(random.gauss(self._spontaneity['mu'],
                                              self._spontaneity['sigma']))
 
@@ -181,16 +167,8 @@ class Simulator(aio.Resource):
             ref_value = self.pp.get_ref_value(*data_point, index)
             self.pp.set_net_value_random(*data_point, ref_value)
 
-            # fixme _notification_loop
-            # self._change_queue.put_nowait(None)
-            # data = list(self._data_from_state())
-            # self._send([d for d in data if d not in self.previous])
-            # self.previous = set(data)
             await self._notify()
 
-            self._power_flow_queue.put_nowait(None)
-
-            ########################## power_loop
             _ext_power_flow(self.pp.net)
 
             for asdu in self._points:
@@ -207,35 +185,33 @@ class Simulator(aio.Resource):
 
                     old_data = json.get(self._state, [str(asdu), str(io)])
                     old_value = old_data.value
+
                     if not check_difference(
-                            type(old_value),
                             old_value,
-                            new_value):
-                        self.push_new_value_to_state(asdu, io,
-                                                     new_value,
-                                                     iec104.Cause.SPONTANEOUS)
+                            new_value
+                    ):
+                        self.push_new_value_to_state(
+                            asdu,
+                            io,
+                            new_value,
+                            iec104.Cause.SPONTANEOUS
+                        )
 
     def push_new_value_to_state(self, asdu, io, value, cause):
         self._state = json.set_(
-            self._state, [str(asdu), str(io)], Data(
+            self._state,
+            [str(asdu), str(io)],
+            Data(
                 value=value,
                 cause=cause,
-                timestamp=time.time()))
+                timestamp=time.time()
+            )
+        )
 
     def _data_from_state(self):
         for asdu_str, substate in self._state.items():
             for io_str, data in substate.items():
                 yield _104_data(data, int(asdu_str), int(io_str))
-
-    async def _notification_loop(self):
-        data = list(self._data_from_state())
-        self._send(data)
-        previous = set(data)
-        while True:
-            await self._change_queue.get()
-            data = list(self._data_from_state())
-            self._send([d for d in data if d not in previous])
-            previous = set(data)
 
     async def _notify(self):
         data = list(self._data_from_state())

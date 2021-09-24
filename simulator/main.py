@@ -45,10 +45,6 @@ class PandaPowerExample:
             random.uniform(ref_value * 0.75, ref_value * 1.25), 0)
 
 
-def _ext_power_flow(net):
-    pandapower.runpp(net)
-
-
 async def async_main(conf):
     simulator = Simulator()
 
@@ -63,13 +59,15 @@ async def async_main(conf):
         connection_cb=simulator._connection_cb,
         addr=address,
         interrogate_cb=simulator._interrogate_cb,
-        command_cb=simulator._command_cb)
+        command_cb=simulator._command_cb
+    )
     simulator._connections = set()
 
     simulator._async_group = aio.Group()
     simulator._executor = aio.create_executor()
 
-    await simulator._executor(_ext_power_flow, simulator.pp.net)
+    await simulator._executor(pandapower.runpp, simulator.pp.net)
+
     simulator._state = {}
     for asdu in conf['points']:
         for io in conf['points'][asdu]:
@@ -169,7 +167,7 @@ class Simulator(aio.Resource):
 
             await self._notify()
 
-            _ext_power_flow(self.pp.net)
+            pandapower.runpp(self.pp.net)
 
             for asdu in self._points:
                 for io in self._points[asdu]:
